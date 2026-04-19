@@ -398,6 +398,7 @@ function doLogin(){
   const v=document.getElementById('pwdInput').value;
   if(v===ADMIN_PWD){
     sessionStorage.setItem('irs_auth','1');
+    sessionStorage.setItem('irs_pwd', v);
     document.getElementById('loginScreen').style.display='none';
     document.getElementById('app').style.display='flex';
     renderTable();
@@ -414,118 +415,164 @@ if(sessionStorage.getItem('irs_auth')==='1'){
   document.getElementById('app').style.display='flex';
 }
 
-// STORAGE
-function getArticles(){
-  try{return JSON.parse(localStorage.getItem('irs_articles')||'[]');}catch(e){return [];}
-}
-function saveArticles(arr){
-  localStorage.setItem('irs_articles',JSON.stringify(arr));
+// ── API ─────────────────────────────────────────────────────────────
+const API = '/.netlify/functions';
+
+async function apiFetch(path, options={}) {
+  const res = await fetch(API + path, options);
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || 'Erreur réseau');
+  }
+  return res.json();
 }
 
-// VIEWS
-let currentId=null;
-function showView(v){
-  document.getElementById('listView').style.display=v==='list'?'block':'none';
-  document.getElementById('editorView').style.display=v==='editor'?'block':'none';
-  if(v==='list'){renderTable();currentId=null;}
-}
-function showNewEditor(){
-  currentId=null;
-  document.getElementById('editorTitle').textContent='Nouvel article';
-  document.getElementById('edTitle').value='';
-  document.getElementById('edExcerpt').value='';
-  document.getElementById('edAuthor').value='';
-  document.getElementById('edCategory').value='';
-  document.getElementById('edJournal').value='';
-  document.getElementById('edDoi').value='';
-  document.getElementById('edDate').value=new Date().toISOString().slice(0,10);
-  document.getElementById('edStatus').value='draft';
-  document.getElementById('edFootnotes').value='';
-  document.getElementById('edId').value='';
-  document.getElementById('rteBody').innerHTML='<p>Rédigez votre article ici\u2026</p>';
-  showView('editor');
-}
-function editArticle(id){
-  const arts=getArticles();
-  const a=arts.find(x=>x.id===id);
-  if(!a)return;
-  currentId=id;
-  document.getElementById('editorTitle').textContent='Modifier l\u2019article';
-  document.getElementById('edId').value=id;
-  document.getElementById('edTitle').value=a.title||'';
-  document.getElementById('edExcerpt').value=a.excerpt||'';
-  document.getElementById('edAuthor').value=a.author||'';
-  document.getElementById('edCategory').value=a.category||'';
-  document.getElementById('edJournal').value=a.journal||'';
-  document.getElementById('edDoi').value=a.doi||'';
-  document.getElementById('edDate').value=a.date||'';
-  document.getElementById('edStatus').value=a.published?'published':'draft';
-  document.getElementById('edFootnotes').value=a.footnotes||'';
-  document.getElementById('rteBody').innerHTML=a.content||'<p></p>';
-  showView('editor');
-}
-function deleteArticle(id){
-  if(!confirm('Supprimer cet article\u00a0? Cette action est irr\u00e9versible.'))return;
-  let arts=getArticles().filter(a=>a.id!==id);
-  saveArticles(arts);
-  renderTable();
-  notify('Article supprim\u00e9.');
+// Récupère tous les articles (publiés + brouillons) via la function admin
+async function getArticles() {
+  try {
+    const pwd = sessionStorage.getItem('irs_pwd') || '';
+    return await apiFetch('/admin-articles?password=' + encodeURIComponent(pwd));
+  } catch(e) {
+    console.error(e);
+    return [];
+  }
 }
 
-// SAVE
-function saveArticle(publish){
-  const id=document.getElementById('edId').value||Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
-  const title=document.getElementById('edTitle').value.trim();
-  if(!title){alert('Le titre est obligatoire.');return;}
-  const art={
+// Enregistre ou publie un article
+async function saveToSupabase(art) {
+  const pwd = sessionStorage.getItem('irs_pwd') || '';
+  return apiFetch('/save-article', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pwd, article: art })
+  });
+}
+
+// Supprime un article
+async function deleteFromSupabase(id) {
+  const pwd = sessionStorage.getItem('irs_pwd') || '';
+  return apiFetch('/delete-article', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password: pwd, id })
+  });
+}
+
+// ── VIEWS ────────────────────────────────────────────────────────────
+let currentId = null;
+function showView(v) {
+  document.getElementById('listView').style.display  = v==='list'   ? 'block' : 'none';
+  document.getElementById('editorView').style.display = v==='editor' ? 'block' : 'none';
+  if (v === 'list') { renderTable(); currentId = null; }
+}
+function showNewEditor() {
+  currentId = null;
+  document.getElementById('editorTitle').textContent = 'Nouvel article';
+  document.getElementById('edTitle').value    = '';
+  document.getElementById('edExcerpt').value  = '';
+  document.getElementById('edAuthor').value   = '';
+  document.getElementById('edCategory').value = '';
+  document.getElementById('edJournal').value  = '';
+  document.getElementById('edDoi').value      = '';
+  document.getElementById('edDate').value     = new Date().toISOString().slice(0,10);
+  document.getElementById('edStatus').value   = 'draft';
+  document.getElementById('edFootnotes').value = '';
+  document.getElementById('edId').value       = '';
+  document.getElementById('rteBody').innerHTML = '<p>Rédigez votre article ici…</p>';
+  showView('editor');
+}
+async function editArticle(id) {
+  const arts = await getArticles();
+  const a = arts.find(x => x.id === id);
+  if (!a) return;
+  currentId = id;
+  document.getElementById('editorTitle').textContent = 'Modifier l’article';
+  document.getElementById('edId').value       = id;
+  document.getElementById('edTitle').value    = a.title    || '';
+  document.getElementById('edExcerpt').value  = a.excerpt  || '';
+  document.getElementById('edAuthor').value   = a.author   || '';
+  document.getElementById('edCategory').value = a.category || '';
+  document.getElementById('edJournal').value  = a.journal  || '';
+  document.getElementById('edDoi').value      = a.doi      || '';
+  document.getElementById('edDate').value     = a.date     || '';
+  document.getElementById('edStatus').value   = a.published ? 'published' : 'draft';
+  document.getElementById('edFootnotes').value = a.footnotes || '';
+  document.getElementById('rteBody').innerHTML = a.content  || '<p></p>';
+  showView('editor');
+}
+async function deleteArticle(id) {
+  if (!confirm('Supprimer cet article ? Cette action est irréversible.')) return;
+  try {
+    await deleteFromSupabase(id);
+    renderTable();
+    notify('Article supprimé.');
+  } catch(e) {
+    alert('Erreur : ' + e.message);
+  }
+}
+
+// ── SAVE ─────────────────────────────────────────────────────────────
+async function saveArticle(publish) {
+  const id    = document.getElementById('edId').value || Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,6);
+  const title = document.getElementById('edTitle').value.trim();
+  if (!title) { alert('Le titre est obligatoire.'); return; }
+
+  const art = {
     id,
     title,
-    excerpt:document.getElementById('edExcerpt').value.trim(),
-    author:document.getElementById('edAuthor').value.trim()||'Anonyme',
-    category:document.getElementById('edCategory').value,
-    journal:document.getElementById('edJournal').value.trim(),
-    doi:document.getElementById('edDoi').value.trim(),
-    date:document.getElementById('edDate').value,
-    footnotes:document.getElementById('edFootnotes').value.trim(),
-    content:document.getElementById('rteBody').innerHTML,
-    published:publish||(document.getElementById('edStatus').value==='published'),
-    createdAt:Date.now()
+    excerpt   : document.getElementById('edExcerpt').value.trim(),
+    author    : document.getElementById('edAuthor').value.trim() || 'Anonyme',
+    category  : document.getElementById('edCategory').value,
+    journal   : document.getElementById('edJournal').value.trim(),
+    doi       : document.getElementById('edDoi').value.trim(),
+    date      : document.getElementById('edDate').value,
+    footnotes : document.getElementById('edFootnotes').value.trim(),
+    content   : document.getElementById('rteBody').innerHTML,
+    published : publish || (document.getElementById('edStatus').value === 'published'),
+    created_at: new Date().toISOString()
   };
-  let arts=getArticles().filter(a=>a.id!==id);
-  arts=[art,...arts];
-  saveArticles(arts);
-  notify(publish?'Article publié avec succès\u00a0!':'Brouillon enregistré.');
-  document.getElementById('edId').value=id;
-  document.getElementById('editorTitle').textContent='Modifier l\u2019article';
+
+  // Indicateur de chargement
+  notify('Enregistrement…');
+  try {
+    await saveToSupabase(art);
+    document.getElementById('edId').value = id;
+    document.getElementById('editorTitle').textContent = 'Modifier l’article';
+    notify(publish ? 'Article publié avec succès !' : 'Brouillon enregistré.');
+  } catch(e) {
+    alert('Erreur lors de l’enregistrement : ' + e.message);
+  }
 }
 
-function previewArticle(){
-  const id=document.getElementById('edId').value;
-  if(!id){saveArticle(false);}
-  const finalId=document.getElementById('edId').value;
-  window.open('article.html?id='+finalId,'_blank');
+async function previewArticle() {
+  const id = document.getElementById('edId').value;
+  if (!id) { await saveArticle(false); }
+  const finalId = document.getElementById('edId').value;
+  window.open('article.html?id=' + finalId, '_blank');
 }
 
-// TABLE
-function fmtDate(d){if(!d)return '—';try{return new Date(d).toLocaleDateString('fr-FR');}catch(e){return d;}}
-function truncate(s,n){if(!s)return '';return s.length>n?s.slice(0,n)+'…':s;}
+// ── TABLE ─────────────────────────────────────────────────────────────
+function fmtDate(d) { if(!d) return '—'; try{ return new Date(d).toLocaleDateString('fr-FR'); } catch(e){ return d; } }
+function truncate(s,n) { if(!s) return ''; return s.length>n ? s.slice(0,n)+'…' : s; }
 
-function renderTable(){
-  const arts=getArticles();
-  const pub=arts.filter(a=>a.published).length;
-  const draft=arts.filter(a=>!a.published).length;
-  const cats=new Set(arts.map(a=>a.category).filter(Boolean)).size;
-  document.getElementById('statTotal').textContent=arts.length;
-  document.getElementById('statPub').textContent=pub;
-  document.getElementById('statDraft').textContent=draft;
-  document.getElementById('statCat').textContent=cats;
+async function renderTable() {
+  const tbody = document.getElementById('articleTable');
+  tbody.innerHTML = '<tr class="empty-row"><td colspan="6" style="opacity:.5">Chargement…</td></tr>';
 
-  const tbody=document.getElementById('articleTable');
-  if(!arts.length){
-    tbody.innerHTML='<tr class="empty-row"><td colspan="6">Aucun article. Cliquez sur "+ Nouvel article" pour commencer.</td></tr>';
+  const arts = await getArticles();
+  const pub   = arts.filter(a=>a.published).length;
+  const draft = arts.filter(a=>!a.published).length;
+  const cats  = new Set(arts.map(a=>a.category).filter(Boolean)).size;
+  document.getElementById('statTotal').textContent = arts.length;
+  document.getElementById('statPub').textContent   = pub;
+  document.getElementById('statDraft').textContent = draft;
+  document.getElementById('statCat').textContent   = cats;
+
+  if (!arts.length) {
+    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Aucun article. Cliquez sur "+ Nouvel article" pour commencer.</td></tr>';
     return;
   }
-  tbody.innerHTML=arts.sort((a,b)=>b.createdAt-a.createdAt).map(a=>`
+  tbody.innerHTML = arts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).map(a => `
     <tr>
       <td style="max-width:280px"><strong>${truncate(a.title,60)}</strong></td>
       <td style="white-space:nowrap">${truncate(a.author,24)}</td>
@@ -542,7 +589,7 @@ function renderTable(){
     </tr>`).join('');
 }
 
-// RTE
+// ── RTE ──────────────────────────────────────────────────────────────
 function rteCmd(cmd){document.execCommand(cmd,false,null);document.getElementById('rteBody').focus();}
 function rteBlock(tag){document.execCommand('formatBlock',false,tag);document.getElementById('rteBody').focus();}
 function rteFontSize(size){if(size)document.execCommand('fontSize',false,size);document.getElementById('rteBody').focus();}

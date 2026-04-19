@@ -282,48 +282,50 @@
 </footer>
 
 <script>
-const SEED = [
-  {id:'seed1',title:'Intrication quantique et information\u00a0: au-del\u00e0 du paradoxe EPR',author:'Dr. Sophie Bernard',date:'2025-04-15',category:'Physique & Cosmologie',excerpt:'Une revue des derni\u00e8res exp\u00e9riences sur l\u2019intrication \u00e0 longue distance et ses implications pour la cryptographie quantique.',content:'',published:true,createdAt:1744665600000},
-  {id:'seed2',title:'CRISPR-Cas9\u00a0: \u00e9tat de l\u2019art et perspectives th\u00e9rapeutiques en 2025',author:'Prof. Luc Morin & Dr. Yasmine A\u00efd',date:'2025-03-02',category:'Biologie & G\u00e9n\u00e9tique',excerpt:'Cinq ans apr\u00e8s les premi\u00e8res applications cliniques, un bilan rigoureux des succ\u00e8s, des limites et des questions \u00e9thiques ouvertes.',content:'',published:true,createdAt:1740873600000},
-  {id:'seed3',title:'R\u00e9troactions climatiques non-lin\u00e9aires\u00a0: mod\u00e9lisation et incertitudes',author:'Dr. Thomas Lefeuvre',date:'2025-01-18',category:'Climatologie',excerpt:'Analyse des boucles de r\u00e9troaction amplificatrices dans les mod\u00e8les climatiques et leurs cons\u00e9quences sur les projections \u00e0 long terme.',content:'',published:true,createdAt:1737158400000}
-];
-
-function getArticles(){
-  try{
-    const stored=JSON.parse(localStorage.getItem('irs_articles')||'[]');
-    const ids=stored.map(a=>a.id);
-    const seeds=SEED.filter(s=>!ids.includes(s.id));
-    return [...stored,...seeds].filter(a=>a.published).sort((a,b)=>b.createdAt-a.createdAt);
-  }catch(e){return SEED;}
-}
+const API = '/.netlify/functions';
 
 function fmtDate(d){
   if(!d)return '';
-  try{
-    const dt=new Date(d);
-    return dt.toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});
-  }catch(e){return d;}
+  try{return new Date(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
+  catch(e){return d;}
 }
 
-function render(){
-  const articles=getArticles();
-  const stream=document.getElementById('articleStream');
-  if(!articles.length){
-    stream.innerHTML='<p class="stream-empty">Aucune publication pour le moment.</p>';
+async function render(){
+  const stream = document.getElementById('articleStream');
+  stream.innerHTML = '<p class="stream-empty" style="opacity:.5">Chargement…</p>';
+
+  let articles = [];
+  try {
+    const res = await fetch(API + '/get-articles');
+    if (!res.ok) throw new Error('Erreur réseau');
+    articles = await res.json();
+  } catch(e) {
+    stream.innerHTML = '<p class="stream-empty">Impossible de charger les articles.</p>';
     return;
   }
-  // featured = most recent
-  const feat=articles[0];
-  document.querySelector('.feat-title a').textContent=feat.title;
-  document.querySelector('.feat-title a').href='article.html?id='+feat.id;
-  document.getElementById('featMore').href='article.html?id='+feat.id;
-  document.getElementById('featMeta').innerHTML='<strong>'+feat.author+'</strong> \u00b7 '+fmtDate(feat.date)+(feat.category?' \u00b7 '+feat.category:'');
-  document.getElementById('featExcerpt').textContent=feat.excerpt||'';
 
-  // stream = rest
-  const rest=articles.slice(1);
-  if(!rest.length){stream.innerHTML='<p class="stream-empty">Un seul article pour l\u2019instant.</p>';return;}
-  stream.innerHTML=rest.map(a=>`
+  if (!articles.length) {
+    stream.innerHTML = '<p class="stream-empty">Aucune publication pour le moment.</p>';
+    return;
+  }
+
+  // À la une = le plus récent
+  const feat = articles[0];
+  document.querySelector('.feat-title a').textContent = feat.title;
+  document.querySelector('.feat-title a').href = 'article.html?id=' + feat.id;
+  document.getElementById('featMore').href = 'article.html?id=' + feat.id;
+  document.getElementById('featMeta').innerHTML =
+    '<strong>' + feat.author + '</strong> &middot; ' + fmtDate(feat.date) +
+    (feat.category ? ' &middot; ' + feat.category : '');
+  document.getElementById('featExcerpt').textContent = feat.excerpt || '';
+
+  // Fil d'actualité = le reste
+  const rest = articles.slice(1);
+  if (!rest.length) {
+    stream.innerHTML = '<p class="stream-empty">Un seul article pour l’instant.</p>';
+    return;
+  }
+  stream.innerHTML = rest.map(a => `
     <div class="art-card">
       <div>
         <p class="art-meta"><span class="cat">${a.category||'Article'}</span> &middot; <span>${a.author}</span></p>
@@ -333,6 +335,7 @@ function render(){
       <span class="art-date">${fmtDate(a.date)}</span>
     </div>`).join('');
 }
+
 render();
 </script>
 </body>

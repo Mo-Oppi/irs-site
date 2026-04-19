@@ -130,57 +130,53 @@
 </footer>
 
 <script>
-const SEED=[
-  {id:'seed1',title:'Intrication quantique et information\u00a0: au-del\u00e0 du paradoxe EPR',author:'Dr. Sophie Bernard',date:'2025-04-15',category:'Physique & Cosmologie',excerpt:'Une revue des derni\u00e8res exp\u00e9riences sur l\u2019intrication \u00e0 longue distance et ses implications pour la cryptographie quantique.',content:'<h2>R\u00e9sum\u00e9</h2><p>L\u2019intrication quantique constitue l\u2019un des ph\u00e9nom\u00e8nes les plus surprenants de la m\u00e9canique quantique. Depuis les premi\u00e8res exp\u00e9riences d\u2019Aspect en 1982, la physique exp\u00e9rimentale a progressivement referm\u00e9 l\u2019ensemble des failles (\u00abloopholes\u00bb) laiss\u00e9es ouvertes par les tests de Bell.</p><h2>Introduction</h2><p>Le paradoxe EPR (Einstein, Podolsky, Rosen, 1935) interrogeait la compl\u00e9tude de la th\u00e9orie quantique. Einstein esp\u00e9rait qu\u2019une th\u00e9orie \u00e0 variables cach\u00e9es locales permettrait de retrouver un r\u00e9alisme classique. Les travaux de Bell (1964) puis leur v\u00e9rification exp\u00e9rimentale ont d\u00e9finitivement clos ce d\u00e9bat.</p>',published:true,journal:'',doi:'',footnotes:'',createdAt:1744665600000},
-  {id:'seed2',title:'CRISPR-Cas9\u00a0: \u00e9tat de l\u2019art et perspectives th\u00e9rapeutiques en 2025',author:'Prof. Luc Morin & Dr. Yasmine A\u00efd',date:'2025-03-02',category:'Biologie & G\u00e9n\u00e9tique',excerpt:'Cinq ans apr\u00e8s les premi\u00e8res applications cliniques, un bilan rigoureux des succ\u00e8s, des limites et des questions \u00e9thiques ouvertes.',content:'<h2>R\u00e9sum\u00e9</h2><p>L\u2019outil d\u2019\u00e9dition du g\u00e9nome CRISPR-Cas9 a transform\u00e9 la biologie mol\u00e9culaire depuis sa description comme syst\u00e8me d\u2019\u00e9dition programmable en 2012. Cet article propose un bilan des applications cliniques autoris\u00e9es \u00e0 ce jour.</p>',published:true,journal:'',doi:'',footnotes:'',createdAt:1740873600000},
-  {id:'seed3',title:'R\u00e9troactions climatiques non-lin\u00e9aires\u00a0: mod\u00e9lisation et incertitudes',author:'Dr. Thomas Lefeuvre',date:'2025-01-18',category:'Climatologie',excerpt:'Analyse des boucles de r\u00e9troaction amplificatrices dans les mod\u00e8les climatiques.',content:'<h2>R\u00e9sum\u00e9</h2><p>Les mod\u00e8les climatiques contemporains int\u00e8grent un nombre croissant de boucles de r\u00e9troaction dont certaines pr\u00e9sentent des comportements non-lin\u00e9aires susceptibles d\u2019amplifier consid\u00e9rablement le r\u00e9chauffement.</p>',published:true,journal:'',doi:'',footnotes:'',createdAt:1737158400000}
-];
-
-function getAllArticles(){
-  try{
-    const stored=JSON.parse(localStorage.getItem('irs_articles')||'[]');
-    const ids=stored.map(a=>a.id);
-    return [...stored,...SEED.filter(s=>!ids.includes(s.id))].filter(a=>a.published);
-  }catch(e){return SEED;}
-}
+const API = '/.netlify/functions';
 
 function fmtDate(d){
   if(!d)return '';
-  try{return new Date(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}catch(e){return d;}
+  try{return new Date(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
+  catch(e){return d;}
 }
 
 function getParam(name){
   return new URLSearchParams(window.location.search).get(name);
 }
 
-function render(){
-  const id=getParam('id');
-  const all=getAllArticles();
-  let art=id?all.find(a=>a.id===id):null;
-  if(!art&&id){
-    // try to find in all (including drafts for preview)
-    try{
-      const stored=JSON.parse(localStorage.getItem('irs_articles')||'[]');
-      art=stored.find(a=>a.id===id);
-    }catch(e){}
-  }
-  if(!art){
-    document.getElementById('articleContent').innerHTML='<p class="seed-placeholder">Article introuvable. <a href="index.html" style="color:var(--red)">Retour \u00e0 l\u2019accueil</a></p>';
+async function render(){
+  const id = getParam('id');
+  if (!id) {
+    document.getElementById('articleContent').innerHTML =
+      '<p class="seed-placeholder">Aucun article sélectionné. <a href="index.html" style="color:var(--red)">Retour à l’accueil</a></p>';
     return;
   }
 
-  document.title=art.title+' \u2014 Institut de Recherche Scientifique';
-  document.getElementById('bcTitle').textContent=art.title;
+  // Charge l'article depuis Supabase
+  let art = null;
+  try {
+    const res = await fetch(API + '/get-article?id=' + encodeURIComponent(id));
+    if (res.ok) art = await res.json();
+  } catch(e) {}
 
-  const doiBtn=art.doi?`<a href="${art.doi}" target="_blank" class="btn-action btn-action-out">Lien externe</a>`:'';
+  if (!art) {
+    document.getElementById('articleContent').innerHTML =
+      '<p class="seed-placeholder">Article introuvable. <a href="index.html" style="color:var(--red)">Retour à l’accueil</a></p>';
+    return;
+  }
 
-  document.getElementById('articleContent').innerHTML=`
+  document.title = art.title + ' — Institut de Recherche Scientifique';
+  document.getElementById('bcTitle').textContent = art.title;
+
+  const doiBtn = art.doi
+    ? `<a href="${art.doi}" target="_blank" class="btn-action btn-action-out">Lien externe</a>`
+    : '';
+
+  document.getElementById('articleContent').innerHTML = `
     <header class="article-header">
-      ${art.category?`<p class="art-category">${art.category}</p>`:''}
+      ${art.category ? `<p class="art-category">${art.category}</p>` : ''}
       <h1 class="art-title">${art.title}</h1>
       <p class="art-author">${art.author||''}</p>
-      ${art.date?`<p class="art-date">${fmtDate(art.date)}</p>`:''}
-      ${art.journal?`<p class="art-journal">${art.journal}</p>`:''}
+      ${art.date ? `<p class="art-date">${fmtDate(art.date)}</p>` : ''}
+      ${art.journal ? `<p class="art-journal">${art.journal}</p>` : ''}
       <div class="dots">&middot; &middot; &middot; &middot; &middot; &middot; &middot; &middot;</div>
       <div class="art-actions">
         <button class="btn-action" onclick="window.print()">PDF</button>
@@ -188,22 +184,33 @@ function render(){
       </div>
       <div class="dots">&middot; &middot; &middot; &middot; &middot; &middot; &middot; &middot;</div>
     </header>
-    ${art.excerpt?`<p class="art-excerpt-block">${art.excerpt}</p>`:''}
-    <div class="art-body">${art.content||'<p><em>Contenu non disponible.</em></p>'}</div>
-    ${art.footnotes?`<div class="footnotes"><h4>Notes</h4><ol>${art.footnotes.split('\n').filter(Boolean).map(n=>`<li>${n.replace(/^\d+\.\s*/,'')}</li>`).join('')}</ol></div>`:''}
+    ${art.excerpt ? `<p class="art-excerpt-block">${art.excerpt}</p>` : ''}
+    <div class="art-body">${art.content || '<p><em>Contenu non disponible.</em></p>'}</div>
+    ${art.footnotes
+      ? `<div class="footnotes"><h4>Notes</h4><ol>${
+          art.footnotes.split('\n').filter(Boolean)
+            .map(n => `<li>${n.replace(/^\d+\.\s*/,'')}</li>`).join('')
+        }</ol></div>`
+      : ''}
   `;
 
-  // Related
-  const related=all.filter(a=>a.id!==art.id).slice(0,3);
-  if(related.length){
-    document.getElementById('relatedSection').style.display='block';
-    document.getElementById('relatedGrid').innerHTML=related.map(r=>`
-      <div class="rel-item">
-        <p class="rel-cat">${r.category||'Article'}</p>
-        <p class="rel-title"><a href="article.html?id=${r.id}">${r.title}</a></p>
-        <p class="rel-meta">${r.author} &middot; ${fmtDate(r.date)}</p>
-      </div>`).join('');
-  }
+  // Articles liés (même catégorie ou les plus récents)
+  try {
+    const res2 = await fetch(API + '/get-articles');
+    if (res2.ok) {
+      const all = await res2.json();
+      const related = all.filter(a => a.id !== art.id).slice(0, 3);
+      if (related.length) {
+        document.getElementById('relatedSection').style.display = 'block';
+        document.getElementById('relatedGrid').innerHTML = related.map(r => `
+          <div class="rel-item">
+            <p class="rel-cat">${r.category||'Article'}</p>
+            <p class="rel-title"><a href="article.html?id=${r.id}">${r.title}</a></p>
+            <p class="rel-meta">${r.author} &middot; ${fmtDate(r.date)}</p>
+          </div>`).join('');
+      }
+    }
+  } catch(e) {}
 }
 
 render();
