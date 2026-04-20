@@ -244,6 +244,10 @@ textarea.fi{resize:vertical}
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           Versions articles
         </button>
+        <button class="sn-item" id="nav-codearticles" onclick="showPanel('codearticles')">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+          Articles TUE / TFUE
+        </button>
       </div>
       <div class="sn-div"></div>
       <div class="sn-section">
@@ -461,6 +465,109 @@ textarea.fi{resize:vertical}
   <div class="set-grid" id="settingsGrid"><p style="color:var(--mu);font-size:.82rem">Chargement…</p></div>
 </div>
 
+<!-- CODE ARTICLES PANEL -->
+<div class="panel" id="p-codearticles">
+  <p class="phead">Articles du Code de l'UE</p>
+  <p class="psub">Ajoutez, modifiez ou supprimez les articles du Traité sur l'Union européenne (TUE) et du Traité sur le fonctionnement de l'UE (TFUE). Les modifications sont enregistrées dans Supabase et s'affichent en priorité sur la page Code UE.</p>
+
+  <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:1rem;flex-wrap:wrap">
+    <select id="codeArtTreatyFilter" class="fi" style="width:160px" onchange="loadCodeArticles()">
+      <option value="">Tous les traités</option>
+      <option value="TUE">TUE</option>
+      <option value="TFUE">TFUE</option>
+    </select>
+    <button class="new-btn" onclick="openCodeArtEditor()">+ Nouvel article</button>
+    <span style="font-size:.75rem;color:var(--mu)" id="codeArtCount"></span>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem">
+    <div>
+      <ul class="ann-list" id="codeArtList"><li class="ann-empty">Chargement…</li></ul>
+    </div>
+    <div id="codeArtEditor" style="display:none">
+      <div class="mcard">
+        <p class="mcard-ttl" id="codeArtEdTitle">Nouvel article</p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem">
+          <div class="fg">
+            <label class="lbl">Traité *</label>
+            <select id="caeTreaty" class="fi">
+              <option value="TUE">TUE</option>
+              <option value="TFUE">TFUE</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label class="lbl">Numéro d'article *</label>
+            <input type="text" id="caeNum" class="fi" placeholder="Ex : 267"/>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Identifiant unique *</label>
+          <input type="text" id="caeId" class="fi" placeholder="Ex : tfue-267"/>
+          <p style="font-size:.68rem;color:var(--mu);margin-top:.2rem">Format : tue-[num] ou tfue-[num]. Généré automatiquement si vide.</p>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Ancienne référence (optionnel)</label>
+          <input type="text" id="caeFormer" class="fi" placeholder="Ex : ex-art. 234 TCE"/>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Libellé de partie (optionnel)</label>
+          <input type="text" id="caePart" class="fi" placeholder="Ex : Partie I — Traité sur l'Union européenne"/>
+          <p style="font-size:.68rem;color:var(--mu);margin-top:.2rem">Affiche un séparateur visuel. Laisser vide si l'article suit directement le précédent.</p>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Libellé de titre (optionnel)</label>
+          <input type="text" id="caeTitre" class="fi" placeholder="Ex : Titre I — Dispositions communes"/>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Contenu de l'article (HTML) *</label>
+          <div class="rte-wrap">
+            <div class="rte-tb">
+              <select onchange="rteBlkCae(this.value)"><option value="p">Paragraphe</option><option value="h3">Sous-titre</option><option value="blockquote">Citation</option></select>
+              <div class="rte-sep"></div>
+              <button class="rtb" onclick="rteC2('bold')"><b>G</b></button>
+              <button class="rtb" onclick="rteC2('italic')"><i>I</i></button>
+              <button class="rtb" onclick="rteC2('underline')"><u>S</u></button>
+            </div>
+            <div class="rte-body" id="caebody" contenteditable="true" style="min-height:200px"><p>Saisissez le texte de l'article…</p></div>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Note bas de page (optionnel)</label>
+          <input type="text" id="caeNote" class="fi" placeholder="Ex : Cet article a été activé en 2017 (Brexit)"/>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Onglets à afficher</label>
+          <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.3rem">
+            <label class="cb-row"><input type="checkbox" id="caeTabJur" checked/> Jurisprudence</label>
+            <label class="cb-row"><input type="checkbox" id="caeTabBib" checked/> Bibliographie</label>
+            <label class="cb-row"><input type="checkbox" id="caeTabCmp"/> Textes complémentaires</label>
+          </div>
+        </div>
+
+        <div class="fg">
+          <label class="lbl">Ordre d'affichage</label>
+          <input type="number" id="caeOrder" class="fi" value="0" placeholder="0" style="width:100px"/>
+          <p style="font-size:.68rem;color:var(--mu);margin-top:.2rem">Les articles sont affichés par ordre croissant. Les articles TUE sont affichés avant les TFUE.</p>
+        </div>
+
+        <div class="btn-row" style="margin-top:.8rem">
+          <button class="btn-pub" onclick="saveCodeArt()">Enregistrer</button>
+          <button class="btn-dft" onclick="document.getElementById('codeArtEditor').style.display='none'">Annuler</button>
+        </div>
+        <input type="hidden" id="caeEditId"/>
+      </div>
+    </div>
+  </div>
+</div>
+
     </main>
   </div>
 </div>
@@ -540,6 +647,7 @@ function showPanel(id) {
   if (n) n.classList.add('on');
   if (id === 'dashboard' || id === 'articles') loadArticles();
   if (id === 'settings') loadSettings();
+  if (id === 'codearticles') loadCodeArticles();
 }
 
 function showNewEditor() {
@@ -639,6 +747,14 @@ async function editArt(id) {
     document.getElementById('rteBody').innerHTML = a.content || '<p></p>';
     showPanel('editor');
   } catch (e) { notify('Erreur: ' + e.message, true); }
+}
+
+function makeSlug(title){
+  return (title||'')
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'');
 }
 
 async function saveArt(pub) {
@@ -968,6 +1084,194 @@ function notify(msg, isErr) {
   clearTimeout(_notifTimer);
   _notifTimer = setTimeout(function() { n.style.display = 'none'; }, 3000);
 }
+
+// ═══════════════════════════════════════════════════════════════
+//  CODE ARTICLES — TUE / TFUE
+// ═══════════════════════════════════════════════════════════════
+
+// Hardcoded list of existing articles (as reference)
+var EXISTING_CODE_IDS = [
+  'tue-1','tue-2','tue-3','tue-4','tue-5','tue-6','tue-9','tue-10',
+  'tue-11','tue-13','tue-17','tue-49','tue-50',
+  'tfue-1','tfue-3','tfue-4','tfue-5','tfue-18','tfue-20','tfue-21',
+  'tfue-26','tfue-34','tfue-45','tfue-101','tfue-102','tfue-107',
+  'tfue-258','tfue-263','tfue-267','tfue-288'
+];
+
+async function loadCodeArticles() {
+  var list = document.getElementById('codeArtList');
+  list.innerHTML = '<li class="ann-empty">Chargement…</li>';
+  var treaty = document.getElementById('codeArtTreatyFilter').value;
+  var url = API + '/get-code-articles' + (treaty ? '?treaty=' + treaty : '');
+
+  try {
+    var res = await fetch(url);
+    var data = res.ok ? await res.json() : [];
+
+    // Merge with existing hardcoded articles
+    var allIds = new Set(data.map(function(a){ return a.id; }));
+    var existingFiltered = EXISTING_CODE_IDS.filter(function(id){
+      if (!allIds.has(id)) {
+        var t = id.startsWith('tfue') ? 'TFUE' : 'TUE';
+        return !treaty || treaty === t;
+      }
+      return false;
+    });
+
+    document.getElementById('codeArtCount').textContent =
+      (data.length + existingFiltered.length) + ' article(s)';
+
+    var html = '';
+    // Show Supabase articles (modified)
+    data.forEach(function(a) {
+      html += '<li>' +
+        '<span><strong>Art. ' + escapeHtml(a.article_num) + ' ' + escapeHtml(a.treaty) + '</strong>' +
+        (a.titre_label ? '<br><span style="font-size:.7rem;color:var(--mu)">' + escapeHtml(a.titre_label) + '</span>' : '') +
+        '</span>' +
+        '<div class="act-btns">' +
+          '<button class="act-btn" onclick="editCodeArt('' + a.id + '')">Modifier</button>' +
+          '<button class="act-btn del" onclick="delCodeArt('' + a.id + '')">Suppr.</button>' +
+        '</div></li>';
+    });
+    // Show hardcoded articles (not yet in Supabase)
+    existingFiltered.forEach(function(id) {
+      var num = id.replace(/^(tue|tfue)-/, '');
+      var treaty2 = id.startsWith('tfue') ? 'TFUE' : 'TUE';
+      html += '<li style="opacity:.6">' +
+        '<span><strong>Art. ' + num + ' ' + treaty2 + '</strong>' +
+        '<br><span style="font-size:.7rem;color:var(--mu)">Article intégré (cliquez Modifier pour personnaliser)</span>' +
+        '</span>' +
+        '<div class="act-btns">' +
+          '<button class="act-btn" onclick="editCodeArtById('' + id + '')">Modifier</button>' +
+        '</div></li>';
+    });
+
+    list.innerHTML = html || '<li class="ann-empty">Aucun article. Cliquez sur "+ Nouvel article".</li>';
+  } catch(e) {
+    list.innerHTML = '<li class="ann-empty" style="color:var(--red)">Erreur de chargement: ' + e.message + '</li>';
+  }
+}
+
+function openCodeArtEditor(prefill) {
+  var ed = document.getElementById('codeArtEditor');
+  ed.style.display = 'block';
+  document.getElementById('codeArtEdTitle').textContent = prefill ? 'Modifier l'article' : 'Nouvel article';
+  document.getElementById('caeEditId').value = prefill ? (prefill.id || '') : '';
+  document.getElementById('caeTreaty').value = prefill ? (prefill.treaty || 'TUE') : 'TUE';
+  document.getElementById('caeNum').value = prefill ? (prefill.article_num || '') : '';
+  document.getElementById('caeId').value = prefill ? (prefill.id || '') : '';
+  document.getElementById('caeFormer').value = prefill ? (prefill.former_ref || '') : '';
+  document.getElementById('caePart').value = prefill ? (prefill.part_label || '') : '';
+  document.getElementById('caeTitre').value = prefill ? (prefill.titre_label || '') : '';
+  document.getElementById('caebody').innerHTML = prefill ? (prefill.body_html || '<p></p>') : '<p>Saisissez le texte de l'article…</p>';
+  document.getElementById('caeNote').value = prefill ? (prefill.note || '') : '';
+  document.getElementById('caeOrder').value = prefill ? (prefill.sort_order || 0) : 0;
+  var tabs = prefill ? (prefill.tabs || 'jur,bib').split(',') : ['jur','bib'];
+  document.getElementById('caeTabJur').checked = tabs.indexOf('jur') >= 0;
+  document.getElementById('caeTabBib').checked = tabs.indexOf('bib') >= 0;
+  document.getElementById('caeTabCmp').checked = tabs.indexOf('cmp') >= 0;
+  ed.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// Auto-fill ID from treaty + number
+document.getElementById('caeTreaty') && document.getElementById('caeTreaty').addEventListener('change', autoFillCodeId);
+document.getElementById('caeNum') && document.getElementById('caeNum').addEventListener('input', autoFillCodeId);
+function autoFillCodeId() {
+  var idField = document.getElementById('caeId');
+  if (idField && !idField.dataset.manuallySet) {
+    var treaty = (document.getElementById('caeTreaty').value || 'tue').toLowerCase();
+    var num = (document.getElementById('caeNum').value || '').toLowerCase().replace(/[^a-z0-9]/g,'');
+    if (num) idField.value = treaty + '-' + num;
+  }
+}
+document.getElementById('caeId') && document.getElementById('caeId').addEventListener('input', function(){
+  this.dataset.manuallySet = this.value ? '1' : '';
+});
+
+async function editCodeArt(id) {
+  try {
+    var res = await fetch(API + '/get-code-articles');
+    var data = res.ok ? await res.json() : [];
+    var a = data.find(function(x){ return x.id === id; });
+    if (a) openCodeArtEditor(a);
+  } catch(e) { notify('Erreur: ' + e.message, true); }
+}
+
+function editCodeArtById(id) {
+  // Edit a hardcoded article — prefill with basic info from ID
+  var treaty = id.startsWith('tfue') ? 'TFUE' : 'TUE';
+  var num = id.replace(/^(tue|tfue)-/, '');
+  openCodeArtEditor({
+    id: id,
+    treaty: treaty,
+    article_num: num,
+    body_html: '<p>Saisissez le contenu de l'article ' + num + ' ' + treaty + '…</p>',
+    tabs: 'jur,bib',
+    sort_order: 0
+  });
+}
+
+async function saveCodeArt() {
+  var id = document.getElementById('caeId').value.trim();
+  var treaty = document.getElementById('caeTreaty').value;
+  var num = document.getElementById('caeNum').value.trim();
+  var body = document.getElementById('caebody').innerHTML;
+
+  if (!num) { alert('Le numéro d'article est obligatoire.'); return; }
+  if (!id) { id = treaty.toLowerCase() + '-' + num.toLowerCase().replace(/[^a-z0-9]/g,''); }
+  if (!body || body === '<p>Saisissez le texte de l'article…</p>') {
+    alert('Le contenu de l'article est obligatoire.'); return;
+  }
+
+  var tabs = [];
+  if (document.getElementById('caeTabJur').checked) tabs.push('jur');
+  if (document.getElementById('caeTabBib').checked) tabs.push('bib');
+  if (document.getElementById('caeTabCmp').checked) tabs.push('cmp');
+
+  var article = {
+    id: id,
+    treaty: treaty,
+    article_num: num,
+    former_ref: document.getElementById('caeFormer').value.trim() || null,
+    part_label: document.getElementById('caePart').value.trim() || null,
+    titre_label: document.getElementById('caeTitre').value.trim() || null,
+    body_html: body,
+    note: document.getElementById('caeNote').value.trim() || null,
+    tabs: tabs.join(',') || 'jur,bib',
+    sort_order: parseInt(document.getElementById('caeOrder').value) || 0
+  };
+
+  notify('Enregistrement…');
+  try {
+    var res = await fetch(API + '/save-code-article', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: _pwd, article: article })
+    });
+    if (!res.ok) { var txt = await res.text(); notify('Erreur: ' + txt, true); return; }
+    notify('Article enregistré !');
+    document.getElementById('caeEditId').value = id;
+    document.getElementById('codeArtEditor').style.display = 'none';
+    loadCodeArticles();
+  } catch(e) { notify('Erreur: ' + e.message, true); }
+}
+
+async function delCodeArt(id) {
+  if (!confirm('Supprimer cet article du Code ? Il sera remplacé par la version intégrée.')) return;
+  try {
+    var res = await fetch(API + '/delete-code-article', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: _pwd, id: id })
+    });
+    if (res.ok) { notify('Article supprimé.'); loadCodeArticles(); }
+    else { var txt = await res.text(); notify('Erreur: ' + txt, true); }
+  } catch(e) { notify('Erreur: ' + e.message, true); }
+}
+
+function rteC2(cmd) { document.execCommand(cmd, false, null); document.getElementById('caebody').focus(); }
+function rteBlkCae(t) { document.execCommand('formatBlock', false, t); document.getElementById('caebody').focus(); }
+
 </script>
 </body>
 </html>

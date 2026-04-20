@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Institut de Recherche Scientifique</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=Inter:wght@300;400;500;600&display=swap">
+<style>
+  :root {
+    --paper:       #f3ecdf;   /* warm cream bg */
+    --paper-deep:  #ebe2d1;   /* slightly deeper warm */
+    --ink:         #1d1a14;   /* near-black ink */
+    --ink-soft:    #3b352a;
+    --ink-dim:     #6b6354;
+    --ink-faint:   #a39a87;
+    --rule:        #d9cfba;
+    --accent:      #8a1a2b;   /* burgundy */
+    --accent-soft: #a83043;
+    --eu-blue:     #3a6fb0;   /* pleasant EU blue */
+    --eu-blue-hi:  #4b82c6;
+    --land-soft:   #e3d9c3;   /* non-EU land fill */
+    --land-line:   #b7ab93;
+    --ocean:       #f3ecdf;
+
+    --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+    --sans:  "Inter", system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); }
+  body {
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- top bar ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    display: grid;
+    grid-template-columns: 240px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 14px 36px;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px;
+  }
+  .logo-mark {
+    width: 42px; height: 42px;
+    background: var(--accent); color: var(--paper);
+    display: grid; place-items: center;
+    border-radius: 3px;
+    position: relative;
+  }
+  .logo-mark svg { width: 22px; height: 22px; }
+  .logo-name {
+    font-family: var(--serif);
+    font-size: 13px; line-height: 1.15;
+    font-weight: 600; letter-spacing: 0.01em;
+  }
+  .logo-name small { display: block; font-weight: 400; }
+
+  nav.main {
+    display: flex; gap: 34px;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  nav.main a { cursor: pointer; padding: 6px 0; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
+  nav.main a:hover { color: var(--accent); border-color: var(--accent); }
+
+  .topbar-right { display: flex; align-items: center; gap: 14px; }
+  .btn-publish {
+    background: var(--accent); color: var(--paper);
+    font-family: var(--serif); font-weight: 600; font-size: 15px;
+    padding: 8px 18px; border: 0; border-radius: 3px; cursor: pointer;
+  }
+  .btn-publish:hover { background: var(--accent-soft); }
+  .lang-toggle {
+    font-family: var(--sans); font-size: 12px;
+    color: var(--ink-dim); letter-spacing: 0.08em;
+    display: inline-flex; gap: 4px;
+    cursor: pointer;
+  }
+  .lang-toggle b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- layout ---------- */
+  .shell {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ---------- main ---------- */
+  main { padding: 0 48px 80px; }
+
+  .globe-header {
+    max-width: 680px;
+    margin: 0 auto 40px;
+    text-align: center;
+    padding: 16px 0 0;
+  }
+  .globe-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(32px, 3.6vw, 48px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  .globe-title em { color: var(--accent); font-style: italic; font-weight: 600; }
+  .globe-sub {
+    font-family: var(--serif);
+    font-size: 16.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .europe-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ink-soft);
+    text-align: center;
+    margin: 0 0 24px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ---------- globe section ---------- */
+  section.globe-section {
+    padding: 40px 0 56px;
+    position: relative;
+  }
+  .section-eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-eyebrow::before {
+    content: ""; width: 28px; height: 1px; background: var(--accent);
+  }
+
+  .globe-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .globe-wrap svg { width: 100%; height: 100%; display: block; }
+
+  .globe-caption {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rule);
+    font-family: var(--sans);
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .globe-caption .title {
+    font-family: var(--serif);
+    font-size: 15px; letter-spacing: 0; text-transform: none;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  /* ---------- intro text ---------- */
+  section.intro {
+    padding: 48px 0 64px;
+    max-width: 680px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  section.intro h2 {
+    font-family: var(--serif);
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+  section.intro h2 em { color: var(--accent); font-style: italic; }
+  section.intro p {
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+    text-wrap: pretty;
+  }
+  section.intro p.drop::first-letter {
+    font-family: var(--serif);
+    float: left;
+    font-size: 58px;
+    line-height: 0.9;
+    font-weight: 600;
+    padding: 6px 10px 0 0;
+    color: var(--accent);
+  }
+
+  /* ---------- europe section ---------- */
+  section.europe-section {
+    padding: 72px 0 40px;
+  }
+  .europe-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 28px;
+  }
+  .europe-head h2 {
+    font-family: var(--serif);
+    font-size: 32px; font-weight: 600;
+    margin: 0; letter-spacing: -0.01em;
+  }
+  .europe-head .legend {
+    display: flex; gap: 20px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-dim);
+  }
+  .legend-item { display: inline-flex; align-items: center; gap: 8px; }
+  .legend-swatch {
+    width: 14px; height: 14px; border: 1px solid;
+  }
+
+  .europe-wrap {
+    position: relative;
+    width: 100vw;
+    left: 50%;
+    transform: translateX(-50%);
+    aspect-ratio: 16/10;
+    background: transparent;
+    border: 0;
+    overflow: visible;
+  }
+  .europe-wrap svg { width: 100%; height: 100%; display: block; }
+
+  .country:hover { filter: brightness(1.05); }
+  .country.eu { fill: var(--eu-blue); stroke: var(--paper); stroke-width: 0.5; stroke-opacity: 0.7; }
+  .country.eu:hover { fill: var(--eu-blue-hi); }
+  .country.non-eu { fill: transparent; stroke: var(--ink-soft); stroke-width: 0.6; stroke-opacity: 0.55; }
+  .country-tooltip {
+    position: absolute; pointer-events: none;
+    background: var(--ink); color: var(--paper);
+    font-family: var(--sans); font-size: 11px;
+    padding: 4px 8px; border-radius: 2px;
+    transform: translate(-50%, -140%);
+    opacity: 0; transition: opacity .15s;
+    white-space: nowrap; letter-spacing: 0.04em;
+  }
+  .country-tooltip.on { opacity: 1; }
+
+  .europe-note {
+    max-width: 560px;
+    margin: 36px auto 0;
+    text-align: center;
+    font-family: var(--serif);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    font-style: italic;
+    text-wrap: pretty;
+  }
+  .europe-note::before,
+  .europe-note::after {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 1px;
+    background: var(--rule);
+    margin: 0 auto 18px;
+  }
+  .europe-note::after { margin: 18px auto 0; }
+
+  /* ---------- footer ---------- */
+  footer {
+    padding: 40px 48px;
+    max-width: 1440px;
+    margin: 0 auto;
+    border-top: 1px solid var(--rule);
+    display: flex; justify-content: space-between;
+    font-family: var(--sans); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 960px) {
+    .topbar { grid-template-columns: 1fr auto; gap: 12px; padding: 12px 16px; }
+    nav.main { display: none; }
+    main { padding: 0 20px 60px; }
+    footer { flex-direction: column; gap: 12px; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+        <polygon points="12,3 21,8 21,16 12,21 3,16 3,8" />
+        <line x1="3"  y1="8"  x2="12" y2="12"/>
+        <line x1="21" y1="8"  x2="12" y2="12"/>
+        <line x1="12" y1="12" x2="12" y2="21"/>
+      </svg>
+    </div>
+    <div class="logo-name">
+      Institute of<br>
+      Scientific<br>
+      <small>Research</small>
+    </div>
+  </div>
+
+  <nav class="main">
+    <a>Library</a>
+    <a>EU Law</a>
+    <a>Topics</a>
+    <a>About</a>
+    <a>Newsletter</a>
+  </nav>
+
+  <div class="topbar-right">
+    <button class="btn-publish">Publish</button>
+  </div>
+</div>
+
+<!-- ================= BODY ================= -->
+<div class="shell">
+
+  <!-- main column -->
+  <main>
+
+    <!-- ========== GLOBE ========== -->
+    <section class="globe-section">
+      <div class="globe-header">
+        <h1 class="globe-title">Research on a <em>global scale</em></h1>
+        <p class="globe-sub">
+          The Institute gathers scholars affiliated with more than forty
+          jurisdictions — reading contemporary legal systems in their
+          diversity and in their correspondences.
+        </p>
+      </div>
+      <div class="globe-wrap" id="globeWrap">
+        <svg id="globe" viewBox="0 100 900 560" preserveAspectRatio="xMidYMid meet" aria-label="Rotating globe"></svg>
+      </div>
+    </section>
+
+    <!-- ========== INTRO TEXT ========== -->
+    <section class="intro">
+      <h2>Borderless research, <em>rooted in comparative law.</em></h2>
+      <p class="drop">
+        The Institute brings together research teams on five continents.
+        Our work reads legal orders as a fabric — doctrines that speak to
+        one another, case law that answers back, traditions that recognise
+        themselves in their differences.
+      </p>
+      <p>
+        As the great contemporary questions — climate, digital, health,
+        migration — arise simultaneously across all jurisdictions,
+        comparison is no longer an academic luxury: it is a method.
+      </p>
+    </section>
+
+    <!-- ========== EUROPE ========== -->
+    <section class="europe-section">
+      <h3 class="europe-title">The European Union</h3>
+
+      <div class="europe-wrap" id="europeWrap">
+        <svg id="europe" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid meet" aria-label="Map of Europe"></svg>
+        <div class="country-tooltip" id="euTooltip"></div>
+      </div>
+
+      <p class="europe-note">
+        Twenty-seven states, a legal community unique in the world&nbsp;—
+        a normative order that, for seventy years, has patiently sought
+        its balance between sovereignty and integration.
+      </p>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>© 2026 Institute of Scientific Research · ISSN pending</span>
+  <span>Paris · Brussels · Montreal</span>
+</footer>
+
+<!-- d3-geo + topojson + world-atlas for real country borders -->
+<script src="https://unpkg.com/d3-array@3.2.4/dist/d3-array.min.js"></script>
+<script src="https://unpkg.com/d3-geo@3.1.1/dist/d3-geo.min.js"></script>
+<script src="https://unpkg.com/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+
+<script>
+/* ===========================================================
+   GLOBE + EUROPE MAP — real country borders
+   =========================================================== */
+
+const WORLD_URL = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
+const EUROPE_URL = "https://unpkg.com/world-atlas@2.0.2/countries-50m.json";
+
+/* EU-27 ISO numeric codes (per world-atlas) */
+const EU27 = new Set([
+  "040", // Austria
+  "056", // Belgium
+  "100", // Bulgaria
+  "191", // Croatia
+  "196", // Cyprus
+  "203", // Czechia
+  "208", // Denmark
+  "233", // Estonia
+  "246", // Finland
+  "250", // France
+  "276", // Germany
+  "300", // Greece
+  "348", // Hungary
+  "372", // Ireland
+  "380", // Italy
+  "428", // Latvia
+  "440", // Lithuania
+  "442", // Luxembourg
+  "470", // Malta
+  "528", // Netherlands
+  "616", // Poland
+  "620", // Portugal
+  "642", // Romania
+  "703", // Slovakia
+  "705", // Slovenia
+  "724", // Spain
+  "752", // Sweden
+]);
+
+const COUNTRY_NAMES = {
+  "040":"Autriche","056":"Belgique","100":"Bulgarie","191":"Croatie","196":"Chypre",
+  "203":"Tchéquie","208":"Danemark","233":"Estonie","246":"Finlande","250":"France",
+  "276":"Allemagne","300":"Grèce","348":"Hongrie","372":"Irlande","380":"Italie",
+  "428":"Lettonie","440":"Lituanie","442":"Luxembourg","470":"Malte","528":"Pays-Bas",
+  "616":"Pologne","620":"Portugal","642":"Roumanie","703":"Slovaquie","705":"Slovénie",
+  "724":"Espagne","752":"Suède",
+  "826":"Royaume-Uni","578":"Norvège","756":"Suisse","352":"Islande","008":"Albanie",
+  "070":"Bosnie-Herz.","499":"Monténégro","807":"Macédoine du Nord","688":"Serbie",
+  "688":"Serbie","112":"Biélorussie","804":"Ukraine","498":"Moldavie","643":"Russie",
+  "792":"Turquie","231":"Éthiopie","434":"Libye","012":"Algérie","504":"Maroc",
+  "788":"Tunisie","788":"Tunisie","818":"Égypte","760":"Syrie","422":"Liban",
+  "376":"Israël","275":"Palestine","400":"Jordanie","368":"Irak","364":"Iran",
+};
+
+/* Global cities on the globe + connection pairs */
+const CITIES = [
+  { name:"Paris",        lat:48.85,  lon:2.35   },
+  { name:"Bruxelles",    lat:50.85,  lon:4.35   },
+  { name:"Londres",      lat:51.51,  lon:-0.13  },
+  { name:"New York",     lat:40.71,  lon:-74.00 },
+  { name:"Washington",   lat:38.90,  lon:-77.04 },
+  { name:"Mexico",       lat:19.43,  lon:-99.13 },
+  { name:"Buenos Aires", lat:-34.61, lon:-58.38 },
+  { name:"São Paulo",    lat:-23.55, lon:-46.63 },
+  { name:"Dakar",        lat:14.69,  lon:-17.45 },
+  { name:"Le Caire",     lat:30.04,  lon:31.24  },
+  { name:"Nairobi",      lat:-1.29,  lon:36.82  },
+  { name:"Johannesburg", lat:-26.20, lon:28.03  },
+  { name:"Dubaï",        lat:25.20,  lon:55.27  },
+  { name:"Mumbai",       lat:19.08,  lon:72.88  },
+  { name:"Singapour",    lat:1.35,   lon:103.82 },
+  { name:"Tokyo",        lat:35.68,  lon:139.65 },
+  { name:"Séoul",        lat:37.57,  lon:126.98 },
+  { name:"Pékin",        lat:39.90,  lon:116.41 },
+  { name:"Sydney",       lat:-33.87, lon:151.21 },
+  { name:"Montréal",     lat:45.50,  lon:-73.57 },
+  { name:"Moscou",       lat:55.76,  lon:37.62  },
+  { name:"Istanbul",     lat:41.01,  lon:28.98  },
+];
+const CONNECTIONS = [
+  [0,1],[0,2],[0,19],[0,3],[0,9],[1,2],[2,3],[3,19],[3,4],[4,6],[5,7],[6,7],
+  [7,8],[8,10],[9,13],[10,11],[10,12],[12,14],[13,15],[14,15],[14,17],[15,16],
+  [16,17],[18,14],[19,4],[20,0],[20,2],[21,0],[21,12],[9,20],
+];
+
+/* Continent classification by ISO-numeric country code (UN M49 style).
+   Harmonious palette — muted earth tones tuned to the warm paper background. */
+const CONTINENT_COLORS = {
+  europe:    "#a5b8d1",   // soft slate blue
+  asia:      "#e3bf5a",   // warm yellow-ochre
+  africa:    "#d78450",   // warm orange
+  n_america: "#a8bf8f",   // sage green
+  s_america: "#e8b7c2",   // pale rose pink
+  oceania:   "#b296b4",   // dusty mauve
+  antarctica:"#e2d8c4",
+};
+
+const CONTINENT_OF = {};
+// Europe
+["008","020","040","056","070","100","112","191","196","203","208","233","234","246","250","268","276","292","300","336","348","352","372","380","398","417","428","438","440","442","470","498","492","499","528","578","616","620","642","643","674","688","703","705","724","752","756","804","807","826"]
+  .forEach(c => CONTINENT_OF[c] = "europe");
+// Asia
+["004","031","048","050","051","064","096","116","144","156","158","196","268","275","344","356","360","364","368","376","392","398","400","408","410","414","417","418","422","446","458","462","496","512","524","586","608","626","634","643","682","702","704","760","762","764","784","792","795","860","887"]
+  .forEach(c => CONTINENT_OF[c] = "asia");
+// Africa
+["012","024","072","086","108","120","132","140","148","174","175","178","180","204","226","231","232","260","262","266","270","288","324","384","404","426","430","434","450","454","466","478","480","504","508","516","562","566","624","638","646","654","678","686","690","694","706","710","716","728","729","732","736","748","768","788","800","818","834","854","894"]
+  .forEach(c => CONTINENT_OF[c] = "africa");
+// North America (+ Central America + Caribbean)
+["028","044","052","060","084","092","124","136","188","192","212","214","222","238","239","304","308","312","320","328","332","340","388","474","484","500","531","533","534","535","558","591","630","652","659","660","662","663","666","670","780","796","840","850"]
+  .forEach(c => CONTINENT_OF[c] = "n_america");
+// South America
+["032","068","076","152","170","218","238","254","328","600","604","740","858","862"]
+  .forEach(c => CONTINENT_OF[c] = "s_america");
+// Oceania
+["016","036","090","184","242","258","296","316","334","520","540","548","554","570","574","580","581","583","584","585","598","612","772","776","798","876","882"]
+  .forEach(c => CONTINENT_OF[c] = "oceania");
+// Antarctica
+["010","074","086","260","334","239"]
+  .forEach(c => CONTINENT_OF[c] = CONTINENT_OF[c] || "antarctica");
+
+/* ---------- GLOBE ---------- */
+(async function initGlobe() {
+  const svg = document.getElementById("globe");
+  const W = 900, H = 560;
+  const ns = "http://www.w3.org/2000/svg";
+  const cx = W/2, cy = H/2, r = 230;
+
+  // subtle ocean/sphere background — opaque so nothing on the back shows through
+  const defs = document.createElementNS(ns,"defs");
+  defs.innerHTML = `
+    <radialGradient id="oceanGrad" cx="42%" cy="38%" r="70%">
+      <stop offset="0%"  stop-color="#efe7d6"/>
+      <stop offset="70%" stop-color="#e4dac0"/>
+      <stop offset="100%" stop-color="#cdc1a4"/>
+    </radialGradient>
+    <radialGradient id="rimShade" cx="50%" cy="50%" r="50%">
+      <stop offset="88%" stop-color="rgba(0,0,0,0)"/>
+      <stop offset="100%" stop-color="rgba(55,40,20,0.30)"/>
+    </radialGradient>
+    <radialGradient id="hiLight" cx="34%" cy="28%" r="40%">
+      <stop offset="0%"  stop-color="rgba(255,250,240,0.55)"/>
+      <stop offset="100%" stop-color="rgba(255,250,240,0)"/>
+    </radialGradient>
+  `;
+  svg.appendChild(defs);
+
+  // sphere base
+  const sphere = document.createElementNS(ns,"circle");
+  sphere.setAttribute("cx",cx); sphere.setAttribute("cy",cy); sphere.setAttribute("r",r);
+  sphere.setAttribute("fill","url(#oceanGrad)");
+  svg.appendChild(sphere);
+
+  // graticule group (meridians + parallels)
+  const graticuleG = document.createElementNS(ns,"g");
+  graticuleG.setAttribute("stroke","rgba(60,45,25,0.22)");
+  graticuleG.setAttribute("stroke-width","0.6");
+  graticuleG.setAttribute("fill","none");
+  svg.appendChild(graticuleG);
+
+  // land groups — one path per country, colored by continent
+  const landG = document.createElementNS(ns,"g");
+  landG.setAttribute("stroke","#6b5a3c");
+  landG.setAttribute("stroke-width","0.35");
+  landG.setAttribute("stroke-linejoin","round");
+  svg.appendChild(landG);
+
+  // rim + highlight
+  const rim = document.createElementNS(ns,"circle");
+  rim.setAttribute("cx",cx); rim.setAttribute("cy",cy); rim.setAttribute("r",r);
+  rim.setAttribute("fill","url(#rimShade)"); rim.setAttribute("pointer-events","none");
+  svg.appendChild(rim);
+
+  const hi = document.createElementNS(ns,"circle");
+  hi.setAttribute("cx",cx); hi.setAttribute("cy",cy); hi.setAttribute("r",r);
+  hi.setAttribute("fill","url(#hiLight)"); hi.setAttribute("pointer-events","none");
+  svg.appendChild(hi);
+
+  // connections removed — no city dots, no arcs
+
+  // thin outer ring
+  const ring = document.createElementNS(ns,"circle");
+  ring.setAttribute("cx",cx); ring.setAttribute("cy",cy); ring.setAttribute("r",r+2);
+  ring.setAttribute("fill","none"); ring.setAttribute("stroke","#8a7a5a");
+  ring.setAttribute("stroke-width","0.8");
+  svg.appendChild(ring);
+
+  // fetch world data
+  let world;
+  try {
+    const resp = await fetch(WORLD_URL);
+    world = await resp.json();
+  } catch(e) {
+    console.error("globe data fetch failed", e);
+    return;
+  }
+
+  const countryFeatures = topojson.feature(world, world.objects.countries).features;
+  const graticule = d3.geoGraticule10();
+
+  const projection = d3.geoOrthographic()
+    .scale(r)
+    .translate([cx,cy])
+    .clipAngle(90);
+  const pathGen = d3.geoPath(projection);
+
+  let lambda = 0;
+  const speed = 6; // deg per second
+
+  function render() {
+    projection.rotate([lambda, -14, 0]);
+    graticuleG.innerHTML = `<path d="${pathGen(graticule)||''}"/>`;
+
+    // redraw each country, fill by continent (with name fallback)
+    landG.innerHTML = "";
+    for (const feat of countryFeatures) {
+      const d = pathGen(feat);
+      if (!d) continue;
+      let cont = CONTINENT_OF[feat.id];
+      if (!cont) {
+        const n = (feat.properties?.name || "").toLowerCase();
+        if (/somalia|burkina|bangladesh guess/i.test(n)) {}
+        cont = nameToContinent(n) || "europe";
+      }
+      const p = document.createElementNS(ns,"path");
+      p.setAttribute("d", d);
+      p.setAttribute("fill", CONTINENT_COLORS[cont] || CONTINENT_COLORS.europe);
+      landG.appendChild(p);
+    }
+  }
+
+  function nameToContinent(n) {
+    const africa = ["algeria","angola","benin","botswana","burkina","burundi","cabo verde","cameroon","central african","chad","comoros","congo","ivoire","djibouti","egypt","equatorial","eritrea","eswatini","swaziland","ethiopia","gabon","gambia","ghana","guinea","kenya","lesotho","liberia","libya","madagascar","malawi","mali","mauritania","mauritius","morocco","mozambique","namibia","niger","nigeria","rwanda","senegal","sierra leone","somali","south africa","south sudan","sudan","tanzania","togo","tunisia","uganda","w. sahara","sahara","zambia","zimbabwe"];
+    const asia = ["afghan","armenia","azerbaijan","bahrain","bangladesh","bhutan","brunei","cambodia","china","cyprus","georgia","india","indonesia","iran","iraq","israel","japan","jordan","kazakh","korea","kuwait","kyrgyz","laos","lebanon","malaysia","maldives","mongolia","myanmar","nepal","oman","pakistan","palestine","philippines","qatar","saudi","singapore","sri lanka","syria","taiwan","tajik","thailand","timor","turkey","turkmen","emirates","uzbek","vietnam","yemen"];
+    const europe = ["albania","andorra","austria","belarus","belgium","bosnia","bulgaria","croatia","czech","denmark","estonia","finland","france","germany","greece","hungary","iceland","ireland","italy","kosovo","latvia","liechten","lithuania","luxembourg","malta","moldova","monaco","montenegro","netherlands","macedonia","norway","poland","portugal","romania","russia","san marino","serbia","slovakia","slovenia","spain","sweden","switzerland","ukraine","united kingdom","vatican"];
+    const n_am = ["antigua","bahamas","barbados","belize","canada","costa rica","cuba","dominica","dominican","el salvador","greenland","grenada","guatemala","haiti","honduras","jamaica","mexico","nicaragua","panama","puerto rico","saint","trinidad","united states","u.s."];
+    const s_am = ["argentina","bolivia","brazil","chile","colombia","ecuador","falkland","french guiana","guyana","paraguay","peru","suriname","uruguay","venezuela"];
+    const oc = ["australia","fiji","kiribati","marshall","micronesia","nauru","new caledonia","new zealand","palau","papua","samoa","solomon","tonga","tuvalu","vanuatu"];
+    const m = (list) => list.some(k => n.includes(k));
+    if (m(africa)) return "africa";
+    if (m(s_am)) return "s_america";
+    if (m(n_am)) return "n_america";
+    if (m(europe)) return "europe";
+    if (m(asia)) return "asia";
+    if (m(oc)) return "oceania";
+    return null;
+  }
+
+  let last = performance.now();
+  function tick(now) {
+    const dt = (now - last) / 1000;
+    last = now;
+    lambda += speed * dt;
+    render();
+    requestAnimationFrame(tick);
+  }
+
+  render();
+  requestAnimationFrame(tick);
+})();
+
+/* ---------- EUROPE MAP (watercolor style) ---------- */
+(async function initEurope() {
+  const svg = document.getElementById("europe");
+  const wrap = document.getElementById("europeWrap");
+  const tooltip = document.getElementById("euTooltip");
+  const W = 1400, H = 900;
+  const ns = "http://www.w3.org/2000/svg";
+
+  // watercolor filter + paper texture
+  const defs = document.createElementNS(ns,"defs");
+  defs.innerHTML = `
+    <filter id="watercolor" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/>
+      <feDisplacementMap in="SourceGraphic" scale="3"/>
+      <feGaussianBlur stdDeviation="0.6"/>
+    </filter>
+    <filter id="watercolor-edge" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="2" seed="7"/>
+      <feDisplacementMap in="SourceGraphic" scale="2.2"/>
+    </filter>
+    <radialGradient id="wc-eu" cx="45%" cy="35%" r="75%">
+      <stop offset="0%"  stop-color="#4b82c6" stop-opacity="0.55"/>
+      <stop offset="55%" stop-color="#3a6fb0" stop-opacity="0.78"/>
+      <stop offset="100%" stop-color="#2d5a92" stop-opacity="0.9"/>
+    </radialGradient>
+  `;
+  svg.appendChild(defs);
+
+  let world;
+  try {
+    const resp = await fetch(EUROPE_URL);
+    world = await resp.json();
+  } catch(e) {
+    console.error("europe data fetch failed", e);
+    return;
+  }
+
+  const countries = topojson.feature(world, world.objects.countries).features;
+
+  // Zoomed out enough to show Spain, Italy, Greece, Finland fully.
+  const projection = d3.geoMercator()
+    .center([14, 56])
+    .scale(900)
+    .translate([W/2, H/2]);
+  const pathGen = d3.geoPath(projection);
+
+  // Country order: non-EU first (outlines only), then EU (watercolor wash)
+  const nonEuG = document.createElementNS(ns,"g");
+  const euWashG = document.createElementNS(ns,"g");
+  euWashG.setAttribute("filter","url(#watercolor)");
+  const euEdgeG = document.createElementNS(ns,"g");
+
+  svg.appendChild(nonEuG);
+  svg.appendChild(euWashG);
+  svg.appendChild(euEdgeG);
+
+  countries.forEach(feat => {
+    const d = pathGen(feat);
+    if (!d) return;
+    const id = feat.id;
+    const isEU = EU27.has(id);
+
+    if (isEU) {
+      // watercolor fill
+      const wash = document.createElementNS(ns,"path");
+      wash.setAttribute("d", d);
+      wash.setAttribute("fill", "url(#wc-eu)");
+      wash.setAttribute("stroke", "none");
+      euWashG.appendChild(wash);
+
+      // inked edge on top (slightly displaced to feel hand-drawn)
+      const edge = document.createElementNS(ns,"path");
+      edge.setAttribute("d", d);
+      edge.setAttribute("fill", "none");
+      edge.setAttribute("stroke", "#1f3e68");
+      edge.setAttribute("stroke-width", "0.8");
+      edge.setAttribute("stroke-opacity", "0.75");
+      edge.setAttribute("filter", "url(#watercolor-edge)");
+      edge.setAttribute("class", "country eu");
+      edge.dataset.name = COUNTRY_NAMES[id] || feat.properties?.name || "";
+      euEdgeG.appendChild(edge);
+
+      edge.addEventListener("mousemove", (e) => {
+        const rect = wrap.getBoundingClientRect();
+        tooltip.style.left = (e.clientX - rect.left) + "px";
+        tooltip.style.top  = (e.clientY - rect.top) + "px";
+        tooltip.textContent = edge.dataset.name + " · UE";
+        tooltip.classList.add("on");
+      });
+      edge.addEventListener("mouseleave", () => tooltip.classList.remove("on"));
+    } else {
+      // non-EU: ink outline only, continues off edges
+      const p = document.createElementNS(ns,"path");
+      p.setAttribute("d", d);
+      p.setAttribute("fill", "none");
+      p.setAttribute("stroke", "#6b6354");
+      p.setAttribute("stroke-width", "0.65");
+      p.setAttribute("stroke-opacity", "0.5");
+      p.setAttribute("filter", "url(#watercolor-edge)");
+      p.setAttribute("class", "country non-eu");
+      p.dataset.name = COUNTRY_NAMES[id] || feat.properties?.name || "";
+      nonEuG.appendChild(p);
+
+      p.addEventListener("mousemove", (e) => {
+        if (!p.dataset.name) return;
+        const rect = wrap.getBoundingClientRect();
+        tooltip.style.left = (e.clientX - rect.left) + "px";
+        tooltip.style.top  = (e.clientY - rect.top) + "px";
+        tooltip.textContent = p.dataset.name;
+        tooltip.classList.add("on");
+      });
+      p.addEventListener("mouseleave", () => tooltip.classList.remove("on"));
+    }
+  });
+
+  // Sea / ocean labels — small, italic, light
+  const labels = [
+    { name:"Océan Atlantique", lon:-12, lat:47, size:18, rot:-20 },
+    { name:"Mer du Nord",      lon: 3,  lat:57, size:12 },
+    { name:"Mer Méditerranée", lon:18, lat:36, size:14 },
+    { name:"Mer Baltique",     lon:20, lat:59, size:11 },
+    { name:"Mer Noire",        lon:34, lat:43.5, size:12 },
+    { name:"Mer Norvégienne",  lon: 2, lat:66, size:11 },
+    { name:"Mer Tyrrhénienne", lon:12, lat:40, size:9 },
+    { name:"Mer Adriatique",   lon:16, lat:43, size:9 },
+    { name:"Mer Égée",          lon:25, lat:38, size:9 },
+  ];
+  const labelG = document.createElementNS(ns,"g");
+  labels.forEach(l => {
+    const p = projection([l.lon, l.lat]);
+    if (!p) return;
+    const t = document.createElementNS(ns,"text");
+    t.setAttribute("x", p[0]); t.setAttribute("y", p[1]);
+    t.setAttribute("text-anchor","middle");
+    t.setAttribute("font-family","'Source Serif 4', serif");
+    t.setAttribute("font-style","italic");
+    t.setAttribute("font-size", l.size || 12);
+    t.setAttribute("fill","#6b6354");
+    t.setAttribute("fill-opacity","0.65");
+    t.setAttribute("letter-spacing","0.04em");
+    if (l.rot) t.setAttribute("transform", `rotate(${l.rot} ${p[0]} ${p[1]})`);
+    t.textContent = l.name;
+    labelG.appendChild(t);
+  });
+  svg.appendChild(labelG);
+})();
+</script>
+
+</body>
+</html>

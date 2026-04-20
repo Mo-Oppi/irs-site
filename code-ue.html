@@ -800,13 +800,56 @@ function setupIO(){
   },300);
 }
 
+// Merge Supabase articles into DB (overrides hardcoded data)
+function mergeSupabaseArticles(data){
+  data.forEach(function(a){
+    if(!a.id) return;
+    var tabs=[];
+    if(a.tabs) tabs=(typeof a.tabs==='string'?a.tabs:a.tabs.join(',')).split(',').map(function(t){return t.trim();}).filter(Boolean);
+    DB[a.id]={
+      t: a.treaty||'',
+      n: 'Art. '+a.article_num,
+      fm: a.former_ref||'',
+      pl: a.part_label||'',
+      tl: a.titre_label||'',
+      b: a.body_html||'',
+      note: a.note||'',
+      tabs: tabs.length?tabs:['jur','bib'],
+      vers:[]
+    };
+    // Add to ORDER if not already there
+    if(ORDER.indexOf(a.id)<0){
+      // Insert at correct position based on treaty and sort_order
+      var insertIdx=ORDER.length;
+      if(a.treaty==='TUE'){
+        var lastTUE=0;
+        ORDER.forEach(function(id,i){ if(id.startsWith('tue')) lastTUE=i+1; });
+        insertIdx=lastTUE;
+      } else {
+        var lastTFUE=ORDER.length;
+        for(var i=ORDER.length-1;i>=0;i--){ if(ORDER[i].startsWith('tfue')){ lastTFUE=i+1; break; } }
+        insertIdx=lastTFUE;
+      }
+      ORDER.splice(insertIdx,0,a.id);
+    }
+  });
+}
+
 (function init(){
-  var n=Math.min(WIN,ORDER.length);
-  renderRange(0,n); rs=0; re=n;
-  setupIO();
-  // Navigate to hash if present
-  var h=location.hash.replace('#','');
-  if(h&&DB[h]) setTimeout(function(){ goArt(h); },200);
+  // Fetch articles from Supabase first, then render
+  fetch('/.netlify/functions/get-code-articles')
+    .then(function(r){ return r.ok?r.json():[]; })
+    .then(function(data){
+      if(data&&data.length) mergeSupabaseArticles(data);
+    })
+    .catch(function(){})
+    .finally(function(){
+      var n=Math.min(WIN,ORDER.length);
+      renderRange(0,n); rs=0; re=n;
+      setupIO();
+      var h=location.hash.replace('#','');
+      if(h&&DB[h]) setTimeout(function(){ goArt(h); },200);
+    });
 })();
 </script>
 </body>
