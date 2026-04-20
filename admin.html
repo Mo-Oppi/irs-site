@@ -455,25 +455,19 @@ textarea.fi{resize:vertical}
 <div class="notif" id="notif"></div>
 
 <script>
-// Configuration de base
 var API = '/.netlify/functions';
+var _ec = 0; // Compteur pour les IDs uniques des entrées
 
-// Vérification immédiate que le script est chargé
-console.log("Script IRS Admin : Chargé avec succès");
-
-// ── AUTHENTIFICATION ─────────────────────────────────────────
+// ── AUTHENTIFICATION (FONCTIONNELLE) ─────────────────────────
 async function doLogin() {
-    console.log("Tentative de connexion...");
     var v = document.getElementById('pwdIn').value;
     var err = document.getElementById('lerr');
-
     try {
         const res = await fetch(API + '/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: v })
         });
-
         if (res.ok) {
             document.getElementById('ls').style.display = 'none';
             document.getElementById('app').style.display = 'flex';
@@ -482,48 +476,37 @@ async function doLogin() {
             err.style.display = 'block';
         }
     } catch (e) {
-        console.error("Erreur login:", e);
         alert("Erreur de communication avec le serveur.");
     }
 }
 
-function doLogout() {
-    window.location.reload();
-}
+function doLogout() { window.location.reload(); }
 
 // ── CHARGEMENT DEPUIS SUPABASE ───────────────────────────────
 async function loadDashboard() {
     var v = document.getElementById('pwdIn').value;
-    var dashTable = document.getElementById('dashTable');
-    var artTable = document.getElementById('artTable');
-
     try {
         const res = await fetch(API + '/admin-articles?password=' + v);
         const data = await res.json();
-
         if (res.ok) {
-            renderArticles(data, dashTable);
-            renderArticles(data, artTable);
+            renderArticles(data, 'dashTable');
+            renderArticles(data, 'artTable');
             updateStats(data);
-        } else {
-            console.error("Erreur Supabase:", data.error);
         }
-    } catch (e) {
-        console.error("Erreur réseau:", e);
-    }
+    } catch (e) { console.error("Erreur chargement:", e); }
 }
 
-function renderArticles(articles, container) {
-    if (!container) return;
-    if (!articles || articles.length === 0) {
-        container.innerHTML = '<tr><td colspan="6" class="empty-td">Aucun article trouvé.</td></tr>';
+function renderArticles(data, tableId) {
+    const table = document.getElementById(tableId);
+    if (!data || data.length === 0) {
+        table.innerHTML = '<tr><td colspan="6" class="empty-td">Aucun article trouvé.</td></tr>';
         return;
     }
-    container.innerHTML = articles.map(function(art) {
+    table.innerHTML = data.map(function(art) {
         return '<tr>' +
             '<td><strong>' + (art.title || 'Sans titre') + '</strong></td>' +
             '<td>' + (art.author || '—') + '</td>' +
-            '<td>' + (art.category || 'Général') + '</td>' +
+            '<td>' + (art.category || '—') + '</td>' +
             '<td>' + (art.created_at ? new Date(art.created_at).toLocaleDateString() : '—') + '</td>' +
             '<td><span class="badge ' + (art.status === 'pub' ? 'bp' : 'bd') + '">' + (art.status === 'pub' ? 'Publié' : 'Brouillon') + '</span></td>' +
             '<td class="act-btns"><button class="act-btn" onclick="editArt(\'' + art.id + '\')">Éditer</button></td>' +
@@ -531,21 +514,49 @@ function renderArticles(articles, container) {
     }).join('');
 }
 
-function updateStats(articles) {
-    if(document.getElementById('stTotal')) document.getElementById('stTotal').innerText = articles.length;
-    if(document.getElementById('stPub')) document.getElementById('stPub').innerText = articles.filter(a => a.status === 'pub').length;
-    if(document.getElementById('stDraft')) document.getElementById('stDraft').innerText = articles.filter(a => a.status !== 'pub').length;
+function updateStats(data) {
+    document.getElementById('stTotal').innerText = data.length;
+    document.getElementById('stPub').innerText = data.filter(function(a){return a.status==='pub'}).length;
+    document.getElementById('stDraft').innerText = data.filter(function(a){return a.status!=='pub'}).length;
 }
 
-// ── NAVIGATION & UI ──────────────────────────────────────────
+// ── LOGIQUE DES ANNOTATIONS (TES AJOUTS RESTAURÉS) ───────────
+
+// Ajouter une ligne de Jurisprudence
+function addJurEntry() {
+    _ec++;
+    var container = document.getElementById('jurEntries');
+    var html = '<div class="ecard" id="jur-e-' + _ec + '">' +
+        '<button class="ecard-del" onclick="this.parentElement.remove()">Supprimer</button>' +
+        '<div class="fg"><label class="lbl">Décision (Nom / Date / Référence)</label>' +
+        '<input type="text" class="fi" placeholder="ex: CJUE, 15 juil. 1964, Costa c/ ENEL, 6/64"></div>' +
+        '<div class="fg"><label class="lbl">Commentaire court</label>' +
+        '<textarea class="fi" rows="2" placeholder="Portée de l’arrêt..."></textarea></div>' +
+        '</div>';
+    container.insertAdjacentHTML('beforeend', html);
+}
+
+// Ajouter une ligne de Bibliographie
+function addBibEntry() {
+    _ec++;
+    var container = document.getElementById('bibEntries');
+    var html = '<div class="ecard" id="bib-e-' + _ec + '">' +
+        '<button class="ecard-del" onclick="this.parentElement.remove()">Supprimer</button>' +
+        '<div class="fg"><label class="lbl">Auteur(s)</label><input type="text" class="fi" placeholder="Nom Prénom"></div>' +
+        '<div class="fg"><label class="lbl">Titre de l’ouvrage / Article</label><input type="text" class="fi"></div>' +
+        '<div class="two-col">' +
+        '<div class="fg"><label class="lbl">Éditeur / Revue</label><input type="text" class="fi"></div>' +
+        '<div class="fg"><label class="lbl">Année</label><input type="text" class="fi"></div>' +
+        '</div></div>';
+    container.insertAdjacentHTML('beforeend', html);
+}
+
+// ── NAVIGATION & ÉDITEUR ─────────────────────────────────────
 function showPanel(id) {
-    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('on'); });
-    document.querySelectorAll('.sn-item').forEach(function(btn) { btn.classList.remove('on'); });
-    
-    var target = document.getElementById('p-' + id);
-    var nav = document.getElementById('nav-' + id);
-    if(target) target.classList.add('on');
-    if(nav) nav.classList.add('on');
+    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+    document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('on'); });
+    document.getElementById('p-' + id).classList.add('on');
+    document.getElementById('nav-' + id).classList.add('on');
 }
 
 function showNewEditor() {
@@ -553,27 +564,22 @@ function showNewEditor() {
     document.getElementById('edHead').innerText = "Nouvel article";
     document.getElementById('edId').value = "";
     document.getElementById('edTitle').value = "";
-    document.getElementById('rteBody').innerHTML = "<p>Rédigez votre article ici...</p>";
+    document.getElementById('rteBody').innerHTML = "<p>Rédigez ici...</p>";
 }
 
-// ── FONCTIONS COMPLÉMENTAIRES ────────────────────────────────
-function saveArt(isPub) { alert("Sauvegarde à venir."); }
-function previewArt() { alert("Prévisualisation..."); }
-function editArt(id) { alert("ID: " + id); }
-function loadAnnotList(type, selId, listId) { console.log("Chargement " + type); }
-function openAnnotEditor(type) { 
-    var el = document.getElementById(type + 'Editor');
-    if(el) el.style.display = 'block'; 
+function saveArt(isPub) {
+    // Cette fonction sera à lier à ta fonction Netlify "save-article"
+    alert("Données prêtes pour l'envoi vers Supabase (Statut: " + (isPub ? 'Publié' : 'Brouillon') + ")");
 }
-function saveAnnot(type) { 
-    var el = document.getElementById(type + 'Editor');
-    if(el) el.style.display = 'none'; 
+
+// Gestion du compteur de mots
+if(document.getElementById('rteBody')) {
+    document.getElementById('rteBody').addEventListener('input', function() {
+        var text = this.innerText || "";
+        var count = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+        document.getElementById('rteCC').innerText = count + " mot(s)";
+    });
 }
-function addJurEntry() {}
-function addBibEntry() {}
-function loadVersions() {}
-function openVerEditor() { document.getElementById('verEd').style.display = 'block'; }
-function saveVer() { document.getElementById('verEd').style.display = 'none'; }
 
 // ── RICH TEXT EDITOR (RTE) ───────────────────────────────────
 function rteC(c, v) { document.execCommand(c, false, v); }
