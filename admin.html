@@ -1,424 +1,465 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Administration — Institut de Recherche Scientifique</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#f0ece3;--bg2:#e8e3d8;--bg3:#fff;--text:#1a1917;--mid:#3d3b35;
-      --muted:#6b6860;--red:#a51c2e;--red2:#7a1220;--redl:#f7eced;
-      --line:#c8c2b5;--serif:'EB Garamond',Georgia,serif;--ui:'Inter',system-ui,sans-serif;
-      --green:#2d7a3a;--greenl:#edf7ef
-    }
-    @media(prefers-color-scheme:dark){
-      :root{
-        --bg:#181714;--bg2:#211f1c;--bg3:#282521;--text:#e8e3d8;--mid:#c4bdb3;
-        --muted:#7a756d;--red:#c4263b;--red2:#e03a50;--redl:#2a1215;
-        --line:#332f2a;--green:#4caf6a;--greenl:#1a2e1f
-      }
-    }
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--ui);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
-    input,select,textarea{font-family:var(--ui);font-size:13px}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Administration — IRS</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f7f5f2;--bg2:#eeeae3;--bg3:#fff;--tx:#1a1917;--mid:#44403c;--mu:#78716c;
+      --red:#a51c2e;--red2:#7a1220;--redl:#fef2f2;--ln:#e2ddd6;--gr:#16a34a;--grl:#f0fdf4;
+      --ui:'Inter',system-ui,sans-serif;--ser:'EB Garamond',Georgia,serif}
+html,body{height:100%}
+body{background:var(--bg);color:var(--tx);font-family:var(--ui);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+*{box-sizing:border-box}
 
-    /* LOGIN */
-    #loginScreen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:1000;flex-direction:column;gap:2rem}
-    .login-box{background:var(--bg3);border:1px solid var(--line);padding:2.5rem 3rem;width:340px;text-align:center}
-    .login-logo{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.5rem}
-    .login-sq{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center}
-    .login-sq svg{width:20px;height:20px}
-    .login-title{font-family:var(--serif);font-size:1.2rem;font-weight:700;margin-bottom:.3rem}
-    .login-sub{font-size:.78rem;color:var(--muted);margin-bottom:1.5rem}
-    .login-field{width:100%;border:1px solid var(--line);background:var(--bg);padding:.5rem .7rem;font-size:.85rem;color:var(--text);margin-bottom:.8rem;outline:none}
-    .login-field:focus{border-color:var(--red)}
-    .login-btn{width:100%;background:var(--red);color:#fff;border:none;font-family:var(--serif);font-size:.9rem;font-weight:600;padding:.5rem;cursor:pointer;transition:background .15s}
-    .login-btn:hover{background:var(--red2)}
-    .login-err{font-size:.78rem;color:var(--red);display:none;margin-top:.5rem}
-    .login-hint{font-size:.72rem;color:var(--muted);margin-top:.8rem}
+/* ── LOGIN ─────────────────────────────────────── */
+#ls{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:1.5rem}
+.lb{background:var(--bg3);border:1px solid var(--ln);padding:2.5rem;width:360px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+.ll{display:flex;justify-content:center;align-items:center;gap:.6rem;margin-bottom:1.5rem}
+.lsq{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;border-radius:4px}
+.lsq svg{width:20px;height:20px}
+.lh1{font-family:var(--ser);font-size:1.35rem;font-weight:700;margin-bottom:.25rem}
+.lsub{font-size:.82rem;color:var(--mu);margin-bottom:1.5rem}
+.lf{width:100%;border:1px solid var(--ln);background:var(--bg);padding:.5rem .75rem;font-size:.9rem;color:var(--tx);outline:none;border-radius:4px;margin-bottom:.75rem;font-family:var(--ui)}
+.lf:focus{border-color:var(--red)}
+.lbtn{width:100%;background:var(--red);color:#fff;border:none;font-size:.9rem;font-weight:600;padding:.5rem;cursor:pointer;border-radius:4px;font-family:var(--ui);transition:background .15s}
+.lbtn:hover{background:var(--red2)}
+.lerr{font-size:.78rem;color:var(--red);margin-top:.5rem;display:none}
+.lhint{font-size:.72rem;color:var(--mu);margin-top:.8rem}
 
-    /* APP */
-    #app{display:none;flex-direction:column;min-height:100vh}
+/* ── APP ───────────────────────────────────────── */
+#app{display:none;flex:1;flex-direction:column;height:100%}
 
-    /* ADMIN NAV */
-    .adnav{background:var(--text);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
-    .adnav-left{display:flex;align-items:center;gap:1.2rem}
-    .ad-logo{display:flex;align-items:center;gap:.5rem;color:#fff}
-    .ad-logo-sq{width:30px;height:30px;background:var(--red);display:flex;align-items:center;justify-content:center}
-    .ad-logo-txt{font-family:var(--serif);font-size:.76rem;font-weight:700;line-height:1.2;color:#fff}
-    .ad-badge{font-size:.68rem;background:rgba(255,255,255,.15);color:rgba(255,255,255,.7);padding:.15rem .5rem;letter-spacing:.06em;text-transform:uppercase;border-radius:2px}
-    .adnav-right{display:flex;align-items:center;gap:1rem}
-    .adnav-link{font-size:.78rem;color:rgba(255,255,255,.65);transition:color .15s;cursor:pointer}
-    .adnav-link:hover{color:#fff}
-    .adnav-btn{background:var(--red);color:#fff;border:none;font-size:.78rem;font-weight:600;padding:.28rem .8rem;cursor:pointer;font-family:var(--ui);transition:background .15s}
-    .adnav-btn:hover{background:var(--red2)}
+/* TOP BAR */
+.topbar{background:#1c1917;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;flex-shrink:0}
+.tb-left{display:flex;align-items:center;gap:.8rem}
+.tb-logo{display:flex;align-items:center;gap:.5rem}
+.tb-lsq{width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;border-radius:3px}
+.tb-lsq svg{width:16px;height:16px}
+.tb-name{font-size:.8rem;font-weight:700;color:#fff}
+.tb-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.65);font-size:.65rem;padding:.1rem .45rem;border-radius:2px;letter-spacing:.05em;text-transform:uppercase}
+.tb-right{display:flex;align-items:center;gap:.75rem}
+.tb-link{font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;text-decoration:none;transition:color .15s}
+.tb-link:hover{color:#fff}
+.tb-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.25rem .75rem;border-radius:3px;cursor:pointer;transition:background .15s;font-family:var(--ui)}
+.tb-btn:hover{background:var(--red2)}
 
-    /* LAYOUT */
-    .adlayout{display:flex;flex:1}
-    .adsidebar{width:220px;border-right:1px solid var(--line);padding:1.5rem 0;flex-shrink:0}
-    .adsidebar-section{padding:0 1rem .5rem}
-    .adsidebar-label{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:.5rem .5rem .3rem}
-    .adsidebar-item{display:flex;align-items:center;gap:.6rem;padding:.4rem .5rem;font-size:.82rem;color:var(--mid);cursor:pointer;border-radius:2px;transition:background .15s,color .15s}
-    .adsidebar-item:hover{background:var(--bg2);color:var(--text)}
-    .adsidebar-item.active{background:var(--redl);color:var(--red);font-weight:600}
-    .adsidebar-item svg{width:14px;height:14px;flex-shrink:0;opacity:.7}
-    .adcontent{flex:1;padding:2rem;max-width:1100px}
+/* LAYOUT */
+.layout{display:flex;flex:1;overflow:hidden}
 
-    /* DASHBOARD */
-    .dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
-    .stat-card{background:var(--bg3);border:1px solid var(--line);padding:1rem 1.2rem}
-    .stat-num{font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1;color:var(--red)}
-    .stat-label{font-size:.75rem;color:var(--muted);margin-top:.3rem}
+/* SIDEBAR NAV */
+.sidenav{width:200px;background:#fff;border-right:1px solid var(--ln);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sn-section{padding:.75rem 0 .25rem}
+.sn-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);padding:.25rem .9rem .1rem;pointer-events:none}
+.sn-item{display:flex;align-items:center;gap:.55rem;padding:.42rem .9rem;font-size:.82rem;color:var(--mid);cursor:pointer;transition:background .1s,color .1s;border-left:2px solid transparent;text-decoration:none;background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:var(--ui)}
+.sn-item:hover{background:#faf9f7;color:var(--tx)}
+.sn-item.on{background:var(--redl);color:var(--red);border-left-color:var(--red);font-weight:600}
+.sn-item svg{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sn-div{height:1px;background:var(--ln);margin:.25rem .9rem}
 
-    /* ARTICLES TABLE */
-    .tbl-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
-    .tbl-title{font-family:var(--serif);font-size:1.1rem;font-weight:700}
-    .btn-new{background:var(--red);color:#fff;border:none;font-family:var(--serif);font-size:.84rem;font-weight:600;padding:.32rem 1rem;cursor:pointer;transition:background .15s}
-    .btn-new:hover{background:var(--red2)}
-    table{width:100%;border-collapse:collapse;background:var(--bg3);border:1px solid var(--line)}
-    th{text-align:left;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:.6rem .9rem;border-bottom:1px solid var(--line);background:var(--bg2)}
-    td{padding:.65rem .9rem;border-bottom:1px solid var(--line);vertical-align:middle;font-size:.82rem}
-    tr:last-child td{border-bottom:none}
-    tr:hover td{background:var(--bg2)}
-    .badge{display:inline-block;font-size:.65rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px}
-    .badge-pub{background:var(--greenl);color:var(--green)}
-    .badge-draft{background:var(--bg2);color:var(--muted)}
-    .tbl-actions{display:flex;gap:.4rem}
-    .tbl-btn{border:1px solid var(--line);background:transparent;font-size:.72rem;padding:.2rem .55rem;cursor:pointer;color:var(--mid);font-family:var(--ui);transition:background .15s}
-    .tbl-btn:hover{background:var(--bg2)}
-    .tbl-btn.del{border-color:var(--red);color:var(--red)}
-    .tbl-btn.del:hover{background:var(--redl)}
-    .empty-row td{text-align:center;color:var(--muted);font-style:italic;padding:2rem}
+/* MAIN CONTENT */
+.main{flex:1;overflow-y:auto;padding:1.5rem 2rem}
 
-    /* EDITOR */
-    #editorView{display:none}
-    .ed-header{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
-    .ed-back{background:none;border:1px solid var(--line);font-size:.78rem;padding:.28rem .7rem;cursor:pointer;color:var(--mid);font-family:var(--ui);transition:background .15s}
-    .ed-back:hover{background:var(--bg2)}
-    .ed-title-h{font-family:var(--serif);font-size:1.2rem;font-weight:700;flex:1}
-    .ed-actions{display:flex;gap:.5rem}
-    .btn-draft{background:var(--bg2);color:var(--mid);border:1px solid var(--line);font-family:var(--serif);font-size:.84rem;font-weight:600;padding:.32rem 1rem;cursor:pointer;transition:background .15s}
-    .btn-draft:hover{background:var(--bg3)}
-    .btn-pub{background:var(--red);color:#fff;border:none;font-family:var(--serif);font-size:.84rem;font-weight:600;padding:.32rem 1rem;cursor:pointer;transition:background .15s}
-    .btn-pub:hover{background:var(--red2)}
+/* PANELS */
+.panel{display:none}
+.panel.on{display:block}
+.phead{font-family:var(--ser);font-size:1.2rem;font-weight:700;margin-bottom:1.2rem}
+.psub{font-size:.82rem;color:var(--mu);margin-top:-.7rem;margin-bottom:1.2rem}
 
-    .ed-grid{display:grid;grid-template-columns:1fr 280px;gap:1.5rem}
-    .ed-main{}
-    .ed-meta{display:flex;flex-direction:column;gap:1rem}
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin-bottom:1.5rem}
+.scard{background:var(--bg3);border:1px solid var(--ln);padding:.9rem 1rem;border-radius:6px}
+.snum{font-family:var(--ser);font-size:1.8rem;font-weight:700;line-height:1;color:var(--red)}
+.slbl{font-size:.72rem;color:var(--mu);margin-top:.25rem}
 
-    .field-group{margin-bottom:1rem}
-    .field-label{font-size:.72rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem;display:block}
-    .field-input{width:100%;border:1px solid var(--line);background:var(--bg3);padding:.5rem .7rem;font-size:.88rem;color:var(--text);outline:none;transition:border-color .15s}
-    .field-input:focus{border-color:var(--red)}
-    select.field-input{cursor:pointer}
+/* TABLE */
+.tbl-wrap{background:var(--bg3);border:1px solid var(--ln);border-radius:6px;overflow:hidden}
+.tbl-top{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid var(--ln)}
+.tbl-top h2{font-size:.92rem;font-weight:700}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:.65rem;letter-spacing:.07em;text-transform:uppercase;color:var(--mu);font-weight:600;padding:.5rem .85rem;border-bottom:1px solid var(--ln);background:#faf9f7}
+td{padding:.58rem .85rem;border-bottom:1px solid var(--ln);font-size:.8rem;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#faf9f7}
+.badge{display:inline-block;font-size:.62rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.12rem .45rem;border-radius:3px}
+.bp{background:var(--grl);color:var(--gr)}
+.bd{background:var(--bg2);color:var(--mu)}
+.act-btns{display:flex;gap:.3rem}
+.act-btn{border:1px solid var(--ln);background:transparent;font-size:.7rem;padding:.18rem .5rem;cursor:pointer;color:var(--mid);font-family:var(--ui);border-radius:3px;transition:background .1s;text-decoration:none;display:inline-block}
+.act-btn:hover{background:var(--bg2)}
+.act-btn.del{border-color:var(--red);color:var(--red)}
+.act-btn.del:hover{background:var(--redl)}
+.empty-td{text-align:center;color:var(--mu);font-style:italic;padding:2rem}
 
-    /* RICH TEXT EDITOR */
-    .rte-wrap{border:1px solid var(--line);background:var(--bg3)}
-    .rte-toolbar{display:flex;flex-wrap:wrap;gap:0;border-bottom:1px solid var(--line);padding:.35rem .5rem;background:var(--bg2);align-items:center}
-    .rte-toolbar select{border:1px solid var(--line);background:var(--bg3);font-size:.75rem;padding:.18rem .3rem;color:var(--text);cursor:pointer;outline:none;margin-right:.2rem}
-    .tb-btn{border:1px solid transparent;background:transparent;padding:.22rem .45rem;cursor:pointer;font-size:.8rem;color:var(--mid);font-family:var(--ui);transition:background .15s,border-color .15s;line-height:1;display:inline-flex;align-items:center}
-    .tb-btn:hover{background:var(--bg3);border-color:var(--line)}
-    .tb-btn.active{background:var(--redl);color:var(--red);border-color:var(--red)}
-    .tb-sep{width:1px;height:18px;background:var(--line);margin:0 .3rem;flex-shrink:0}
-    .tb-btn svg{width:12px;height:12px;fill:currentColor}
-    .rte-body{min-height:380px;padding:1.2rem 1.5rem;font-family:var(--serif);font-size:1rem;line-height:1.8;outline:none;color:var(--text)}
-    .rte-body h2{font-size:1.3rem;font-weight:700;margin:.8rem 0 .4rem}
-    .rte-body h3{font-size:1.1rem;font-weight:700;font-style:italic;margin:.7rem 0 .3rem}
-    .rte-body p{margin-bottom:.7rem}
-    .rte-body blockquote{border-left:3px solid var(--red);padding:.5rem 1rem;margin:1rem 0;color:var(--muted);font-style:italic}
-    .rte-char-count{font-size:.7rem;color:var(--muted);text-align:right;padding:.3rem .5rem;border-top:1px solid var(--line);background:var(--bg2)}
+/* EDITOR */
+.ed-back{background:none;border:1px solid var(--ln);font-size:.75rem;padding:.25rem .65rem;cursor:pointer;color:var(--mid);font-family:var(--ui);border-radius:3px;transition:background .1s;margin-bottom:1rem}
+.ed-back:hover{background:var(--bg2)}
+.ed-grid{display:grid;grid-template-columns:1fr 260px;gap:1.2rem}
+.lbl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);margin-bottom:.28rem}
+.fi{width:100%;border:1px solid var(--ln);background:var(--bg3);padding:.42rem .65rem;font-size:.85rem;color:var(--tx);outline:none;border-radius:4px;font-family:var(--ui)}
+.fi:focus{border-color:var(--red)}
+textarea.fi{resize:vertical}
+.fg{margin-bottom:.8rem}
+/* RTE */
+.rte-wrap{border:1px solid var(--ln);border-radius:4px;overflow:hidden}
+.rte-tb{display:flex;flex-wrap:wrap;gap:0;padding:.3rem .45rem;background:#faf9f7;border-bottom:1px solid var(--ln);align-items:center}
+.rte-tb select{border:1px solid var(--ln);background:var(--bg3);font-size:.72rem;padding:.16rem .28rem;color:var(--tx);cursor:pointer;outline:none;border-radius:3px;margin-right:.15rem;font-family:var(--ui)}
+.rtb{border:1px solid transparent;background:transparent;padding:.2rem .4rem;cursor:pointer;font-size:.76rem;color:var(--mid);font-family:var(--ui);border-radius:3px;transition:background .1s;line-height:1}
+.rtb:hover{background:var(--bg3);border-color:var(--ln)}
+.rtb.on{background:var(--redl);color:var(--red);border-color:var(--red)}
+.rte-sep{width:1px;height:16px;background:var(--ln);margin:0 .2rem}
+.rte-body{min-height:340px;padding:1rem 1.2rem;font-family:var(--ser);font-size:1rem;line-height:1.78;outline:none;color:var(--tx)}
+.rte-body h2{font-size:1.2rem;font-weight:700;margin:.7rem 0 .35rem}
+.rte-body p{margin-bottom:.65rem}
+.rte-body blockquote{border-left:3px solid var(--red);padding:.4rem .9rem;margin:1rem 0;font-style:italic;color:var(--mu)}
+.rte-cc{font-size:.68rem;color:var(--mu);text-align:right;padding:.25rem .45rem;border-top:1px solid var(--ln);background:#faf9f7}
+/* Meta card */
+.mcard{background:var(--bg3);border:1px solid var(--ln);padding:.9rem;border-radius:6px;margin-bottom:.8rem}
+.mcard-ttl{font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mu);margin-bottom:.65rem;padding-bottom:.4rem;border-bottom:1px solid var(--ln)}
+.btn-pub{background:var(--red);color:#fff;border:none;font-size:.82rem;font-weight:600;padding:.36rem .9rem;cursor:pointer;border-radius:4px;font-family:var(--ui);transition:background .15s}
+.btn-pub:hover{background:var(--red2)}
+.btn-dft{background:var(--bg2);color:var(--mid);border:1px solid var(--ln);font-size:.82rem;font-weight:600;padding:.36rem .9rem;cursor:pointer;border-radius:4px;font-family:var(--ui);transition:background .15s}
+.btn-dft:hover{background:var(--bg3)}
+.btn-row{display:flex;gap:.4rem;margin-top:.4rem}
+.btn-full{width:100%;margin-bottom:.3rem}
 
-    /* META PANEL */
-    .meta-card{background:var(--bg3);border:1px solid var(--line);padding:1rem}
-    .meta-card-title{font-size:.72rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem;padding-bottom:.5rem;border-bottom:1px solid var(--line)}
-    .preview-btn{width:100%;background:transparent;border:1px solid var(--line);font-family:var(--serif);font-size:.84rem;padding:.35rem;cursor:pointer;color:var(--mid);transition:background .15s;text-align:center}
-    .preview-btn:hover{background:var(--bg2)}
+/* ── ANNOTATIONS PANEL ─────────────────────────── */
+.annot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.art-sel{width:100%;border:1px solid var(--ln);background:var(--bg3);padding:.42rem .65rem;font-size:.85rem;color:var(--tx);outline:none;border-radius:4px;font-family:var(--ui);margin-bottom:.75rem}
+.art-sel:focus{border-color:var(--red)}
+.ann-list{list-style:none;border:1px solid var(--ln);border-radius:4px;overflow:hidden;background:var(--bg3)}
+.ann-list li{padding:.48rem .75rem;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
+.ann-list li:last-child{border-bottom:none}
+.ann-empty{padding:.8rem .75rem;font-size:.8rem;color:var(--mu);font-style:italic}
+.ecard{background:var(--bg3);border:1px solid var(--ln);padding:.85rem;border-radius:6px;position:relative;margin-bottom:.7rem}
+.ecard-del{position:absolute;top:.5rem;right:.5rem;background:none;border:1px solid var(--red);color:var(--red);font-size:.65rem;padding:.12rem .38rem;cursor:pointer;border-radius:3px;font-family:var(--ui)}
+.ecard-del:hover{background:var(--redl)}
+.ecard-ttl{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mu);margin-bottom:.6rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.add-entry-btn{width:100%;border:1px dashed var(--ln);background:transparent;font-size:.75rem;padding:.35rem;color:var(--mu);cursor:pointer;border-radius:4px;font-family:var(--ui);margin-top:.3rem;transition:border-color .1s,color .1s}
+.add-entry-btn:hover{border-color:var(--red);color:var(--red)}
+.ref-hint{font-size:.68rem;color:var(--mu);margin:.1rem 0 .4rem}
+.ref-generated{font-size:.78rem;font-style:italic;color:var(--mid);background:var(--bg2);border:1px solid var(--ln);border-radius:3px;padding:.3rem .55rem;margin-top:.3rem}
 
-    /* NOTIF */
-    .annot-form-wrap{background:var(--bg3);border:1px solid var(--line);padding:1.2rem;margin-top:1rem}
-    .annot-entry-card{background:var(--bg2);border:1px solid var(--line);padding:.9rem;margin-bottom:.8rem;position:relative}
-    .entry-del{position:absolute;top:.5rem;right:.5rem;background:none;border:1px solid var(--red);color:var(--red);font-size:.7rem;padding:.15rem .4rem;cursor:pointer}
-    .entry-del:hover{background:var(--redl)}
-    .settings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-    .settings-card{background:var(--bg3);border:1px solid var(--line);padding:1rem}
-    .settings-card h4{font-size:.82rem;font-weight:700;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
-    .cb-row{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--mid);margin-bottom:.4rem}
-    .cb-row input{accent-color:var(--red)}
-    .art-select{width:100%;border:1px solid var(--line);background:var(--bg3);padding:.45rem .7rem;font-size:.85rem;color:var(--text);outline:none;margin-bottom:.8rem}
-    .art-select:focus{border-color:var(--red)}
-    .annot-list{list-style:none}
-    .annot-list li{padding:.5rem .7rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:.82rem}
-    .annot-list li:last-child{border-bottom:none}
-    .sect-header{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:1.2rem}
-    .btn-add-entry{background:none;border:1px dashed var(--line);width:100%;padding:.4rem;font-size:.78rem;color:var(--muted);cursor:pointer;font-family:var(--ui);margin-top:.5rem;transition:border-color .15s,color .15s}
-    .btn-add-entry:hover{border-color:var(--red);color:var(--red)}
-    .notif{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--green);color:#fff;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;display:none;z-index:999;animation:slideup .3s ease}
-    @keyframes slideup{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+/* ── VERSIONS PANEL ────────────────────────────── */
+.vlist{list-style:none;border:1px solid var(--ln);border-radius:4px;overflow:hidden;background:var(--bg3)}
+.vlist li{padding:.5rem .75rem;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
+.vlist li:last-child{border-bottom:none}
+.ved{display:none;background:var(--bg3);border:1px solid var(--ln);border-radius:6px;padding:1rem;margin-top:.8rem}
 
-    @media(max-width:900px){
-      .ed-grid{grid-template-columns:1fr}
-      .dash-stats{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:600px){
-      .adsidebar{display:none}
-      .adcontent{padding:1rem}
-    }
-  </style>
+/* ── SETTINGS PANEL ────────────────────────────── */
+.set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem}
+.set-card{background:var(--bg3);border:1px solid var(--ln);padding:.85rem;border-radius:6px}
+.set-card h4{font-size:.8rem;font-weight:600;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--ln);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cb-row{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--mid);margin-bottom:.3rem;cursor:pointer}
+.cb-row input{accent-color:var(--red);cursor:pointer}
+
+/* NOTIF */
+.notif{position:fixed;bottom:1.2rem;right:1.2rem;background:var(--gr);color:#fff;padding:.5rem 1rem;font-size:.8rem;font-weight:600;border-radius:4px;display:none;z-index:999;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+
+/* MISC */
+.new-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:4px;cursor:pointer;font-family:var(--ui);transition:background .15s}
+.new-btn:hover{background:var(--red2)}
+@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.ed-grid,.annot-grid,.two-col{grid-template-columns:1fr}.sidenav{width:160px}}
+</style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="loginScreen">
-  <div class="login-box">
-    <div class="login-logo">
-      <div class="login-sq"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div>
-    </div>
-    <p class="login-title">Espace administration</p>
-    <p class="login-sub">Institut de Recherche Scientifique</p>
-    <input type="password" class="login-field" id="pwdInput" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()"/>
-    <button class="login-btn" onclick="doLogin()">Se connecter</button>
-    <p class="login-err" id="loginErr">Mot de passe incorrect.</p>
-    <p class="login-hint">Mot de passe par défaut&nbsp;: <code>irs2025</code> — modifiable dans le fichier HTML (variable <code>ADMIN_PWD</code>)</p>
+<div id="ls">
+  <div class="lb">
+    <div class="ll"><div class="lsq"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div></div>
+    <p class="lh1">Espace administration</p>
+    <p class="lsub">Institut de Recherche Scientifique</p>
+    <input type="password" class="lf" id="pwdIn" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button class="lbtn" onclick="doLogin()">Se connecter</button>
+    <p class="lerr" id="lerr">Mot de passe incorrect.</p>
+    <p class="lhint">Mot de passe par défaut : <code>irs2025</code></p>
   </div>
 </div>
 
 <!-- APP -->
-<div id="app">
-  <nav class="adnav">
-    <div class="adnav-left">
-      <a href="index.html" class="ad-logo">
-        <div class="ad-logo-sq"><svg viewBox="0 0 24 24" fill="none" width="18" height="18"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div>
-        <span class="ad-logo-txt">IRS</span>
-      </a>
-      <span class="ad-badge">Administration</span>
-    </div>
-    <div class="adnav-right">
-      <a href="index.html" class="adnav-link" target="_blank">Voir le site →</a>
-      <button class="adnav-btn" onclick="doLogout()">Déconnexion</button>
-    </div>
-  </nav>
+<div id="app" style="display:none;flex:1;flex-direction:column;height:100%">
 
-  <div class="adlayout">
-    <aside class="adsidebar">
-      <div class="adsidebar-section">
-        <p class="adsidebar-label">Contenu</p>
-        <div class="adsidebar-item active" id="nav-articles" onclick="showView('list')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-logo">
+        <div class="tb-lsq"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div>
+        <span class="tb-name">IRS</span>
+      </div>
+      <span class="tb-badge">Admin</span>
+    </div>
+    <div class="tb-right">
+      <a href="index.html" target="_blank" class="tb-link">Voir le site →</a>
+      <a href="code-ue.html" target="_blank" class="tb-link">Code de l’UE →</a>
+      <button class="tb-btn" onclick="doLogout()">Déconnexion</button>
+    </div>
+  </div>
+
+  <div class="layout">
+
+    <!-- SIDEBAR NAV -->
+    <nav class="sidenav">
+      <div class="sn-section">
+        <p class="sn-lbl">Publications</p>
+        <button class="sn-item on" id="nav-dashboard" onclick="showPanel('dashboard')">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          Tableau de bord
+        </button>
+        <button class="sn-item" id="nav-articles" onclick="showPanel('articles')">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           Articles
-        </div>
-        <div class="adsidebar-item" onclick="showNewEditor()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+        </button>
+        <button class="sn-item" id="nav-new" onclick="showNewEditor()">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
           Nouvel article
-        </div>
+        </button>
       </div>
-      <div class="adsidebar-section" style="margin-top:1rem">
-        <p class="adsidebar-label">Site</p>
-        <a href="index.html" target="_blank" class="adsidebar-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          Accueil
-        </a>
-        <a href="code-ue.html" target="_blank" class="adsidebar-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          Code de l'UE
-        </a>
-      </div>
-      <div class="adsidebar-section" style="margin-top:1rem">
-        <p class="adsidebar-label">Annotations</p>
-        <div class="adsidebar-item" id="nav-jurisprudence" onclick="showView('jurisprudence')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+      <div class="sn-div"></div>
+      <div class="sn-section">
+        <p class="sn-lbl">Code de l’UE</p>
+        <button class="sn-item" id="nav-jur" onclick="showPanel('jur')">
+          <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
           Jurisprudence
-        </div>
-        <div class="adsidebar-item" id="nav-bibliographie" onclick="showView('bibliographie')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </button>
+        <button class="sn-item" id="nav-bib" onclick="showPanel('bib')">
+          <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           Bibliographie
-        </div>
-        <div class="adsidebar-item" id="nav-versions" onclick="showView('versions')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          Versions
-        </div>
-        <div class="adsidebar-item" id="nav-settings" onclick="showView('settings')">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-          Paramètres articles
+        </button>
+        <button class="sn-item" id="nav-versions" onclick="showPanel('versions')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Versions articles
+        </button>
+      </div>
+      <div class="sn-div"></div>
+      <div class="sn-section">
+        <p class="sn-lbl">Paramètres</p>
+        <button class="sn-item" id="nav-settings" onclick="showPanel('settings')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Onglets par article
+        </button>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
+    <main class="main">
+
+<!-- ═══ DASHBOARD ═══════════════════════════════ -->
+<div class="panel on" id="p-dashboard">
+  <p class="phead">Tableau de bord</p>
+  <div class="stats">
+    <div class="scard"><p class="snum" id="stTotal">0</p><p class="slbl">Articles total</p></div>
+    <div class="scard"><p class="snum" id="stPub">0</p><p class="slbl">Publiés</p></div>
+    <div class="scard"><p class="snum" id="stDraft">0</p><p class="slbl">Brouillons</p></div>
+    <div class="scard"><p class="snum" id="stCat">0</p><p class="slbl">Catégories</p></div>
+  </div>
+  <div class="tbl-wrap">
+    <div class="tbl-top"><h2>Dernières publications</h2><button class="new-btn" onclick="showNewEditor()">+ Nouvel article</button></div>
+    <table><thead><tr><th>Titre</th><th>Auteur</th><th>Catégorie</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+    <tbody id="dashTable"><tr><td colspan="6" class="empty-td">Chargement…</td></tr></tbody></table>
+  </div>
+</div>
+
+<!-- ═══ ARTICLES ═══════════════════════════════ -->
+<div class="panel" id="p-articles">
+  <p class="phead">Articles</p>
+  <div class="tbl-wrap">
+    <div class="tbl-top"><h2>Tous les articles</h2><button class="new-btn" onclick="showNewEditor()">+ Nouvel article</button></div>
+    <table><thead><tr><th>Titre</th><th>Auteur</th><th>Catégorie</th><th>Date</th><th>Statut</th><th>Actions</th></tr></thead>
+    <tbody id="artTable"><tr><td colspan="6" class="empty-td">Chargement…</td></tr></tbody></table>
+  </div>
+</div>
+
+<!-- ═══ EDITOR ═════════════════════════════════ -->
+<div class="panel" id="p-editor">
+  <button class="ed-back" onclick="showPanel('articles')">← Retour aux articles</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem">
+    <p class="phead" id="edHead" style="margin:0">Nouvel article</p>
+    <div style="display:flex;gap:.4rem">
+      <button class="btn-dft" onclick="saveArt(false)">Enregistrer brouillon</button>
+      <button class="btn-pub" onclick="saveArt(true)">Publier →</button>
+    </div>
+  </div>
+  <div class="ed-grid">
+    <div>
+      <div class="fg"><label class="lbl">Titre de l’article *</label><input type="text" id="edTitle" class="fi" placeholder="Titre…" style="font-size:1rem;font-weight:600"/></div>
+      <div class="fg"><label class="lbl">Résumé / Accroche</label><textarea id="edExcerpt" class="fi" rows="3" placeholder="Court résumé affiché sur la page d’accueil…"></textarea></div>
+      <div class="fg">
+        <label class="lbl">Corps de l’article</label>
+        <div class="rte-wrap">
+          <div class="rte-tb">
+            <select onchange="rteBlk(this.value)"><option value="p">Paragraphe</option><option value="h2">Titre H2</option><option value="h3">Titre H3</option><option value="blockquote">Citation</option></select>
+            <select onchange="rteSz(this.value)"><option value="">Taille</option><option value="1">XS</option><option value="2">S</option><option value="3">M</option><option value="4">L</option><option value="5">XL</option></select>
+            <div class="rte-sep"></div>
+            <button class="rtb" onclick="rteC('bold')"><b>G</b></button>
+            <button class="rtb" onclick="rteC('italic')"><i>I</i></button>
+            <button class="rtb" onclick="rteC('underline')"><u>S</u></button>
+            <div class="rte-sep"></div>
+            <button class="rtb" onclick="rteC('insertUnorderedList')">&#8226; Liste</button>
+            <button class="rtb" onclick="rteC('insertOrderedList')">1. Liste</button>
+            <button class="rtb" onclick="rteC('justifyFull')">Justifié</button>
+            <div class="rte-sep"></div>
+            <button class="rtb" onclick="rteLink()">Lien</button>
+            <button class="rtb" onclick="rteC('removeFormat')">× Format</button>
+            <div class="rte-sep"></div>
+            <label style="font-size:.7rem;color:var(--mu);display:flex;align-items:center;gap:.25rem">A <input type="color" value="#a51c2e" style="width:20px;height:16px;border:none;padding:0;cursor:pointer" onchange="rteCol(this.value)"/></label>
+          </div>
+          <div class="rte-body" id="rteBody" contenteditable="true" spellcheck="true"><p>Rédigez votre article ici…</p></div>
+          <div class="rte-cc" id="rteCC">0 mot</div>
         </div>
       </div>
-    </aside>
-
-    <main class="adcontent">
-
-      <!-- LIST VIEW -->
-      <div id="listView">
-        <div class="dash-stats">
-          <div class="stat-card"><p class="stat-num" id="statTotal">0</p><p class="stat-label">Articles au total</p></div>
-          <div class="stat-card"><p class="stat-num" id="statPub">0</p><p class="stat-label">Publiés</p></div>
-          <div class="stat-card"><p class="stat-num" id="statDraft">0</p><p class="stat-label">Brouillons</p></div>
-          <div class="stat-card"><p class="stat-num" id="statCat">0</p><p class="stat-label">Catégories</p></div>
-        </div>
-
-        <div class="tbl-head">
-          <p class="tbl-title">Articles</p>
-          <button class="btn-new" onclick="showNewEditor()">+ Nouvel article</button>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Titre</th>
-              <th>Auteur</th>
-              <th>Catégorie</th>
-              <th>Date</th>
-              <th>Statut</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="articleTable"></tbody>
-        </table>
+      <div class="fg"><label class="lbl">Notes de bas de page</label><textarea id="edFootnotes" class="fi" rows="3" placeholder="1. Référence…
+2. Référence…"></textarea></div>
+    </div>
+    <div>
+      <div class="mcard">
+        <p class="mcard-ttl">Publication</p>
+        <div class="fg"><label class="lbl">Statut</label><select id="edStatus" class="fi"><option value="draft">Brouillon</option><option value="pub">Publié</option></select></div>
+        <div class="fg"><label class="lbl">Date</label><input type="date" id="edDate" class="fi"/></div>
+        <div class="btn-row"><button class="btn-pub btn-full" onclick="saveArt(true)">Publier →</button></div>
+        <div class="btn-row"><button class="btn-dft btn-full" onclick="saveArt(false)">Brouillon</button></div>
+        <div class="btn-row"><button class="btn-dft btn-full" onclick="previewArt()" style="margin-top:.2rem">Prévisualiser</button></div>
       </div>
-
-      <!-- EDITOR VIEW -->
-      <div id="editorView">
-        <div class="ed-header">
-          <button class="ed-back" onclick="showView('list')">← Retour</button>
-          <h2 class="ed-title-h" id="editorTitle">Nouvel article</h2>
-          <div class="ed-actions">
-            <button class="btn-draft" onclick="saveArticle(false)">Enregistrer brouillon</button>
-            <button class="btn-pub" onclick="saveArticle(true)">Publier →</button>
-          </div>
+      <div class="mcard">
+        <p class="mcard-ttl">Métadonnées</p>
+        <div class="fg"><label class="lbl">Auteur(s)</label><input type="text" id="edAuthor" class="fi" placeholder="Dr. Prénom Nom"/></div>
+        <div class="fg"><label class="lbl">Catégorie</label>
+          <select id="edCat" class="fi"><option value="">-- choisir --</option>
+          <option>Physique &amp; Cosmologie</option><option>Biologie &amp; Génétique</option>
+          <option>Mathématiques</option><option>Climatologie</option>
+          <option>Informatique &amp; IA</option><option>Droit &amp; Sciences politiques</option>
+          <option>Neurosciences</option><option>Chimie</option><option>Autre</option></select>
         </div>
-
-        <div class="ed-grid">
-          <div class="ed-main">
-            <div class="field-group">
-              <label class="field-label" for="edTitle">Titre de l'article</label>
-              <input type="text" id="edTitle" class="field-input" placeholder="Titre de l'article…" style="font-family:var(--serif);font-size:1.1rem;font-weight:700"/>
-            </div>
-
-            <div class="field-group">
-              <label class="field-label">Résumé / Accroche</label>
-              <textarea id="edExcerpt" class="field-input" rows="3" placeholder="Court résumé affiché sur la page d'accueil et en introduction de l'article…" style="resize:vertical"></textarea>
-            </div>
-
-            <div class="field-group">
-              <label class="field-label">Corps de l'article</label>
-              <div class="rte-wrap">
-                <div class="rte-toolbar" id="rteToolbar">
-                  <select onchange="rteBlock(this.value)" title="Style de paragraphe">
-                    <option value="p">Paragraphe</option>
-                    <option value="h2">Titre H2</option>
-                    <option value="h3">Titre H3</option>
-                    <option value="blockquote">Citation</option>
-                  </select>
-                  <select onchange="rteFontSize(this.value)" title="Taille">
-                    <option value="">Taille</option>
-                    <option value="1">Très petit</option>
-                    <option value="2">Petit</option>
-                    <option value="3">Normal</option>
-                    <option value="4">Grand</option>
-                    <option value="5">Très grand</option>
-                  </select>
-                  <div class="tb-sep"></div>
-                  <button class="tb-btn" onclick="rteCmd('bold')" title="Gras"><b>B</b></button>
-                  <button class="tb-btn" onclick="rteCmd('italic')" title="Italique"><i>I</i></button>
-                  <button class="tb-btn" onclick="rteCmd('underline')" title="Souligné"><u>U</u></button>
-                  <div class="tb-sep"></div>
-                  <button class="tb-btn" onclick="rteCmd('insertUnorderedList')" title="Liste à puces">
-                    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1.5"/><circle cx="3" cy="12" r="1.5"/><circle cx="3" cy="18" r="1.5"/></svg>
-                  </button>
-                  <button class="tb-btn" onclick="rteCmd('insertOrderedList')" title="Liste numérotée">
-                    <svg viewBox="0 0 24 24"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><path d="M4 6h1v4M4 10h2M6 18H4c0-1 2-2 2-3s-1-2-2-1"/></svg>
-                  </button>
-                  <div class="tb-sep"></div>
-                  <button class="tb-btn" onclick="rteCmd('justifyLeft')" title="Aligner à gauche">
-                    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="15" y2="12"/><line x1="3" y1="18" x2="18" y2="18"/></svg>
-                  </button>
-                  <button class="tb-btn" onclick="rteCmd('justifyFull')" title="Justifier">
-                    <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-                  </button>
-                  <div class="tb-sep"></div>
-                  <button class="tb-btn" onclick="rteLink()" title="Insérer un lien">
-                    <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-                  </button>
-                  <button class="tb-btn" onclick="rteCmd('removeFormat')" title="Effacer la mise en forme">✕</button>
-                  <div class="tb-sep"></div>
-                  <label title="Couleur du texte" style="display:flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--muted);cursor:pointer">
-                    A <input type="color" style="width:22px;height:18px;border:none;padding:0;background:none;cursor:pointer" onchange="rteColor(this.value)" value="#a51c2e"/>
-                  </label>
-                </div>
-                <div class="rte-body" id="rteBody" contenteditable="true" spellcheck="true">
-                  <p>Rédigez votre article ici…</p>
-                </div>
-                <div class="rte-char-count" id="charCount">0 mots</div>
-              </div>
-            </div>
-
-            <!-- FOOTNOTES -->
-            <div class="field-group" style="margin-top:1rem">
-              <label class="field-label" for="edFootnotes">Notes de bas de page</label>
-              <textarea id="edFootnotes" class="field-input" rows="4" placeholder="1. Einstein, A. (1915)...\n2. ..." style="font-size:.82rem;resize:vertical"></textarea>
-            </div>
-          </div>
-
-          <!-- META PANEL -->
-          <div class="ed-meta">
-            <div class="meta-card">
-              <p class="meta-card-title">Publication</p>
-              <div class="field-group">
-                <label class="field-label" for="edStatus">Statut</label>
-                <select id="edStatus" class="field-input">
-                  <option value="draft">Brouillon</option>
-                  <option value="published">Publié</option>
-                </select>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="edDate">Date de publication</label>
-                <input type="date" id="edDate" class="field-input"/>
-              </div>
-              <button class="btn-pub" style="width:100%;margin-top:.3rem" onclick="saveArticle(true)">Publier →</button>
-              <button class="btn-draft" style="width:100%;margin-top:.5rem" onclick="saveArticle(false)">Enregistrer brouillon</button>
-            </div>
-
-            <div class="meta-card">
-              <p class="meta-card-title">Métadonnées</p>
-              <div class="field-group">
-                <label class="field-label" for="edAuthor">Auteur(s)</label>
-                <input type="text" id="edAuthor" class="field-input" placeholder="Dr. Prénom Nom"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="edCategory">Catégorie</label>
-                <select id="edCategory" class="field-input">
-                  <option value="">— choisir —</option>
-                  <option>Physique &amp; Cosmologie</option>
-                  <option>Biologie &amp; Génétique</option>
-                  <option>Mathématiques</option>
-                  <option>Climatologie</option>
-                  <option>Informatique &amp; IA</option>
-                  <option>Droit &amp; Sciences politiques</option>
-                  <option>Neurosciences</option>
-                  <option>Chimie</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="edJournal">Revue / Source d'origine</label>
-                <input type="text" id="edJournal" class="field-input" placeholder="Ex. Nature, 2025"/>
-              </div>
-              <div class="field-group">
-                <label class="field-label" for="edDoi">DOI / Lien externe</label>
-                <input type="url" id="edDoi" class="field-input" placeholder="https://doi.org/…"/>
-              </div>
-            </div>
-
-            <div class="meta-card">
-              <p class="meta-card-title">Aperçu</p>
-              <button class="preview-btn" onclick="previewArticle()">Prévisualiser l'article →</button>
-            </div>
-          </div>
-        </div>
-        <input type="hidden" id="edId"/>
+        <div class="fg"><label class="lbl">Revue / Source</label><input type="text" id="edJournal" class="fi" placeholder="Nature, 2025"/></div>
+        <div class="fg"><label class="lbl">DOI / Lien externe</label><input type="url" id="edDoi" class="fi" placeholder="https://doi.org/…"/></div>
       </div>
+    </div>
+  </div>
+  <input type="hidden" id="edId"/>
+</div>
+
+<!-- ═══ JURISPRUDENCE ════════════════════════════ -->
+<div class="panel" id="p-jur">
+  <p class="phead">Gestion de la jurisprudence</p>
+  <p class="psub">Sélectionnez un article du Code de l’UE pour ajouter ou modifier des annotations jurisprudentielles.</p>
+  <div class="annot-grid">
+    <div>
+      <label class="lbl">Article du Code</label>
+      <select class="art-sel" id="jurSel" onchange="loadAnnotList('jur','jurSel','jurList')">
+        <option value="">-- Sélectionner un article --</option>
+        <optgroup label="TUE">
+          <option value="tue-1">Art. 1ᵉʳ TUE</option><option value="tue-2">Art. 2 TUE</option>
+          <option value="tue-3">Art. 3 TUE</option><option value="tue-4">Art. 4 TUE</option>
+          <option value="tue-5">Art. 5 TUE</option><option value="tue-6">Art. 6 TUE</option>
+          <option value="tue-9">Art. 9 TUE</option><option value="tue-10">Art. 10 TUE</option>
+          <option value="tue-13">Art. 13 TUE</option><option value="tue-17">Art. 17 TUE</option>
+          <option value="tue-49">Art. 49 TUE</option><option value="tue-50">Art. 50 TUE</option>
+        </optgroup>
+        <optgroup label="TFUE">
+          <option value="tfue-1">Art. 1ᵉʳ TFUE</option><option value="tfue-3">Art. 3 TFUE</option>
+          <option value="tfue-4">Art. 4 TFUE</option><option value="tfue-5">Art. 5 TFUE</option>
+          <option value="tfue-18">Art. 18 TFUE</option><option value="tfue-20">Art. 20 TFUE</option>
+          <option value="tfue-21">Art. 21 TFUE</option><option value="tfue-26">Art. 26 TFUE</option>
+          <option value="tfue-34">Art. 34 TFUE</option><option value="tfue-45">Art. 45 TFUE</option>
+          <option value="tfue-101">Art. 101 TFUE</option><option value="tfue-102">Art. 102 TFUE</option>
+          <option value="tfue-107">Art. 107 TFUE</option><option value="tfue-258">Art. 258 TFUE</option>
+          <option value="tfue-263">Art. 263 TFUE</option><option value="tfue-267">Art. 267 TFUE</option>
+          <option value="tfue-288">Art. 288 TFUE</option>
+        </optgroup>
+      </select>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+        <span style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)">Annotations</span>
+        <button class="new-btn" onclick="openAnnotEditor('jur')">+ Ajouter</button>
+      </div>
+      <ul class="ann-list" id="jurList"><li class="ann-empty">Sélectionnez un article.</li></ul>
+    </div>
+    <div id="jurEditor" style="display:none">
+      <div class="mcard">
+        <p class="mcard-ttl" id="jurEdTitle">Nouvelle annotation</p>
+        <div class="fg"><label class="lbl">Titre du groupe (numéroté automatiquement)</label><input type="text" id="jurGroupTitle" class="fi" placeholder="Ex : Obligation de renvoi — Acte clair"/></div>
+        <div id="jurEntries"></div>
+        <button class="add-entry-btn" onclick="addJurEntry()">+ Ajouter une décision</button>
+        <div class="btn-row" style="margin-top:.7rem">
+          <button class="btn-pub" onclick="saveAnnot('jur')">Enregistrer</button>
+          <button class="btn-dft" onclick="document.getElementById('jurEditor').style.display='none'">Annuler</button>
+        </div>
+        <input type="hidden" id="jurAnnotId"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BIBLIOGRAPHIE ════════════════════════════ -->
+<div class="panel" id="p-bib">
+  <p class="phead">Gestion de la bibliographie</p>
+  <p class="psub">Sélectionnez un article du Code de l’UE pour ajouter ou modifier des références bibliographiques.</p>
+  <div class="annot-grid">
+    <div>
+      <label class="lbl">Article du Code</label>
+      <select class="art-sel" id="bibSel" onchange="loadAnnotList('bib','bibSel','bibList')">
+        <option value="">-- Sélectionner un article --</option>
+        <optgroup label="TUE">
+          <option value="tue-1">Art. 1ᵉʳ TUE</option><option value="tue-2">Art. 2 TUE</option>
+          <option value="tue-3">Art. 3 TUE</option><option value="tue-6">Art. 6 TUE</option>
+          <option value="tue-13">Art. 13 TUE</option><option value="tue-50">Art. 50 TUE</option>
+        </optgroup>
+        <optgroup label="TFUE">
+          <option value="tfue-18">Art. 18 TFUE</option><option value="tfue-20">Art. 20 TFUE</option>
+          <option value="tfue-101">Art. 101 TFUE</option><option value="tfue-263">Art. 263 TFUE</option>
+          <option value="tfue-267">Art. 267 TFUE</option><option value="tfue-288">Art. 288 TFUE</option>
+        </optgroup>
+      </select>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
+        <span style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)">Références</span>
+        <button class="new-btn" onclick="openAnnotEditor('bib')">+ Ajouter</button>
+      </div>
+      <ul class="ann-list" id="bibList"><li class="ann-empty">Sélectionnez un article.</li></ul>
+    </div>
+    <div id="bibEditor" style="display:none">
+      <div class="mcard">
+        <p class="mcard-ttl" id="bibEdTitle">Nouvelle entrée bibliographique</p>
+        <div class="fg"><label class="lbl">Titre du groupe</label><input type="text" id="bibGroupTitle" class="fi" placeholder="Ex : Doctrine générale"/></div>
+        <div id="bibEntries"></div>
+        <button class="add-entry-btn" onclick="addBibEntry()">+ Ajouter une référence</button>
+        <div class="btn-row" style="margin-top:.7rem">
+          <button class="btn-pub" onclick="saveAnnot('bib')">Enregistrer</button>
+          <button class="btn-dft" onclick="document.getElementById('bibEditor').style.display='none'">Annuler</button>
+        </div>
+        <input type="hidden" id="bibAnnotId"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ VERSIONS ════════════════════════════════ -->
+<div class="panel" id="p-versions">
+  <p class="phead">Versions antérieures des articles</p>
+  <p class="psub">Ajoutez les versions antérieures d’un article du Code (affichées dans la fenêtre modale « Versions »).</p>
+  <label class="lbl">Article du Code</label>
+  <select class="art-sel" id="verSel" style="max-width:380px" onchange="loadVersions()">
+    <option value="">-- Sélectionner --</option>
+    <optgroup label="TUE"><option value="tue-1">Art. 1ᵉʳ TUE</option><option value="tue-2">Art. 2 TUE</option><option value="tue-50">Art. 50 TUE</option></optgroup>
+    <optgroup label="TFUE"><option value="tfue-267">Art. 267 TFUE</option><option value="tfue-288">Art. 288 TFUE</option></optgroup>
+  </select>
+  <button class="new-btn" onclick="openVerEditor()" style="margin-bottom:.75rem">+ Ajouter une version</button>
+  <ul class="vlist" id="verList"><li class="ann-empty">Sélectionnez un article.</li></ul>
+  <div class="ved" id="verEd">
+    <div class="fg"><label class="lbl">Libellé</label><input type="text" id="verLabel" class="fi" placeholder="Ex : Version Maastricht (1992)"/></div>
+    <div class="fg"><label class="lbl">Texte de la version antérieure</label><textarea id="verContent" class="fi" rows="7" placeholder="Texte tel qu’il était rédigé dans la version antérieure…"></textarea></div>
+    <div class="btn-row"><button class="btn-pub" onclick="saveVer()">Enregistrer</button><button class="btn-dft" onclick="document.getElementById('verEd').style.display='none'">Annuler</button></div>
+    <input type="hidden" id="verId"/>
+  </div>
+</div>
+
+<!-- ═══ SETTINGS ════════════════════════════════ -->
+<div class="panel" id="p-settings">
+  <p class="phead">Paramètres des onglets</p>
+  <p class="psub">Activez ou désactivez les onglets Jurisprudence, Bibliographie et Textes complémentaires pour chaque article publié.</p>
+  <div class="set-grid" id="settingsGrid"><p style="color:var(--mu);font-size:.82rem">Chargement…</p></div>
+</div>
 
     </main>
   </div>
@@ -427,444 +468,395 @@
 <div class="notif" id="notif"></div>
 
 <script>
-const ADMIN_PWD = 'irs2025'; // ← CHANGER ICI
+var ADMIN_PWD='irs2025';
+var API='/.netlify/functions';
+var _ec=0;
 
-// AUTH
+// ── AUTH ─────────────────────────────────────────────────────
 function doLogin(){
-  const v=document.getElementById('pwdInput').value;
+  var v=document.getElementById('pwdIn').value;
   if(v===ADMIN_PWD){
     sessionStorage.setItem('irs_auth','1');
-    sessionStorage.setItem('irs_pwd', v);
-    document.getElementById('loginScreen').style.display='none';
+    sessionStorage.setItem('irs_pwd',v);
+    document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='flex';
-    renderTable();
+    initApp();
   } else {
-    document.getElementById('loginErr').style.display='block';
+    document.getElementById('lerr').style.display='block';
   }
 }
-function doLogout(){
-  sessionStorage.removeItem('irs_auth');
-  location.reload();
-}
-if(sessionStorage.getItem('irs_auth')==='1'){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('app').style.display='flex';
+function doLogout(){ sessionStorage.clear(); location.reload(); }
+
+// ── INIT ─────────────────────────────────────────────────────
+function initApp(){
+  var d=new Date(); document.getElementById('edDate').value=d.toISOString().slice(0,10);
+  loadDashboard();
 }
 
-// ── API ─────────────────────────────────────────────────────────────
-const API = '/.netlify/functions';
+// ── PANELS ───────────────────────────────────────────────────
+function showPanel(name){
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('on'); });
+  var p=document.getElementById('p-'+name);
+  if(p) p.classList.add('on');
+  var n=document.getElementById('nav-'+name);
+  if(n) n.classList.add('on');
+  if(name==='dashboard') loadDashboard();
+  if(name==='articles') loadArticleTable('artTable');
+  if(name==='settings') loadSettings();
+}
 
-async function apiFetch(path, options={}) {
-  const res = await fetch(API + path, options);
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(text || 'Erreur réseau');
-  }
+// ── API ───────────────────────────────────────────────────────
+async function apiFetch(path,opts){
+  var res=await fetch(API+path,opts||{});
+  if(!res.ok){ var t=await res.text(); throw new Error(t||'Erreur réseau'); }
   return res.json();
 }
-
-// Récupère tous les articles (publiés + brouillons) via la function admin
-async function getArticles() {
-  try {
-    const pwd = sessionStorage.getItem('irs_pwd') || '';
-    return await apiFetch('/admin-articles?password=' + encodeURIComponent(pwd));
-  } catch(e) {
-    console.error(e);
-    return [];
-  }
+async function getArts(){
+  try{
+    var pwd=sessionStorage.getItem('irs_pwd')||'';
+    return await apiFetch('/admin-articles?password='+encodeURIComponent(pwd));
+  } catch(e){ return []; }
 }
 
-// Enregistre ou publie un article
-async function saveToSupabase(art) {
-  const pwd = sessionStorage.getItem('irs_pwd') || '';
-  return apiFetch('/save-article', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password: pwd, article: art })
-  });
+// ── DASHBOARD ─────────────────────────────────────────────────
+async function loadDashboard(){
+  var arts=await getArts();
+  var pub=arts.filter(function(a){return a.published;}).length;
+  var drft=arts.filter(function(a){return !a.published;}).length;
+  var cats=new Set(arts.map(function(a){return a.category;}).filter(Boolean)).size;
+  document.getElementById('stTotal').textContent=arts.length;
+  document.getElementById('stPub').textContent=pub;
+  document.getElementById('stDraft').textContent=drft;
+  document.getElementById('stCat').textContent=cats;
+  renderTable('dashTable',arts.slice(0,8));
 }
 
-// Supprime un article
-async function deleteFromSupabase(id) {
-  const pwd = sessionStorage.getItem('irs_pwd') || '';
-  return apiFetch('/delete-article', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ password: pwd, id })
-  });
+async function loadArticleTable(tbId){
+  var arts=await getArts();
+  renderTable(tbId,arts);
 }
 
-// ── VIEWS ────────────────────────────────────────────────────────────
-let currentId = null;
-function showView(v) {
-  ['list','editor','jurisprudence','bibliographie','versions','settings'].forEach(n=>{
-    const el=document.getElementById(n+'View');
-    if(el) el.style.display='none';
-  });
-  document.getElementById(['list','editor','jurisprudence','bibliographie','versions','settings'].includes(v)?v+'View':'listView').style.display='block';
-  document.querySelectorAll('.adsidebar-item').forEach(i=>i.classList.remove('active'));
-  const navEl=document.getElementById('nav-'+v);
-  if(navEl) navEl.classList.add('active');
-  if(v==='list'){renderTable();currentId=null;}
-  if(v==='settings'){loadSettings();}
+function renderTable(tbId,arts){
+  var tb=document.getElementById(tbId);
+  if(!arts.length){ tb.innerHTML='<tr><td colspan="6" class="empty-td">Aucun article. Cliquez sur "+ Nouvel article".</td></tr>'; return; }
+  tb.innerHTML=arts.sort(function(a,b){return new Date(b.created_at||0)-new Date(a.created_at||0);}).map(function(a){
+    var d=a.date?new Date(a.date).toLocaleDateString('fr-FR'):'—';
+    var t=(a.title||'').length>50?(a.title||'').slice(0,50)+'…':(a.title||'');
+    var au=(a.author||'').length>22?(a.author||'').slice(0,22)+'…':(a.author||'');
+    return '<tr><td><strong>'+t+'</strong></td><td>'+au+'</td><td>'+(a.category||'—')+'</td><td>'+d+'</td>'
+      +'<td><span class="badge '+(a.published?'bp':'bd')+'">'+(a.published?'Publié':'Brouillon')+'</span></td>'
+      +'<td><div class="act-btns"><button class="act-btn" onclick="editArt(''+a.id+'')">Modifier</button>'
+      +'<a href="article.html?id='+a.id+'" target="_blank" class="act-btn">Voir</a>'
+      +'<button class="act-btn del" onclick="delArt(''+a.id+'')">Suppr.</button></div></td></tr>';
+  }).join('');
 }
-function showNewEditor() {
-  currentId = null;
-  document.getElementById('editorTitle').textContent = 'Nouvel article';
-  document.getElementById('edTitle').value    = '';
-  document.getElementById('edExcerpt').value  = '';
-  document.getElementById('edAuthor').value   = '';
-  document.getElementById('edCategory').value = '';
-  document.getElementById('edJournal').value  = '';
-  document.getElementById('edDoi').value      = '';
-  document.getElementById('edDate').value     = new Date().toISOString().slice(0,10);
-  document.getElementById('edStatus').value   = 'draft';
-  document.getElementById('edFootnotes').value = '';
-  document.getElementById('edId').value       = '';
-  document.getElementById('rteBody').innerHTML = '<p>Rédigez votre article ici…</p>';
-  showView('editor');
+
+// ── EDITOR ────────────────────────────────────────────────────
+function showNewEditor(){
+  clearEditor();
+  showPanel('editor');
+  document.getElementById('nav-new').classList.add('on');
 }
-async function editArticle(id) {
-  const arts = await getArticles();
-  const a = arts.find(x => x.id === id);
-  if (!a) return;
-  currentId = id;
-  document.getElementById('editorTitle').textContent = 'Modifier l’article';
-  document.getElementById('edId').value       = id;
-  document.getElementById('edTitle').value    = a.title    || '';
-  document.getElementById('edExcerpt').value  = a.excerpt  || '';
-  document.getElementById('edAuthor').value   = a.author   || '';
-  document.getElementById('edCategory').value = a.category || '';
-  document.getElementById('edJournal').value  = a.journal  || '';
-  document.getElementById('edDoi').value      = a.doi      || '';
-  document.getElementById('edDate').value     = a.date     || '';
-  document.getElementById('edStatus').value   = a.published ? 'published' : 'draft';
-  document.getElementById('edFootnotes').value = a.footnotes || '';
-  document.getElementById('rteBody').innerHTML = a.content  || '<p></p>';
-  showView('editor');
+function clearEditor(){
+  document.getElementById('edId').value='';
+  document.getElementById('edHead').textContent='Nouvel article';
+  document.getElementById('edTitle').value='';
+  document.getElementById('edExcerpt').value='';
+  document.getElementById('edAuthor').value='';
+  document.getElementById('edCat').value='';
+  document.getElementById('edJournal').value='';
+  document.getElementById('edDoi').value='';
+  document.getElementById('edDate').value=new Date().toISOString().slice(0,10);
+  document.getElementById('edStatus').value='draft';
+  document.getElementById('edFootnotes').value='';
+  document.getElementById('rteBody').innerHTML='<p>Rédigez votre article ici…</p>';
 }
-async function deleteArticle(id) {
-  if (!confirm('Supprimer cet article ? Cette action est irréversible.')) return;
-  try {
-    await deleteFromSupabase(id);
-    renderTable();
+async function editArt(id){
+  var arts=await getArts();
+  var a=arts.find(function(x){return x.id===id;});
+  if(!a) return;
+  document.getElementById('edId').value=id;
+  document.getElementById('edHead').textContent='Modifier l’article';
+  document.getElementById('edTitle').value=a.title||'';
+  document.getElementById('edExcerpt').value=a.excerpt||'';
+  document.getElementById('edAuthor').value=a.author||'';
+  document.getElementById('edCat').value=a.category||'';
+  document.getElementById('edJournal').value=a.journal||'';
+  document.getElementById('edDoi').value=a.doi||'';
+  document.getElementById('edDate').value=a.date||'';
+  document.getElementById('edStatus').value=a.published?'pub':'draft';
+  document.getElementById('edFootnotes').value=a.footnotes||'';
+  document.getElementById('rteBody').innerHTML=a.content||'<p></p>';
+  showPanel('editor');
+}
+async function delArt(id){
+  if(!confirm('Supprimer cet article ? Action irréversible.')) return;
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
+  try{
+    await apiFetch('/delete-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id:id})});
     notify('Article supprimé.');
-  } catch(e) {
-    alert('Erreur : ' + e.message);
-  }
+    loadDashboard();
+  } catch(e){ alert('Erreur : '+e.message); }
 }
-
-// ── SAVE ─────────────────────────────────────────────────────────────
-async function saveArticle(publish) {
-  const id    = document.getElementById('edId').value || Date.now().toString(36) + '_' + Math.random().toString(36).slice(2,6);
-  const title = document.getElementById('edTitle').value.trim();
-  if (!title) { alert('Le titre est obligatoire.'); return; }
-
-  const art = {
-    id,
-    title,
-    excerpt   : document.getElementById('edExcerpt').value.trim(),
-    author    : document.getElementById('edAuthor').value.trim() || 'Anonyme',
-    category  : document.getElementById('edCategory').value,
-    journal   : document.getElementById('edJournal').value.trim(),
-    doi       : document.getElementById('edDoi').value.trim(),
-    date      : document.getElementById('edDate').value,
-    footnotes : document.getElementById('edFootnotes').value.trim(),
-    content   : document.getElementById('rteBody').innerHTML,
-    published : publish || (document.getElementById('edStatus').value === 'published'),
-    created_at: new Date().toISOString()
-  };
-
-  // Indicateur de chargement
+async function saveArt(pub){
+  var title=document.getElementById('edTitle').value.trim();
+  if(!title){ alert('Le titre est obligatoire.'); return; }
+  var id=document.getElementById('edId').value||Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,5);
+  var art={id:id,title:title,excerpt:document.getElementById('edExcerpt').value.trim(),
+    author:document.getElementById('edAuthor').value.trim()||'Anonyme',
+    category:document.getElementById('edCat').value,
+    journal:document.getElementById('edJournal').value.trim(),
+    doi:document.getElementById('edDoi').value.trim(),
+    date:document.getElementById('edDate').value,
+    footnotes:document.getElementById('edFootnotes').value.trim(),
+    content:document.getElementById('rteBody').innerHTML,
+    published:pub||(document.getElementById('edStatus').value==='pub'),
+    created_at:new Date().toISOString()};
   notify('Enregistrement…');
-  try {
-    await saveToSupabase(art);
-    document.getElementById('edId').value = id;
-    document.getElementById('editorTitle').textContent = 'Modifier l’article';
-    notify(publish ? 'Article publié avec succès !' : 'Brouillon enregistré.');
-  } catch(e) {
-    alert('Erreur lors de l’enregistrement : ' + e.message);
-  }
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
+  try{
+    await apiFetch('/save-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,article:art})});
+    document.getElementById('edId').value=id;
+    document.getElementById('edHead').textContent='Modifier l’article';
+    notify(pub?'Article publié !':'Brouillon enregistré.');
+  } catch(e){ alert('Erreur : '+e.message); }
 }
+function previewArt(){ var id=document.getElementById('edId').value; if(id) window.open('article.html?id='+id,'_blank'); else saveArt(false).then(function(){ var id2=document.getElementById('edId').value; if(id2) window.open('article.html?id='+id2,'_blank'); }); }
 
-async function previewArticle() {
-  const id = document.getElementById('edId').value;
-  if (!id) { await saveArticle(false); }
-  const finalId = document.getElementById('edId').value;
-  window.open('article.html?id=' + finalId, '_blank');
-}
-
-// ── TABLE ─────────────────────────────────────────────────────────────
-function fmtDate(d) { if(!d) return '—'; try{ return new Date(d).toLocaleDateString('fr-FR'); } catch(e){ return d; } }
-function truncate(s,n) { if(!s) return ''; return s.length>n ? s.slice(0,n)+'…' : s; }
-
-async function renderTable() {
-  const tbody = document.getElementById('articleTable');
-  tbody.innerHTML = '<tr class="empty-row"><td colspan="6" style="opacity:.5">Chargement…</td></tr>';
-
-  const arts = await getArticles();
-  const pub   = arts.filter(a=>a.published).length;
-  const draft = arts.filter(a=>!a.published).length;
-  const cats  = new Set(arts.map(a=>a.category).filter(Boolean)).size;
-  document.getElementById('statTotal').textContent = arts.length;
-  document.getElementById('statPub').textContent   = pub;
-  document.getElementById('statDraft').textContent = draft;
-  document.getElementById('statCat').textContent   = cats;
-
-  if (!arts.length) {
-    tbody.innerHTML = '<tr class="empty-row"><td colspan="6">Aucun article. Cliquez sur "+ Nouvel article" pour commencer.</td></tr>';
-    return;
-  }
-  tbody.innerHTML = arts.sort((a,b) => new Date(b.created_at) - new Date(a.created_at)).map(a => `
-    <tr>
-      <td style="max-width:280px"><strong>${truncate(a.title,60)}</strong></td>
-      <td style="white-space:nowrap">${truncate(a.author,24)}</td>
-      <td>${a.category||'—'}</td>
-      <td style="white-space:nowrap">${fmtDate(a.date)}</td>
-      <td><span class="badge ${a.published?'badge-pub':'badge-draft'}">${a.published?'Publié':'Brouillon'}</span></td>
-      <td>
-        <div class="tbl-actions">
-          <button class="tbl-btn" onclick="editArticle('${a.id}')">Modifier</button>
-          <a href="article.html?id=${a.id}" target="_blank" class="tbl-btn">Voir</a>
-          <button class="tbl-btn del" onclick="deleteArticle('${a.id}')">Supprimer</button>
-        </div>
-      </td>
-    </tr>`).join('');
-}
-
-// ── RTE ──────────────────────────────────────────────────────────────
-function rteCmd(cmd){document.execCommand(cmd,false,null);document.getElementById('rteBody').focus();}
-function rteBlock(tag){document.execCommand('formatBlock',false,tag);document.getElementById('rteBody').focus();}
-function rteFontSize(size){if(size)document.execCommand('fontSize',false,size);document.getElementById('rteBody').focus();}
-function rteColor(color){document.execCommand('foreColor',false,color);document.getElementById('rteBody').focus();}
-function rteLink(){
-  const url=prompt('URL du lien\u00a0:','https://');
-  if(url)document.execCommand('createLink',false,url);
-  document.getElementById('rteBody').focus();
-}
-document.getElementById('rteBody').addEventListener('input',function(){
-  const words=this.innerText.trim().split(/\s+/).filter(Boolean).length;
-  document.getElementById('charCount').textContent=words+' mot'+(words>1?'s':'');
+// ── RTE ───────────────────────────────────────────────────────
+function rteC(cmd){ document.execCommand(cmd,false,null); document.getElementById('rteBody').focus(); }
+function rteBlk(t){ document.execCommand('formatBlock',false,t); document.getElementById('rteBody').focus(); }
+function rteSz(s){ if(s) document.execCommand('fontSize',false,s); document.getElementById('rteBody').focus(); }
+function rteCol(c){ document.execCommand('foreColor',false,c); document.getElementById('rteBody').focus(); }
+function rteLink(){ var u=prompt('URL :','https://'); if(u) document.execCommand('createLink',false,u); document.getElementById('rteBody').focus(); }
+document.addEventListener('DOMContentLoaded',function(){
+  var rb=document.getElementById('rteBody');
+  if(rb) rb.addEventListener('input',function(){ var w=this.innerText.trim().split(/\s+/).filter(Boolean).length; document.getElementById('rteCC').textContent=w+' mot'+(w>1?'s':''); });
 });
 
-// NOTIF
-let notifT;
-function notify(msg){
-  const n=document.getElementById('notif');
-  n.textContent=msg;
-  n.style.display='block';
-  clearTimeout(notifT);
-  notifT=setTimeout(()=>{n.style.display='none';},2800);
-}
+// ── ANNOTATIONS ───────────────────────────────────────────────
+var _annotType='jur', _annotEditId=null, _jurEntryCount=0, _bibEntryCount=0;
 
-// ── ANNOTATION MANAGEMENT ────────────────────────────────────────────
-const CODE_ARTICLES = {
-  'tue-1':'Art. 1er TUE','tue-2':'Art. 2 TUE','tue-3':'Art. 3 TUE','tue-6':'Art. 6 TUE',
-  'tue-9':'Art. 9 TUE','tue-10':'Art. 10 TUE','tue-13':'Art. 13 TUE','tue-17':'Art. 17 TUE',
-  'tue-50':'Art. 50 TUE','tfue-1':'Art. 1er TFUE','tfue-3':'Art. 3 TFUE','tfue-4':'Art. 4 TFUE',
-  'tfue-18':'Art. 18 TFUE','tfue-20':'Art. 20 TFUE','tfue-21':'Art. 21 TFUE','tfue-26':'Art. 26 TFUE',
-  'tfue-34':'Art. 34 TFUE','tfue-45':'Art. 45 TFUE','tfue-101':'Art. 101 TFUE','tfue-102':'Art. 102 TFUE',
-  'tfue-107':'Art. 107 TFUE','tfue-258':'Art. 258 TFUE','tfue-263':'Art. 263 TFUE',
-  'tfue-267':'Art. 267 TFUE','tfue-288':'Art. 288 TFUE'
-};
-
-let currentAnnotType='jurisprudence',currentAnnotEditId=null;
-
-function getAnnotArtId(type){
-  return type==='bibliographie'
-    ? document.getElementById('bibArtSelect').value
-    : document.getElementById('jurArtSelect').value;
-}
-function getAnnotListEl(type){ return document.getElementById(type==='bibliographie'?'bibAnnotList':'jurAnnotList'); }
-function getAnnotEditorEl(type){ return document.getElementById(type==='bibliographie'?'bibAnnotEditor':'jurAnnotEditor'); }
-
-async function loadAnnotList(type){
-  const artId = getAnnotArtId(type);
-  const listEl = getAnnotListEl(type);
-  if(!artId){ listEl.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Sélectionnez un article.</li>'; return; }
-  listEl.innerHTML='<li style="color:var(--muted);font-size:.8rem">Chargement…</li>';
+async function loadAnnotList(type,selId,listId){
+  var artId=document.getElementById(selId).value;
+  var ul=document.getElementById(listId);
+  if(!artId){ ul.innerHTML='<li class="ann-empty">Sélectionnez un article.</li>'; return; }
+  ul.innerHTML='<li class="ann-empty">Chargement…</li>';
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
   try{
-    const pwd=sessionStorage.getItem('irs_pwd')||'';
-    const res=await fetch(API+'/admin-annotations?article_id='+artId+'&type='+type+'&password='+encodeURIComponent(pwd));
-    const data=res.ok?await res.json():[];
-    if(!data.length){listEl.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Aucune annotation. Cliquez sur "+ Nouvelle annotation".</li>';return;}
-    listEl.innerHTML=data.map(a=>`<li><span style="font-weight:600">${a.title||'(sans titre)'}</span><div style="display:flex;gap:.3rem"><button class="tbl-btn" onclick="editAnnot('${type}','${a.id}')">Modifier</button><button class="tbl-btn del" onclick="delAnnot('${a.id}','${type}')">Suppr.</button></div></li>`).join('');
-  }catch(e){listEl.innerHTML='<li style="color:var(--red);font-size:.8rem">Erreur de chargement.</li>';}
+    var data=await apiFetch('/admin-annotations?article_id='+artId+'&type='+type+'&password='+encodeURIComponent(pwd));
+    if(!data.length){ ul.innerHTML='<li class="ann-empty">Aucune annotation. Cliquez sur "+ Ajouter".</li>'; return; }
+    ul.innerHTML=data.map(function(a){
+      return '<li><span style="font-weight:600">'+(a.title||'(sans titre)')+'</span>'
+        +'<div class="act-btns"><button class="act-btn" onclick="editAnnot(''+type+'',''+a.id+'')">Modifier</button>'
+        +'<button class="act-btn del" onclick="delAnnot(''+a.id+'',''+type+'')">Suppr.</button></div></li>';
+    }).join('');
+  } catch(e){ ul.innerHTML='<li class="ann-empty" style="color:var(--red)">Erreur de chargement.</li>'; }
 }
 
 function openAnnotEditor(type){
-  currentAnnotType=type;currentAnnotEditId=null;
-  const ed=getAnnotEditorEl(type);
+  _annotType=type; _annotEditId=null;
+  var isJur=(type==='jur');
+  var ed=document.getElementById(isJur?'jurEditor':'bibEditor');
+  var et=document.getElementById(isJur?'jurEdTitle':'bibEdTitle');
+  var gt=document.getElementById(isJur?'jurGroupTitle':'bibGroupTitle');
+  var ai=document.getElementById(isJur?'jurAnnotId':'bibAnnotId');
+  var ent=document.getElementById(isJur?'jurEntries':'bibEntries');
+  et.textContent='Nouvelle annotation';
+  gt.value='';
+  ai.value='';
+  ent.innerHTML='';
   ed.style.display='block';
-  const titleId=type==='bibliographie'?'bibAnnotTitle':'annotTitle';
-  const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
-  const idId=type==='bibliographie'?'bibAnnotId':'annotId';
-  document.getElementById(titleId).value='';
-  document.getElementById(entriesId).innerHTML='';
-  document.getElementById(idId).value='';
-  addAnnotEntry(type);
-}
-
-function addAnnotEntry(type){
-  const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
-  const container=document.getElementById(entriesId);
-  const div=document.createElement('div');
-  div.className='annot-entry-card';
-  div.innerHTML=`
-    <button class="entry-del" onclick="this.parentNode.remove()">✕</button>
-    ${type==='jurisprudence'?`
-    <div class="field-group"><label class="field-label">Référence jurisprudentielle</label><input type="text" class="field-input jur-field" placeholder="Ex : CJUE, gde ch., 16 févr. 2022, aff. C-156/21"/></div>
-    <div class="field-group"><label class="field-label">Bibliographie spécifique (optionnel)</label><input type="text" class="field-input bib-field" placeholder="Ex : DUPONT, M., « Titre », RTDE, 2022, p. 123."/></div>
-    <div class="field-group"><label class="field-label">Apport (champ libre — développement recommandé)</label><textarea class="field-input apport-field" rows="4" placeholder="Décrivez l'apport et la portée de la décision…" style="resize:vertical"></textarea></div>
-    `:`
-    <div class="field-group"><label class="field-label">Référence bibliographique</label><input type="text" class="field-input jur-field" placeholder="Ex : MARTIN, J., Droit de l'UE, LGDJ, 2023."/></div>
-    <div class="field-group"><label class="field-label">Lien / DOI (optionnel)</label><input type="text" class="field-input bib-field" placeholder="https://…"/></div>
-    <div class="field-group"><label class="field-label">Commentaire / apport</label><textarea class="field-input apport-field" rows="3" placeholder="Résumé du contenu et pertinence pour l'article…" style="resize:vertical"></textarea></div>
-    `}`;
-  container.appendChild(div);
-}
-
-function cancelAnnot(){
-  document.getElementById('jurAnnotEditor').style.display='none';
-  document.getElementById('bibAnnotEditor').style.display='none';
-}
-
-async function saveAnnotation(type){
-  const artId=getAnnotArtId(type);
-  if(!artId){alert('Sélectionnez un article.');return;}
-  const titleId=type==='bibliographie'?'bibAnnotTitle':'annotTitle';
-  const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
-  const idId=type==='bibliographie'?'bibAnnotId':'annotId';
-  const title=document.getElementById(titleId).value.trim();
-  if(!title){alert('Le titre est obligatoire.');return;}
-  const cards=document.getElementById(entriesId).querySelectorAll('.annot-entry-card');
-  const entries=Array.from(cards).map(c=>({
-    jurisprudence:c.querySelector('.jur-field')?.value.trim()||'',
-    bibliography:c.querySelector('.bib-field')?.value.trim()||'',
-    apport:c.querySelector('.apport-field')?.value.trim()||''
-  }));
-  const annotation={
-    id:document.getElementById(idId).value||Date.now().toString(36),
-    article_id:artId,type,title,entries:JSON.stringify(entries),position:0
-  };
-  notify('Enregistrement…');
-  try{
-    const pwd=sessionStorage.getItem('irs_pwd')||'';
-    await apiFetch('/save-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,annotation})});
-    notify('Annotation enregistrée !');
-    cancelAnnot();
-    loadAnnotList(type);
-  }catch(e){alert('Erreur : '+e.message);}
+  if(isJur) addJurEntry(); else addBibEntry();
 }
 
 async function editAnnot(type,id){
-  const pwd=sessionStorage.getItem('irs_pwd')||'';
+  var isJur=(type==='jur');
+  var selId=isJur?'jurSel':'bibSel';
+  var artId=document.getElementById(selId).value;
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
   try{
-    const data=await apiFetch('/admin-annotations?article_id='+getAnnotArtId(type)+'&type='+type+'&password='+encodeURIComponent(pwd));
-    const a=data.find(x=>x.id===id);if(!a)return;
-    const titleId=type==='bibliographie'?'bibAnnotTitle':'annotTitle';
-    const idId=type==='bibliographie'?'bibAnnotId':'annotId';
-    const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
+    var data=await apiFetch('/admin-annotations?article_id='+artId+'&type='+type+'&password='+encodeURIComponent(pwd));
+    var a=data.find(function(x){return x.id===id;}); if(!a) return;
     openAnnotEditor(type);
-    document.getElementById(titleId).value=a.title||'';
-    document.getElementById(idId).value=a.id;
-    document.getElementById(entriesId).innerHTML='';
-    const entries=Array.isArray(a.entries)?a.entries:JSON.parse(a.entries||'[]');
-    entries.forEach(e=>{
-      addAnnotEntry(type);
-      const card=document.getElementById(entriesId).lastElementChild;
-      card.querySelector('.jur-field').value=e.jurisprudence||e.reference||'';
-      card.querySelector('.bib-field').value=e.bibliography||e.link||'';
-      card.querySelector('.apport-field').value=e.apport||'';
+    var gt=document.getElementById(isJur?'jurGroupTitle':'bibGroupTitle');
+    var ai=document.getElementById(isJur?'jurAnnotId':'bibAnnotId');
+    var et=document.getElementById(isJur?'jurEdTitle':'bibEdTitle');
+    var ent=document.getElementById(isJur?'jurEntries':'bibEntries');
+    et.textContent='Modifier l’annotation';
+    gt.value=a.title||'';
+    ai.value=a.id;
+    ent.innerHTML='';
+    var entries=Array.isArray(a.entries)?a.entries:(typeof a.entries==='string'?JSON.parse(a.entries||'[]'):[]);
+    entries.forEach(function(e){
+      if(isJur){addJurEntry(e);}else{addBibEntry(e);}
     });
-  }catch(e){alert('Erreur : '+e.message);}
+  } catch(err){ alert('Erreur : '+err.message); }
 }
 
 async function delAnnot(id,type){
-  if(!confirm('Supprimer cette annotation ?'))return;
-  const pwd=sessionStorage.getItem('irs_pwd')||'';
-  await apiFetch('/delete-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id})});
-  notify('Annotation supprimée.');
-  loadAnnotList(type);
+  if(!confirm('Supprimer cette annotation ?')) return;
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
+  try{
+    await apiFetch('/delete-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id:id})});
+    notify('Annotation supprimée.');
+    var isJur=(type==='jur');
+    loadAnnotList(type,isJur?'jurSel':'bibSel',isJur?'jurList':'bibList');
+  } catch(e){ alert('Erreur : '+e.message); }
 }
 
-// ── VERSIONS ──────────────────────────────────────────────────────────
-async function loadVersionsList(){
-  const artId=document.getElementById('verArtSelect').value;
-  const list=document.getElementById('versionsList');
-  if(!artId){list.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Sélectionnez un article.</li>';return;}
-  list.innerHTML='<li style="color:var(--muted);font-size:.8rem">Chargement…</li>';
+async function saveAnnot(type){
+  var isJur=(type==='jur');
+  var selId=isJur?'jurSel':'bibSel';
+  var artId=document.getElementById(selId).value;
+  if(!artId){ alert('Sélectionnez un article.'); return; }
+  var gt=document.getElementById(isJur?'jurGroupTitle':'bibGroupTitle');
+  var ai=document.getElementById(isJur?'jurAnnotId':'bibAnnotId');
+  var ent=document.getElementById(isJur?'jurEntries':'bibEntries');
+  var title=gt.value.trim(); if(!title){ alert('Le titre est obligatoire.'); return; }
+  var cards=ent.querySelectorAll('.ecard');
+  var entries=[];
+  cards.forEach(function(c){
+    if(isJur){
+      var ref=c.querySelector('.jur-ref')||c.querySelector('input[data-field="ref"]');
+      var bib=c.querySelector('.bib-ref')||c.querySelector('input[data-field="bib"]');
+      var apport=c.querySelector('textarea');
+      entries.push({jur:(ref?ref.value.trim():''),bib:(bib?bib.value.trim():''),apport:(apport?apport.value.trim():'')});
+    } else {
+      var inputs=c.querySelectorAll('input');
+      var ta=c.querySelector('textarea');
+      entries.push({jur:(inputs[0]?inputs[0].value.trim():''),bib:(inputs[1]?inputs[1].value.trim():''),apport:(ta?ta.value.trim():'')});
+    }
+  });
+  var annotation={id:ai.value||Date.now().toString(36),article_id:artId,type:type,title:title,entries:JSON.stringify(entries),position:0};
+  notify('Enregistrement…');
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
   try{
-    const res=await fetch(API+'/get-versions?article_id='+artId);
-    const data=res.ok?await res.json():[];
-    if(!data.length){list.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Aucune version. Cliquez sur "+ Ajouter".</li>';return;}
-    list.innerHTML=data.map(v=>`<li><div><strong>${v.label}</strong><br><span style="font-size:.72rem;color:var(--muted)">${v.created_at?.slice(0,10)||''}</span></div><div style="display:flex;gap:.3rem"><button class="tbl-btn" onclick="editVersion('${v.id}','${v.label.replace(/'/g,"\'")}')">Modifier</button><button class="tbl-btn del" onclick="delVersion('${v.id}')">Suppr.</button></div></li>`).join('');
-  }catch(e){list.innerHTML='<li style="color:var(--red);font-size:.8rem">Erreur.</li>';}
+    await apiFetch('/save-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,annotation:annotation})});
+    notify('Annotation enregistrée !');
+    document.getElementById(isJur?'jurEditor':'bibEditor').style.display='none';
+    loadAnnotList(type,selId,isJur?'jurList':'bibList');
+  } catch(e){ alert('Erreur : '+e.message); }
 }
-function openVersionEditor(){
-  document.getElementById('versionEditor').style.display='block';
-  document.getElementById('verLabel').value='';
-  document.getElementById('verContent').value='';
-  document.getElementById('verId').value='';
+
+// ── ENTRY BUILDERS ────────────────────────────────────────────
+function addJurEntry(prefill){
+  var c=document.createElement('div'); c.className='ecard';
+  _jurEntryCount++;
+  var ref=(prefill&&prefill.jur)||'';
+  var bib=(prefill&&prefill.bib)||'';
+  var ap=(prefill&&prefill.apport)||'';
+  c.innerHTML='<button class="ecard-del" onclick="this.parentNode.remove()">×</button>'
+    +'<p class="ecard-ttl">Décision '+_jurEntryCount+'</p>'
+    +'<div class="fg"><label class="lbl">Référence(s) jurisprudentielle(s)</label>'
+    +'<input type="text" class="fi jur-ref" value="'+escHtml(ref)+'" placeholder="Ex : CJUE, gde ch., 16 févr. 2022, aff. C-156/21 £ CJCE, 6 oct. 1982, aff. 283/81, CILFIT"/>'
+    +'<p class="ref-hint">Séparez plusieurs décisions par <strong>£</strong></p></div>'
+    +'<div class="fg"><label class="lbl">Bibliographie spécifique à cette décision (optionnel)</label>'
+    +'<input type="text" class="fi bib-ref" value="'+escHtml(bib)+'" placeholder="Ex : DUPONT, M., « Titre », RTDE, 2022, p. 123."/></div>'
+    +'<div class="fg"><label class="lbl">Apport de la décision <span style="font-weight:400;color:var(--mu)">(champ libre)</span></label>'
+    +'<textarea class="fi" rows="5" placeholder="Décrivez l’apport, la portée, les critiques doctrinales…" style="resize:vertical">'+escHtml(ap)+'</textarea></div>';
+  document.getElementById('jurEntries').appendChild(c);
 }
-function editVersion(id,label){
-  document.getElementById('versionEditor').style.display='block';
-  document.getElementById('verLabel').value=label;
-  document.getElementById('verId').value=id;
+
+function addBibEntry(prefill){
+  var c=document.createElement('div'); c.className='ecard';
+  _bibEntryCount++;
+  var ref=(prefill&&prefill.jur)||'';
+  var bib=(prefill&&prefill.bib)||'';
+  var ap=(prefill&&prefill.apport)||'';
+  c.innerHTML='<button class="ecard-del" onclick="this.parentNode.remove()">×</button>'
+    +'<p class="ecard-ttl">Référence '+_bibEntryCount+'</p>'
+    +'<div class="fg"><label class="lbl">Référence bibliographique complète</label>'
+    +'<input type="text" class="fi" value="'+escHtml(ref)+'" placeholder="Ex : MARTIN, J., Droit de l’UE, LGDJ, 2e éd., 2023, p. 145."/></div>'
+    +'<div class="fg"><label class="lbl">DOI / Lien (optionnel)</label>'
+    +'<input type="text" class="fi" value="'+escHtml(bib)+'" placeholder="https://doi.org/…"/></div>'
+    +'<div class="fg"><label class="lbl">Commentaire / apport <span style="font-weight:400;color:var(--mu)">(champ libre)</span></label>'
+    +'<textarea class="fi" rows="4" placeholder="Résumé du contenu et pertinence…" style="resize:vertical">'+escHtml(ap)+'</textarea></div>';
+  document.getElementById('bibEntries').appendChild(c);
 }
-async function saveVersion(){
-  const artId=document.getElementById('verArtSelect').value;
-  if(!artId){alert('Sélectionnez un article.');return;}
-  const label=document.getElementById('verLabel').value.trim();
-  const content=document.getElementById('verContent').value.trim();
-  if(!label||!content){alert('Le libellé et le contenu sont obligatoires.');return;}
-  const pwd=sessionStorage.getItem('irs_pwd')||'';
-  const ver={id:document.getElementById('verId').value||Date.now().toString(36),article_id:artId,label,content};
+
+function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+// ── VERSIONS ─────────────────────────────────────────────────
+async function loadVersions(){
+  var artId=document.getElementById('verSel').value;
+  var ul=document.getElementById('verList');
+  if(!artId){ ul.innerHTML='<li class="ann-empty">Sélectionnez un article.</li>'; return; }
+  ul.innerHTML='<li class="ann-empty">Chargement…</li>';
+  try{
+    var data=await apiFetch('/get-versions?article_id='+artId);
+    if(!data.length){ ul.innerHTML='<li class="ann-empty">Aucune version. Cliquez sur "+ Ajouter".</li>'; return; }
+    ul.innerHTML=data.map(function(v){
+      return '<li><div><strong>'+(v.label||v.l||'')+'</strong><br><span style="font-size:.7rem;color:var(--mu)">'+(v.created_at||'').slice(0,10)+'</span></div>'
+        +'<div class="act-btns"><button class="act-btn del" onclick="delVer(''+v.id+'')">Suppr.</button></div></li>';
+    }).join('');
+  } catch(e){ ul.innerHTML='<li class="ann-empty" style="color:var(--red)">Erreur.</li>'; }
+}
+function openVerEditor(){ document.getElementById('verEd').style.display='block'; document.getElementById('verLabel').value=''; document.getElementById('verContent').value=''; document.getElementById('verId').value=''; }
+async function saveVer(){
+  var artId=document.getElementById('verSel').value; if(!artId){ alert('Sélectionnez un article.'); return; }
+  var label=document.getElementById('verLabel').value.trim();
+  var content=document.getElementById('verContent').value.trim();
+  if(!label||!content){ alert('Libellé et contenu obligatoires.'); return; }
+  var ver={id:document.getElementById('verId').value||Date.now().toString(36),article_id:artId,label:label,content:content};
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
   notify('Enregistrement…');
   try{
     await apiFetch('/save-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,version:ver})});
-    notify('Version enregistrée !');
-    document.getElementById('versionEditor').style.display='none';
-    loadVersionsList();
-  }catch(e){alert('Erreur : '+e.message);}
+    notify('Version enregistrée !');
+    document.getElementById('verEd').style.display='none';
+    loadVersions();
+  } catch(e){ alert('Erreur : '+e.message); }
 }
-async function delVersion(id){
-  if(!confirm('Supprimer cette version ?'))return;
-  const pwd=sessionStorage.getItem('irs_pwd')||'';
-  await apiFetch('/delete-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id})});
-  notify('Version supprimée.');loadVersionsList();
+async function delVer(id){
+  if(!confirm('Supprimer cette version ?')) return;
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
+  try{
+    await apiFetch('/delete-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id:id})});
+    notify('Version supprimée.'); loadVersions();
+  } catch(e){ alert('Erreur : '+e.message); }
 }
 
-// ── SETTINGS ─────────────────────────────────────────────────────────
+// ── SETTINGS ─────────────────────────────────────────────────
 async function loadSettings(){
-  const grid=document.getElementById('settingsGrid');
-  grid.innerHTML='<p style="color:var(--muted);font-size:.82rem">Chargement des articles…</p>';
-  const arts=await getArticles();
-  if(!arts.length){grid.innerHTML='<p style="color:var(--muted);font-size:.82rem">Aucun article publié.</p>';return;}
-  grid.innerHTML=arts.map(a=>{
-    const s=a.settings||{tabs:{jurisprudence:false,bibliographie:false,complementaire:false}};
-    const t=s.tabs||{};
-    return `<div class="settings-card">
-      <h4>${truncate(a.title,42)}</h4>
-      <label class="cb-row"><input type="checkbox" ${t.jurisprudence?'checked':''} onchange="updateSetting('${a.id}','jurisprudence',this.checked)"/> Jurisprudence</label>
-      <label class="cb-row"><input type="checkbox" ${t.bibliographie?'checked':''} onchange="updateSetting('${a.id}','bibliographie',this.checked)"/> Bibliographie</label>
-      <label class="cb-row"><input type="checkbox" ${t.complementaire?'checked':''} onchange="updateSetting('${a.id}','complementaire',this.checked)"/> Textes complémentaires</label>
-    </div>`;
+  var grid=document.getElementById('settingsGrid');
+  var arts=await getArts();
+  if(!arts.length){ grid.innerHTML='<p style="color:var(--mu);font-size:.82rem">Aucun article publié.</p>'; return; }
+  grid.innerHTML=arts.map(function(a){
+    var s=(a.settings&&a.settings.tabs)||{};
+    return '<div class="set-card"><h4>'+(a.title||'').slice(0,40)+'</h4>'
+      +'<label class="cb-row"><input type="checkbox"'+(s.jur?' checked':'')+' onchange="updateSetting(''+a.id+'','jur',this.checked)"/> Jurisprudence</label>'
+      +'<label class="cb-row"><input type="checkbox"'+(s.bib?' checked':'')+' onchange="updateSetting(''+a.id+'','bib',this.checked)"/> Bibliographie</label>'
+      +'<label class="cb-row"><input type="checkbox"'+(s.cmp?' checked':'')+' onchange="updateSetting(''+a.id+'','cmp',this.checked)"/> Textes complémentaires</label>'
+      +'</div>';
   }).join('');
 }
 async function updateSetting(artId,tab,val){
-  const arts=await getArticles();
-  const a=arts.find(x=>x.id===artId);if(!a)return;
-  const s=a.settings||{tabs:{}};
+  var arts=await getArts();
+  var a=arts.find(function(x){return x.id===artId;}); if(!a) return;
+  var s=a.settings||{tabs:{}};
   s.tabs=s.tabs||{};s.tabs[tab]=val;
-  const pwd=sessionStorage.getItem('irs_pwd')||'';
-  await apiFetch('/save-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,article:{...a,settings:s}})});
+  var pwd=sessionStorage.getItem('irs_pwd')||'';
+  await apiFetch('/save-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,article:Object.assign({},a,{settings:s})})});
   notify('Paramètre mis à jour.');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────
-showView('list');
-document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
+// ── NOTIF ─────────────────────────────────────────────────────
+var _nt;
+function notify(msg){
+  var n=document.getElementById('notif');
+  n.textContent=msg; n.style.display='block';
+  clearTimeout(_nt); _nt=setTimeout(function(){n.style.display='none';},2600);
+}
+
+// ── STARTUP ───────────────────────────────────────────────────
+if(sessionStorage.getItem('irs_auth')==='1'){
+  document.getElementById('ls').style.display='none';
+  document.getElementById('app').style.display='flex';
+  initApp();
+}
+document.getElementById('pwdIn').addEventListener('keydown',function(e){ if(e.key==='Enter') doLogin(); });
 </script>
 </body>
 </html>
