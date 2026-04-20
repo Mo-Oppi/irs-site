@@ -140,6 +140,23 @@
     .preview-btn:hover{background:var(--bg2)}
 
     /* NOTIF */
+    .annot-form-wrap{background:var(--bg3);border:1px solid var(--line);padding:1.2rem;margin-top:1rem}
+    .annot-entry-card{background:var(--bg2);border:1px solid var(--line);padding:.9rem;margin-bottom:.8rem;position:relative}
+    .entry-del{position:absolute;top:.5rem;right:.5rem;background:none;border:1px solid var(--red);color:var(--red);font-size:.7rem;padding:.15rem .4rem;cursor:pointer}
+    .entry-del:hover{background:var(--redl)}
+    .settings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+    .settings-card{background:var(--bg3);border:1px solid var(--line);padding:1rem}
+    .settings-card h4{font-size:.82rem;font-weight:700;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--line)}
+    .cb-row{display:flex;align-items:center;gap:.5rem;font-size:.8rem;color:var(--mid);margin-bottom:.4rem}
+    .cb-row input{accent-color:var(--red)}
+    .art-select{width:100%;border:1px solid var(--line);background:var(--bg3);padding:.45rem .7rem;font-size:.85rem;color:var(--text);outline:none;margin-bottom:.8rem}
+    .art-select:focus{border-color:var(--red)}
+    .annot-list{list-style:none}
+    .annot-list li{padding:.5rem .7rem;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;font-size:.82rem}
+    .annot-list li:last-child{border-bottom:none}
+    .sect-header{font-family:var(--serif);font-size:1.1rem;font-weight:700;margin-bottom:1.2rem}
+    .btn-add-entry{background:none;border:1px dashed var(--line);width:100%;padding:.4rem;font-size:.78rem;color:var(--muted);cursor:pointer;font-family:var(--ui);margin-top:.5rem;transition:border-color .15s,color .15s}
+    .btn-add-entry:hover{border-color:var(--red);color:var(--red)}
     .notif{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--green);color:#fff;padding:.6rem 1.2rem;font-size:.82rem;font-weight:600;display:none;z-index:999;animation:slideup .3s ease}
     @keyframes slideup{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
 
@@ -209,6 +226,25 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           Code de l'UE
         </a>
+      </div>
+      <div class="adsidebar-section" style="margin-top:1rem">
+        <p class="adsidebar-label">Annotations</p>
+        <div class="adsidebar-item" id="nav-jurisprudence" onclick="showView('jurisprudence')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
+          Jurisprudence
+        </div>
+        <div class="adsidebar-item" id="nav-bibliographie" onclick="showView('bibliographie')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          Bibliographie
+        </div>
+        <div class="adsidebar-item" id="nav-versions" onclick="showView('versions')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Versions
+        </div>
+        <div class="adsidebar-item" id="nav-settings" onclick="showView('settings')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Paramètres articles
+        </div>
       </div>
     </aside>
 
@@ -461,9 +497,16 @@ async function deleteFromSupabase(id) {
 // ── VIEWS ────────────────────────────────────────────────────────────
 let currentId = null;
 function showView(v) {
-  document.getElementById('listView').style.display  = v==='list'   ? 'block' : 'none';
-  document.getElementById('editorView').style.display = v==='editor' ? 'block' : 'none';
-  if (v === 'list') { renderTable(); currentId = null; }
+  ['list','editor','jurisprudence','bibliographie','versions','settings'].forEach(n=>{
+    const el=document.getElementById(n+'View');
+    if(el) el.style.display='none';
+  });
+  document.getElementById(['list','editor','jurisprudence','bibliographie','versions','settings'].includes(v)?v+'View':'listView').style.display='block';
+  document.querySelectorAll('.adsidebar-item').forEach(i=>i.classList.remove('active'));
+  const navEl=document.getElementById('nav-'+v);
+  if(navEl) navEl.classList.add('active');
+  if(v==='list'){renderTable();currentId=null;}
+  if(v==='settings'){loadSettings();}
 }
 function showNewEditor() {
   currentId = null;
@@ -614,7 +657,212 @@ function notify(msg){
   notifT=setTimeout(()=>{n.style.display='none';},2800);
 }
 
-// INIT
+// ── ANNOTATION MANAGEMENT ────────────────────────────────────────────
+const CODE_ARTICLES = {
+  'tue-1':'Art. 1er TUE','tue-2':'Art. 2 TUE','tue-3':'Art. 3 TUE','tue-6':'Art. 6 TUE',
+  'tue-9':'Art. 9 TUE','tue-10':'Art. 10 TUE','tue-13':'Art. 13 TUE','tue-17':'Art. 17 TUE',
+  'tue-50':'Art. 50 TUE','tfue-1':'Art. 1er TFUE','tfue-3':'Art. 3 TFUE','tfue-4':'Art. 4 TFUE',
+  'tfue-18':'Art. 18 TFUE','tfue-20':'Art. 20 TFUE','tfue-21':'Art. 21 TFUE','tfue-26':'Art. 26 TFUE',
+  'tfue-34':'Art. 34 TFUE','tfue-45':'Art. 45 TFUE','tfue-101':'Art. 101 TFUE','tfue-102':'Art. 102 TFUE',
+  'tfue-107':'Art. 107 TFUE','tfue-258':'Art. 258 TFUE','tfue-263':'Art. 263 TFUE',
+  'tfue-267':'Art. 267 TFUE','tfue-288':'Art. 288 TFUE'
+};
+
+let currentAnnotType='jurisprudence',currentAnnotEditId=null;
+
+function getAnnotArtId(type){
+  return type==='bibliographie'
+    ? document.getElementById('bibArtSelect').value
+    : document.getElementById('jurArtSelect').value;
+}
+function getAnnotListEl(type){ return document.getElementById(type==='bibliographie'?'bibAnnotList':'jurAnnotList'); }
+function getAnnotEditorEl(type){ return document.getElementById(type==='bibliographie'?'bibAnnotEditor':'jurAnnotEditor'); }
+
+async function loadAnnotList(type){
+  const artId = getAnnotArtId(type);
+  const listEl = getAnnotListEl(type);
+  if(!artId){ listEl.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Sélectionnez un article.</li>'; return; }
+  listEl.innerHTML='<li style="color:var(--muted);font-size:.8rem">Chargement…</li>';
+  try{
+    const pwd=sessionStorage.getItem('irs_pwd')||'';
+    const res=await fetch(API+'/admin-annotations?article_id='+artId+'&type='+type+'&password='+encodeURIComponent(pwd));
+    const data=res.ok?await res.json():[];
+    if(!data.length){listEl.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Aucune annotation. Cliquez sur "+ Nouvelle annotation".</li>';return;}
+    listEl.innerHTML=data.map(a=>`<li><span style="font-weight:600">${a.title||'(sans titre)'}</span><div style="display:flex;gap:.3rem"><button class="tbl-btn" onclick="editAnnot('${type}','${a.id}')">Modifier</button><button class="tbl-btn del" onclick="delAnnot('${a.id}','${type}')">Suppr.</button></div></li>`).join('');
+  }catch(e){listEl.innerHTML='<li style="color:var(--red);font-size:.8rem">Erreur de chargement.</li>';}
+}
+
+function openAnnotEditor(type){
+  currentAnnotType=type;currentAnnotEditId=null;
+  const ed=getAnnotEditorEl(type);
+  ed.style.display='block';
+  const titleId=type==='bibliographie'?'bibAnnotTitle':'annotTitle';
+  const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
+  const idId=type==='bibliographie'?'bibAnnotId':'annotId';
+  document.getElementById(titleId).value='';
+  document.getElementById(entriesId).innerHTML='';
+  document.getElementById(idId).value='';
+  addAnnotEntry(type);
+}
+
+function addAnnotEntry(type){
+  const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
+  const container=document.getElementById(entriesId);
+  const div=document.createElement('div');
+  div.className='annot-entry-card';
+  div.innerHTML=`
+    <button class="entry-del" onclick="this.parentNode.remove()">✕</button>
+    ${type==='jurisprudence'?`
+    <div class="field-group"><label class="field-label">Référence jurisprudentielle</label><input type="text" class="field-input jur-field" placeholder="Ex : CJUE, gde ch., 16 févr. 2022, aff. C-156/21"/></div>
+    <div class="field-group"><label class="field-label">Bibliographie spécifique (optionnel)</label><input type="text" class="field-input bib-field" placeholder="Ex : DUPONT, M., « Titre », RTDE, 2022, p. 123."/></div>
+    <div class="field-group"><label class="field-label">Apport (champ libre — développement recommandé)</label><textarea class="field-input apport-field" rows="4" placeholder="Décrivez l'apport et la portée de la décision…" style="resize:vertical"></textarea></div>
+    `:`
+    <div class="field-group"><label class="field-label">Référence bibliographique</label><input type="text" class="field-input jur-field" placeholder="Ex : MARTIN, J., Droit de l'UE, LGDJ, 2023."/></div>
+    <div class="field-group"><label class="field-label">Lien / DOI (optionnel)</label><input type="text" class="field-input bib-field" placeholder="https://…"/></div>
+    <div class="field-group"><label class="field-label">Commentaire / apport</label><textarea class="field-input apport-field" rows="3" placeholder="Résumé du contenu et pertinence pour l'article…" style="resize:vertical"></textarea></div>
+    `}`;
+  container.appendChild(div);
+}
+
+function cancelAnnot(){
+  document.getElementById('jurAnnotEditor').style.display='none';
+  document.getElementById('bibAnnotEditor').style.display='none';
+}
+
+async function saveAnnotation(type){
+  const artId=getAnnotArtId(type);
+  if(!artId){alert('Sélectionnez un article.');return;}
+  const titleId=type==='bibliographie'?'bibAnnotTitle':'annotTitle';
+  const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
+  const idId=type==='bibliographie'?'bibAnnotId':'annotId';
+  const title=document.getElementById(titleId).value.trim();
+  if(!title){alert('Le titre est obligatoire.');return;}
+  const cards=document.getElementById(entriesId).querySelectorAll('.annot-entry-card');
+  const entries=Array.from(cards).map(c=>({
+    jurisprudence:c.querySelector('.jur-field')?.value.trim()||'',
+    bibliography:c.querySelector('.bib-field')?.value.trim()||'',
+    apport:c.querySelector('.apport-field')?.value.trim()||''
+  }));
+  const annotation={
+    id:document.getElementById(idId).value||Date.now().toString(36),
+    article_id:artId,type,title,entries:JSON.stringify(entries),position:0
+  };
+  notify('Enregistrement…');
+  try{
+    const pwd=sessionStorage.getItem('irs_pwd')||'';
+    await apiFetch('/save-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,annotation})});
+    notify('Annotation enregistrée !');
+    cancelAnnot();
+    loadAnnotList(type);
+  }catch(e){alert('Erreur : '+e.message);}
+}
+
+async function editAnnot(type,id){
+  const pwd=sessionStorage.getItem('irs_pwd')||'';
+  try{
+    const data=await apiFetch('/admin-annotations?article_id='+getAnnotArtId(type)+'&type='+type+'&password='+encodeURIComponent(pwd));
+    const a=data.find(x=>x.id===id);if(!a)return;
+    const titleId=type==='bibliographie'?'bibAnnotTitle':'annotTitle';
+    const idId=type==='bibliographie'?'bibAnnotId':'annotId';
+    const entriesId=type==='bibliographie'?'bibAnnotEntries':'annotEntries';
+    openAnnotEditor(type);
+    document.getElementById(titleId).value=a.title||'';
+    document.getElementById(idId).value=a.id;
+    document.getElementById(entriesId).innerHTML='';
+    const entries=Array.isArray(a.entries)?a.entries:JSON.parse(a.entries||'[]');
+    entries.forEach(e=>{
+      addAnnotEntry(type);
+      const card=document.getElementById(entriesId).lastElementChild;
+      card.querySelector('.jur-field').value=e.jurisprudence||e.reference||'';
+      card.querySelector('.bib-field').value=e.bibliography||e.link||'';
+      card.querySelector('.apport-field').value=e.apport||'';
+    });
+  }catch(e){alert('Erreur : '+e.message);}
+}
+
+async function delAnnot(id,type){
+  if(!confirm('Supprimer cette annotation ?'))return;
+  const pwd=sessionStorage.getItem('irs_pwd')||'';
+  await apiFetch('/delete-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id})});
+  notify('Annotation supprimée.');
+  loadAnnotList(type);
+}
+
+// ── VERSIONS ──────────────────────────────────────────────────────────
+async function loadVersionsList(){
+  const artId=document.getElementById('verArtSelect').value;
+  const list=document.getElementById('versionsList');
+  if(!artId){list.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Sélectionnez un article.</li>';return;}
+  list.innerHTML='<li style="color:var(--muted);font-size:.8rem">Chargement…</li>';
+  try{
+    const res=await fetch(API+'/get-versions?article_id='+artId);
+    const data=res.ok?await res.json():[];
+    if(!data.length){list.innerHTML='<li style="color:var(--muted);font-style:italic;font-size:.8rem">Aucune version. Cliquez sur "+ Ajouter".</li>';return;}
+    list.innerHTML=data.map(v=>`<li><div><strong>${v.label}</strong><br><span style="font-size:.72rem;color:var(--muted)">${v.created_at?.slice(0,10)||''}</span></div><div style="display:flex;gap:.3rem"><button class="tbl-btn" onclick="editVersion('${v.id}','${v.label.replace(/'/g,"\'")}')">Modifier</button><button class="tbl-btn del" onclick="delVersion('${v.id}')">Suppr.</button></div></li>`).join('');
+  }catch(e){list.innerHTML='<li style="color:var(--red);font-size:.8rem">Erreur.</li>';}
+}
+function openVersionEditor(){
+  document.getElementById('versionEditor').style.display='block';
+  document.getElementById('verLabel').value='';
+  document.getElementById('verContent').value='';
+  document.getElementById('verId').value='';
+}
+function editVersion(id,label){
+  document.getElementById('versionEditor').style.display='block';
+  document.getElementById('verLabel').value=label;
+  document.getElementById('verId').value=id;
+}
+async function saveVersion(){
+  const artId=document.getElementById('verArtSelect').value;
+  if(!artId){alert('Sélectionnez un article.');return;}
+  const label=document.getElementById('verLabel').value.trim();
+  const content=document.getElementById('verContent').value.trim();
+  if(!label||!content){alert('Le libellé et le contenu sont obligatoires.');return;}
+  const pwd=sessionStorage.getItem('irs_pwd')||'';
+  const ver={id:document.getElementById('verId').value||Date.now().toString(36),article_id:artId,label,content};
+  notify('Enregistrement…');
+  try{
+    await apiFetch('/save-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,version:ver})});
+    notify('Version enregistrée !');
+    document.getElementById('versionEditor').style.display='none';
+    loadVersionsList();
+  }catch(e){alert('Erreur : '+e.message);}
+}
+async function delVersion(id){
+  if(!confirm('Supprimer cette version ?'))return;
+  const pwd=sessionStorage.getItem('irs_pwd')||'';
+  await apiFetch('/delete-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id})});
+  notify('Version supprimée.');loadVersionsList();
+}
+
+// ── SETTINGS ─────────────────────────────────────────────────────────
+async function loadSettings(){
+  const grid=document.getElementById('settingsGrid');
+  grid.innerHTML='<p style="color:var(--muted);font-size:.82rem">Chargement des articles…</p>';
+  const arts=await getArticles();
+  if(!arts.length){grid.innerHTML='<p style="color:var(--muted);font-size:.82rem">Aucun article publié.</p>';return;}
+  grid.innerHTML=arts.map(a=>{
+    const s=a.settings||{tabs:{jurisprudence:false,bibliographie:false,complementaire:false}};
+    const t=s.tabs||{};
+    return `<div class="settings-card">
+      <h4>${truncate(a.title,42)}</h4>
+      <label class="cb-row"><input type="checkbox" ${t.jurisprudence?'checked':''} onchange="updateSetting('${a.id}','jurisprudence',this.checked)"/> Jurisprudence</label>
+      <label class="cb-row"><input type="checkbox" ${t.bibliographie?'checked':''} onchange="updateSetting('${a.id}','bibliographie',this.checked)"/> Bibliographie</label>
+      <label class="cb-row"><input type="checkbox" ${t.complementaire?'checked':''} onchange="updateSetting('${a.id}','complementaire',this.checked)"/> Textes complémentaires</label>
+    </div>`;
+  }).join('');
+}
+async function updateSetting(artId,tab,val){
+  const arts=await getArticles();
+  const a=arts.find(x=>x.id===artId);if(!a)return;
+  const s=a.settings||{tabs:{}};
+  s.tabs=s.tabs||{};s.tabs[tab]=val;
+  const pwd=sessionStorage.getItem('irs_pwd')||'';
+  await apiFetch('/save-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,article:{...a,settings:s}})});
+  notify('Paramètre mis à jour.');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────
 showView('list');
 document.getElementById('pwdInput').addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();});
 </script>

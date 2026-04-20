@@ -1,647 +1,822 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Code de droit de l'Union européenne — Institut de Recherche Scientifique</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
-  <style>
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{
-      --bg:#f0ece3;--text:#1a1917;--text-mid:#3d3b35;--text-muted:#6b6860;
-      --red:#a51c2e;--red-dark:#7a1220;--red-light:#f5e8ea;
-      --dot:#b8b3a8;--border:#ccc8be;--sidebar-bg:#e8e4db;
-      --serif:'EB Garamond',Georgia,serif
-    }
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
-    a{color:inherit;text-decoration:none}
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Code de droit de l’Union européenne</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f2ede4;--bg2:#e9e3d9;--bg3:#fff;--text:#1a1917;--mid:#3d3b35;
+  --muted:#6e6960;--red:#a51c2e;--red2:#7a1220;--redhl:rgba(165,28,46,.13);
+  --line:#ccc7bc;--serif:'EB Garamond',Georgia,serif;--fs:20px;
+  --toc:280px;--toc-bg:#eee8df
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#181614;--bg2:#201d1a;--bg3:#252220;--text:#e5dfd4;--mid:#bdb5ab;
+  --muted:#7a736a;--red:#c4263b;--red2:#d93b52;--redhl:rgba(196,38,59,.14);
+  --line:#302c28;--toc-bg:#1c1917
+}}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:var(--fs);
+     line-height:1.78;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
 
-    /* ═══ NAV ═══════════════════════════════════════════════ */
-    nav{background:var(--bg);border-bottom:1px dashed var(--dot);padding:0 1.5rem;position:sticky;top:0;z-index:200}
-    .nav-inner{max-width:100%;display:grid;grid-template-columns:200px 1fr auto;align-items:center;height:58px;gap:1rem}
-    .nav-logo{display:flex;align-items:center;gap:.55rem;flex-shrink:0}
-    .nav-logo-icon{width:34px;height:34px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .nav-logo-text{font-size:.72rem;font-weight:700;line-height:1.3;color:var(--text)}
-    .nav-links{display:flex;justify-content:center;gap:2rem;list-style:none}
-    .nav-links a{font-size:.85rem;color:var(--text-mid);transition:color .15s}
-    .nav-links a:hover{color:var(--red)}
-    .nav-right{display:flex;align-items:center;gap:1rem}
-    .btn-donate{background:var(--red);color:white;font-family:var(--serif);font-size:.85rem;font-weight:600;padding:.32rem 1rem;display:inline-block;transition:background .15s}
-    .btn-donate:hover{background:var(--red-dark);color:white}
-    .nav-lang{font-size:.78rem;font-weight:700;color:var(--text-muted)}
+/* ===== NAV ===== */
+.topnav{background:var(--bg);border-bottom:1px solid var(--line);
+        padding:0 2rem;position:sticky;top:0;z-index:300}
+.topnav-inner{display:flex;align-items:center;height:70px;gap:1.5rem}
+.nav-logo{display:flex;align-items:center;gap:.65rem;flex-shrink:0}
+.logo-sq{width:40px;height:40px;background:var(--red);display:flex;align-items:center;justify-content:center}
+.logo-sq svg{width:22px;height:22px}
+.logo-txt{font-size:.78rem;font-weight:700;line-height:1.3;letter-spacing:.01em}
+.nav-links{display:flex;gap:2.2rem;list-style:none;flex:1;justify-content:center}
+.nav-links a{font-size:1rem;font-weight:500;color:var(--muted);transition:color .15s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.nav-r{display:flex;align-items:center;gap:1rem;flex-shrink:0}
+.btn-red{background:var(--red);color:#fff;font-family:var(--serif);font-size:.9rem;
+         font-weight:600;padding:.36rem 1.1rem;transition:background .15s;display:inline-block}
+.btn-red:hover{background:var(--red2);color:#fff}
 
-    /* ═══ BREADCRUMB ═════════════════════════════════════════ */
-    .breadcrumb{border-bottom:1px dashed var(--dot);padding:.45rem 1.5rem;background:var(--bg)}
-    .breadcrumb-inner{display:flex;align-items:center;gap:.4em;font-size:.8rem;color:var(--text-muted)}
-    .breadcrumb a{color:var(--red)}
-    .breadcrumb a:hover{text-decoration:underline}
-    .breadcrumb-home{font-size:.9rem}
+/* ===== BREADCRUMB ===== */
+.bc{border-bottom:1px solid var(--line);padding:.45rem 1.8rem;font-size:.82rem;color:var(--muted)}
+.bc a{color:var(--red)}
+.bc a:hover{text-decoration:underline}
 
-    /* ═══ APP LAYOUT ══════════════════════════════════════════ */
-    .app{display:grid;grid-template-columns:320px 1fr;min-height:calc(100vh - 58px - 32px)}
+/* ===== SHELL ===== */
+.shell{display:grid;grid-template-columns:var(--toc) 1fr;height:calc(100vh - 111px);overflow:hidden;transition:grid-template-columns .22s ease}
+.shell.toc-hidden{grid-template-columns:44px 1fr}
 
-    /* ═══ SIDEBAR ═════════════════════════════════════════════ */
-    .sidebar{background:var(--sidebar-bg);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 90px);position:sticky;top:90px}
-    .sidebar-header{background:var(--text-mid);color:white;padding:.55rem 1rem;display:flex;align-items:center;justify-content:space-between;font-size:.82rem;font-weight:700;letter-spacing:.03em;cursor:pointer;flex-shrink:0}
-    .sidebar-header svg{width:14px;height:14px;fill:white}
-    .toc-scroll{overflow-y:auto;flex:1}
-    .toc-label{font-size:.8rem;font-weight:700;padding:.7rem 1rem .3rem;color:var(--text-mid);letter-spacing:.02em}
-    /* PARTIE */
-    .toc-part{border-bottom:1px dashed var(--dot)}
-    .toc-part-header{display:flex;align-items:center;gap:.5rem;padding:.55rem 1rem;cursor:pointer;user-select:none;font-size:.82rem;font-weight:700;color:var(--text);transition:background .15s}
-    .toc-part-header:hover{background:rgba(0,0,0,.05)}
-    .toc-part-header .arrow{width:10px;height:10px;flex-shrink:0;transition:transform .2s;color:var(--red)}
-    .toc-part-header .arrow svg{width:10px;height:10px;fill:var(--red)}
-    .toc-part-header.open .arrow{transform:rotate(90deg)}
-    .toc-part-body{display:none;padding-bottom:.4rem}
-    .toc-part-body.open{display:block}
-    /* ITEMS */
-    .toc-item{padding:.28rem 1rem .28rem 1.8rem;font-size:.78rem;color:var(--text-mid);cursor:pointer;transition:background .15s;border-left:2px solid transparent;line-height:1.4}
-    .toc-item:hover{background:rgba(165,28,46,.08);border-left-color:var(--red);color:var(--red)}
-    .toc-item.active{background:var(--red-light);border-left-color:var(--red);color:var(--red);font-weight:600}
-    .toc-item strong{font-weight:700;color:var(--text)}
-    .toc-item-sub{padding-left:2.6rem;font-size:.75rem}
-    .toc-divider{height:1px;background:var(--dot);margin:.4rem 1rem;opacity:.5}
+/* ===== TOC ===== */
+.toc-pane{background:var(--toc-bg);border-right:1px solid var(--line);
+          display:flex;flex-direction:column;overflow:hidden;position:relative}
+.toc-head{display:flex;align-items:center;justify-content:space-between;
+          padding:.6rem .9rem;border-bottom:1px solid var(--line);flex-shrink:0;
+          background:var(--mid)}
+.toc-head-lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+              color:rgba(255,255,255,.8);white-space:nowrap;overflow:hidden;transition:opacity .2s}
+.shell.toc-hidden .toc-head-lbl{opacity:0;pointer-events:none}
+.toc-toggle{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);
+            font-size:1rem;padding:.1rem;line-height:1;flex-shrink:0;transition:transform .22s}
+.shell.toc-hidden .toc-toggle{transform:rotate(180deg)}
+.toc-body{overflow-y:auto;flex:1;padding:.4rem 0;transition:opacity .15s}
+.shell.toc-hidden .toc-body{opacity:0;pointer-events:none}
+.toc-group{margin-bottom:.1rem}
+.toc-grp-btn{display:flex;align-items:center;gap:.45rem;width:100%;background:none;border:none;
+             cursor:pointer;padding:.45rem .9rem;font-size:.76rem;font-weight:700;
+             color:var(--text);font-family:var(--serif);text-align:left;transition:background .1s}
+.toc-grp-btn:hover{background:rgba(0,0,0,.05)}
+.toc-caret{font-size:.6rem;color:var(--red);transition:transform .2s;flex-shrink:0}
+.toc-grp-btn.open .toc-caret{transform:rotate(90deg)}
+.toc-items{display:none}
+.toc-items.open{display:block}
+.toc-sec{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+         color:var(--muted);padding:.45rem .9rem .15rem 1.5rem;pointer-events:none}
+.toc-link{display:block;padding:.26rem .9rem .26rem 1.5rem;font-size:.77rem;color:var(--mid);
+          cursor:pointer;border-left:2px solid transparent;transition:all .1s;
+          white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toc-link:hover{color:var(--red);background:rgba(165,28,46,.07);border-left-color:var(--red)}
+.toc-link.cur{color:var(--red);background:var(--redhl);border-left-color:var(--red);font-weight:600}
+.toc-div{height:1px;background:var(--line);margin:.25rem .9rem;opacity:.6}
 
-    /* ═══ MAIN CONTENT ════════════════════════════════════════ */
-    .content{overflow-y:auto;display:flex;flex-direction:column}
+/* ===== DOC PANEL ===== */
+.doc-panel{display:flex;flex-direction:column;overflow:hidden;min-width:0}
 
-    /* TOP BAR */
-    .content-top{border-bottom:1px dashed var(--dot);padding:.7rem 2rem;display:flex;align-items:flex-start;justify-content:space-between;gap:2rem;flex-wrap:wrap;background:var(--bg)}
-    .content-title-block{}
-    .content-title-block h1{font-size:1.6rem;font-weight:700;line-height:1.2;margin-bottom:.15rem}
-    .content-title-block .subtitle{font-size:.88rem;color:var(--text-muted);font-style:italic}
-    .search-block{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;flex-shrink:0}
-    .search-block label{font-size:.8rem;font-weight:700;color:var(--text-mid)}
-    .search-wrap{display:flex;align-items:center;border:1px solid var(--border);background:white;overflow:hidden}
-    .search-wrap input{border:none;outline:none;background:transparent;font-family:var(--serif);font-size:.85rem;padding:.4rem .8rem;width:260px;color:var(--text)}
-    .search-wrap button{background:var(--red);border:none;cursor:pointer;padding:.4rem .7rem;display:flex;align-items:center;justify-content:center}
-    .search-wrap button svg{width:16px;height:16px;fill:white}
-    .search-radios{display:flex;gap:1rem;font-size:.8rem;color:var(--text-mid)}
-    .search-radios label{display:flex;align-items:center;gap:.3em;cursor:pointer}
-    .search-radios input[type=radio]{accent-color:var(--red)}
+/* Top bar */
+.doc-topbar{border-bottom:1px solid var(--line);padding:.65rem 2rem;display:flex;
+            align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem;
+            flex-shrink:0;background:var(--bg)}
+.doc-title{font-size:1.05rem;font-weight:700;line-height:1.2}
+.doc-cur{font-size:.82rem;color:var(--muted);font-style:italic}
+.search-box{display:flex;align-items:center;border:1px solid var(--line);background:var(--bg3);
+            overflow:hidden;gap:0}
+.search-box input{border:none;outline:none;background:transparent;font-family:var(--serif);
+                  font-size:.88rem;padding:.38rem .8rem;width:230px;color:var(--text)}
+.search-box input::placeholder{color:var(--muted)}
+.s-cnt{font-size:.7rem;color:var(--muted);padding:0 .4rem;min-width:44px;text-align:center;white-space:nowrap}
+.s-btn{background:none;border:none;border-left:1px solid var(--line);cursor:pointer;
+       padding:.3rem .5rem;color:var(--muted);font-size:.78rem;transition:background .1s}
+.s-btn:hover{background:var(--bg2);color:var(--text)}
+.search-scope{display:flex;gap:.7rem;font-size:.78rem;color:var(--muted)}
+.search-scope label{display:flex;align-items:center;gap:.3em;cursor:pointer}
+.search-scope input{accent-color:var(--red)}
 
-    /* TOOLBAR */
-    .toolbar{border-bottom:1px dashed var(--dot);padding:.5rem 2rem;display:flex;align-items:center;gap:.4rem;background:var(--bg);flex-wrap:wrap}
-    .tool-btn{border:1px solid var(--border);background:white;padding:.3rem .55rem;cursor:pointer;font-size:.78rem;display:flex;align-items:center;gap:.3em;color:var(--text-mid);font-family:var(--serif);transition:background .15s;line-height:1}
-    .tool-btn:hover{background:var(--sidebar-bg)}
-    .tool-btn svg{width:13px;height:13px;fill:var(--text-muted)}
-    .tool-sep{width:1px;height:20px;background:var(--border);margin:0 .2rem}
+/* Toolbar */
+.doc-toolbar{border-bottom:1px solid var(--line);padding:.38rem 2rem;display:flex;
+             align-items:center;gap:.25rem;flex-shrink:0;background:var(--bg)}
+.tb{border:1px solid var(--line);background:var(--bg3);padding:.26rem .6rem;cursor:pointer;
+    font-size:.8rem;color:var(--mid);font-family:var(--serif);transition:background .1s;
+    display:inline-flex;align-items:center;gap:.3rem;line-height:1}
+.tb:hover{background:var(--bg2)}
+.tb svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tb-sep{width:1px;height:18px;background:var(--line);margin:0 .15rem}
 
-    /* DOCUMENT BODY */
-    .doc-body{padding:1.5rem 2rem 4rem;max-width:860px}
+/* Scroll area */
+.doc-scroll{flex:1;overflow-y:auto;padding:0}
+.doc-inner{max-width:860px;padding:1.8rem 2.5rem 5rem;margin:0 auto}
 
-    /* Code title block */
-    .code-label{border:1px solid var(--border);padding:.35rem 1rem;font-size:.88rem;font-weight:600;text-align:center;margin-bottom:1.6rem;color:var(--text-mid);background:white}
+/* ===== ARTICLE BLOCKS ===== */
+.part-sep{border:none;border-top:2px solid var(--line);margin:2.5rem 0 1rem}
+.part-lbl{font-size:.72rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--red);margin-bottom:.25rem}
+.part-title{font-size:1.08rem;font-weight:700;text-transform:uppercase;line-height:1.25;margin-bottom:.2rem}
+.titre-lbl{font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:.9rem 0 .1rem}
+.titre-title{font-size:.9rem;font-weight:700;text-transform:uppercase;color:var(--mid);margin-bottom:.4rem}
 
-    /* Part / Title headers */
-    .doc-partie{margin:1.8rem 0 .5rem}
-    .doc-partie-label{font-size:.82rem;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.1rem}
-    .doc-partie-title{font-size:1rem;font-weight:700;letter-spacing:.01em;line-height:1.3;text-transform:uppercase}
-    .doc-partie-title span{color:var(--red)}
+.art{padding:1rem 0 .6rem;border-bottom:1px solid var(--line);scroll-margin-top:76px}
+.art:last-child{border-bottom:none}
+.art.flash{background:var(--redhl);border-left:3px solid var(--red);padding-left:.7rem;
+           transition:background 1.5s,border-left-color 1.5s,padding-left .2s}
+.art-hd{display:flex;align-items:baseline;gap:.55rem;flex-wrap:wrap;margin-bottom:.4rem}
+.art-num{font-size:.88rem;font-weight:700;color:var(--red);font-variant:small-caps;letter-spacing:.04em}
+.art-former{font-size:.76rem;color:var(--muted);font-style:italic}
+.art-body{font-size:var(--fs);line-height:1.82;text-align:justify}
+.art-body p{margin-bottom:.85rem}
+.art-body p:last-child{margin-bottom:0}
+.art-body strong{font-weight:700}
+.art-body em{font-style:italic}
+.art-note{font-size:.83rem;font-style:italic;color:var(--muted);margin-top:.5rem;
+          padding-left:.7rem;border-left:2px solid var(--line)}
 
-    /* Article */
-    .article-block{margin:1.2rem 0;padding:.5rem 0 .5rem .8rem;border-left:2px solid transparent}
-    .article-block:target,.article-block.highlighted{border-left-color:var(--red);background:rgba(165,28,46,.04);padding-left:1rem}
-    .article-num{font-size:.82rem;font-weight:700;color:var(--red);font-variant:small-caps;letter-spacing:.04em;margin-right:.5em}
-    .article-num sup{font-size:.62rem;vertical-align:super}
-    .article-origin{font-size:.78rem;font-style:italic;color:var(--text-muted)}
-    .article-text{font-size:.9rem;line-height:1.75;margin-top:.3rem;text-align:justify}
-    .article-text em{font-style:italic}
-    .article-text strong{font-weight:700}
-    .article-note{font-size:.8rem;font-style:italic;color:var(--text-muted);margin-top:.4rem;padding-left:.5rem;border-left:1px solid var(--dot)}
+/* ===== TABS (epured) ===== */
+.art-tabs{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.75rem;align-items:center}
+.tab-btn{background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:.82rem;
+         color:var(--muted);padding:.2rem 0;border-bottom:1px solid transparent;
+         transition:color .15s,border-color .15s;line-height:1.4}
+.tab-btn:hover{color:var(--red)}
+.tab-btn.on{color:var(--red);border-bottom-color:var(--red);font-weight:600}
+.tab-dot{color:var(--line);margin:0 .35rem;font-size:.7rem}
+.tab-content{display:none;margin-top:.8rem;padding:1rem 1.2rem 1rem;
+             background:var(--bg2);border-left:3px solid var(--red);font-size:.9rem;line-height:1.8}
+.tab-content.on{display:block}
+.tab-empty{color:var(--muted);font-style:italic}
 
-    /* TABS */
-    .tabs-wrap{margin:.8rem 0 1.4rem;display:flex;align-items:flex-end;gap:0;flex-wrap:wrap}
-    .tab{border:1px solid var(--border);border-bottom:none;padding:.32rem .9rem;font-size:.82rem;cursor:pointer;background:white;color:var(--text-mid);font-family:var(--serif);transition:background .15s;margin-right:-1px}
-    .tab:hover{background:var(--sidebar-bg)}
-    .tab.active{background:var(--sidebar-bg);font-weight:600;color:var(--text);border-bottom:1px solid var(--sidebar-bg)}
-    .tab-versions{margin-left:auto;display:flex;align-items:center;border:1px solid var(--border)}
-    .tab-versions span{font-size:.8rem;padding:.32rem .8rem;background:white;color:var(--text-mid)}
-    .tab-versions button{background:var(--text-mid);border:none;cursor:pointer;padding:.32rem .55rem;display:flex;align-items:center}
-    .tab-versions button svg{width:10px;height:10px;fill:white}
-    .tab-line{width:100%;height:1px;background:var(--border);margin-bottom:1rem}
+/* Annotation rendering */
+.annot-group{margin-bottom:1.3rem;padding-bottom:1.3rem;border-bottom:1px solid var(--line)}
+.annot-group:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.annot-gtitle{font-weight:700;font-size:.95rem;margin-bottom:.55rem}
+.annot-gtitle .annot-n{color:var(--red);margin-right:.3rem}
+.annot-jur-line{font-size:.88rem;font-style:italic;color:var(--mid);display:block}
+.annot-pound{color:var(--muted);margin:0 .3em;font-size:.75rem}
+.annot-star{display:block;text-align:center;color:var(--muted);letter-spacing:3px;margin:.35rem 0;font-size:.75rem}
+.annot-bib-line{font-size:.83rem;color:var(--muted)}
+.annot-apport{font-size:.88rem;color:var(--mid);margin-top:.6rem;padding:.55rem .85rem;
+              background:var(--bg3);border-left:2px solid var(--line);line-height:1.75}
+.ver-btn{background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:.82rem;
+         color:var(--muted);padding:.2rem 0;border-bottom:1px dashed var(--line);
+         transition:color .15s,border-color .15s;line-height:1.4;margin-left:.4rem}
+.ver-btn:hover{color:var(--red);border-color:var(--red)}
 
-    /* separator between articles */
-    .article-sep{border:none;border-top:1px dashed var(--dot);margin:1.2rem 0}
+/* ===== SEARCH HIGHLIGHT ===== */
+mark.hl{background:rgba(165,28,46,.16);color:inherit;border-radius:1px;padding:0 1px}
+mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
 
-    /* ═══ FOOTER ══════════════════════════════════════════════ */
-    footer{border-top:1px dashed var(--dot)}
-    .footer-inner{max-width:100%;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
-    .footer-logo-wrap{display:flex;align-items:center;gap:.5rem}
-    .footer-logo-icon{width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center}
-    .footer-name{font-size:.78rem;font-weight:700;color:var(--text-mid)}
-    .footer-links{display:flex;flex-wrap:wrap;gap:.3rem 1.4rem;list-style:none}
-    .footer-links a{font-size:.78rem;color:var(--text-muted)}
-    .footer-links a:hover{color:var(--red)}
-    .footer-cc{font-size:.72rem;color:var(--text-muted)}
+/* ===== MODAL ===== */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.46);z-index:500;
+          display:flex;align-items:center;justify-content:center;
+          opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-bg.open{opacity:1;pointer-events:auto}
+.modal-box{background:var(--bg3);border:1px solid var(--line);width:min(680px,92vw);
+           max-height:82vh;display:flex;flex-direction:column}
+.modal-hd{border-bottom:1px solid var(--line);padding:.8rem 1.2rem;display:flex;
+          align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-hd h3{font-size:1rem;font-weight:700}
+.modal-close{background:none;border:none;cursor:pointer;font-size:1.1rem;color:var(--muted);transition:color .15s}
+.modal-close:hover{color:var(--red)}
+.modal-body{overflow-y:auto;padding:1.2rem 1.4rem;font-size:.92rem;line-height:1.78}
+.ver-card{border:1px solid var(--line);padding:1rem 1.1rem;margin-bottom:.9rem;background:var(--bg2)}
+.ver-card-lbl{font-size:.7rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem}
 
-    /* ═══ RESPONSIVE ══════════════════════════════════════════ */
-    @media(max-width:900px){
-      .app{grid-template-columns:1fr}
-      .sidebar{position:relative;top:0;max-height:none;display:none}
-      .sidebar.open{display:flex}
-    }
-    @media(max-width:600px){
-      .nav-links{display:none}
-      .search-wrap input{width:180px}
-      .doc-body{padding:1rem 1rem 3rem}
-    }
-  </style>
+/* ===== PRINT ===== */
+@media print{
+  .topnav,.bc,.toc-pane,.doc-topbar,.doc-toolbar,.modal-bg{display:none!important}
+  .shell{display:block;height:auto;overflow:visible}
+  .doc-panel{overflow:visible}
+  .doc-scroll{overflow:visible;padding:0}
+  .doc-inner{max-width:none;padding:1cm}
+  body{font-size:11pt}
+  .art{page-break-inside:avoid}
+  .tab-content.on{display:block!important;background:none;border:none;padding:0}
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  :root{--toc:240px}
+  .doc-inner{padding:1.2rem 1.5rem 4rem}
+}
+@media(max-width:680px){
+  .shell{grid-template-columns:44px 1fr!important}
+  .toc-head-lbl,.toc-body{opacity:0;pointer-events:none}
+  .nav-links{display:none}
+  .search-box input{width:150px}
+}
+</style>
 </head>
 <body>
 
-<!-- ═══ NAV ══════════════════════════════════════════════════════ -->
-<nav>
-  <div class="nav-inner">
+<!-- NAV -->
+<nav class="topnav">
+  <div class="topnav-inner">
     <a href="index.html" class="nav-logo">
-      <div class="nav-logo-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="20" height="20"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5" fill="none"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/><line x1="2" y1="7" x2="22" y2="17" stroke="white" stroke-width="1"/><line x1="22" y1="7" x2="2" y2="17" stroke="white" stroke-width="1"/></svg>
-      </div>
-      <span class="nav-logo-text">Institut de<br>Recherche<br>Scientifique</span>
+      <div class="logo-sq"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/><line x1="2" y1="7" x2="22" y2="17" stroke="white" stroke-width="1"/><line x1="22" y1="7" x2="2" y2="17" stroke="white" stroke-width="1"/></svg></div>
+      <span class="logo-txt">Institut de<br>Recherche<br>Scientifique</span>
     </a>
     <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
       <li><a href="#">Bibliothèque</a></li>
-      <li><a href="#">Articles</a></li>
-      <li><a href="#">Thématiques</a></li>
-      <li><a href="#">Newsletter</a></li>
+      <li><a href="code-ue.html" class="active">Droit de l’UE</a></li>
+      <li><a href="about.html">À propos</a></li>
     </ul>
-    <div class="nav-right">
-      <a href="#" class="btn-donate">Soumettre</a>
-      <span class="nav-lang">FR</span>
+    <div class="nav-r">
+      <a href="admin.html" class="btn-red">Publier</a>
     </div>
   </div>
 </nav>
 
-<!-- ═══ BREADCRUMB ══════════════════════════════════════════════ -->
-<div class="breadcrumb">
-  <div class="breadcrumb-inner">
-    <a href="index.html"><span class="breadcrumb-home">⌂</span></a>
-    <span>›</span>
-    <a href="#">Bibliothèque juridique</a>
-    <span>›</span>
-    <a href="#" style="color:var(--red)">Code de droit de l'Union européenne</a>
-  </div>
+<div class="bc">
+  <a href="index.html">⌂</a> › <a href="#">Corpus juridiques</a> › <span style="color:var(--red)">Code de droit de l’Union européenne</span>
 </div>
 
-<!-- ═══ APP ══════════════════════════════════════════════════════ -->
-<div class="app">
+<div class="shell" id="shell">
 
-  <!-- ─── SIDEBAR ─────────────────────────────────────────────── -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      Table des matières
-      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  <!-- TOC -->
+  <aside class="toc-pane">
+    <div class="toc-head">
+      <span class="toc-head-lbl">Table des matières</span>
+      <button class="toc-toggle" onclick="toggleTOC()" title="Réduire / Développer">&#8249;</button>
     </div>
+    <div class="toc-body" id="tocBody">
 
-    <div class="toc-scroll">
-      <div class="toc-label">Code de droit de l'Union européenne</div>
-
-      <!-- PARTIE 1 : TUE -->
-      <div class="toc-part">
-        <div class="toc-part-header open" onclick="togglePart(this)">
-          <span class="arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span>PARTIE I — Traité sur l'Union européenne</span>
-        </div>
-        <div class="toc-part-body open">
-          <div class="toc-item active" onclick="scrollTo('tue-preambule')">Préambule</div>
-          <div class="toc-item" onclick="scrollTo('tue-titre1')"><strong>TITRE I</strong> — Dispositions communes (Art. 1–8)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art1')">Art. 1<sup>er</sup> — Fondation de l'Union</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art2')">Art. 2 — Valeurs de l'Union</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art3')">Art. 3 — Objectifs de l'Union</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art6')">Art. 6 — Droits fondamentaux</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tue-titre2')"><strong>TITRE II</strong> — Dispositions démocratiques (Art. 9–12)</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tue-titre3')"><strong>TITRE III</strong> — Institutions (Art. 13–19)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art13')">Art. 13 — Cadre institutionnel</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art17')">Art. 17 — La Commission</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tue-titre5')"><strong>TITRE V</strong> — Action extérieure (Art. 21–46)</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tue-titre6')"><strong>TITRE VI</strong> — Dispositions finales (Art. 47–55)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tue-art50')">Art. 50 — Retrait de l'Union</div>
+      <div class="toc-group">
+        <button class="toc-grp-btn open" onclick="tglGrp(this)">
+          <span class="toc-caret">▸</span><span>TUE — Traité sur l’Union européenne</span>
+        </button>
+        <div class="toc-items open">
+          <div class="toc-sec">Titre I — Dispositions communes</div>
+          <a class="toc-link" onclick="goArt('tue-1')">Art. 1<sup>er</sup> — Fondation de l’Union</a>
+          <a class="toc-link" onclick="goArt('tue-2')">Art. 2 — Valeurs</a>
+          <a class="toc-link" onclick="goArt('tue-3')">Art. 3 — Objectifs</a>
+          <a class="toc-link" onclick="goArt('tue-4')">Art. 4 — Principe d’attribution</a>
+          <a class="toc-link" onclick="goArt('tue-5')">Art. 5 — Subsidiarité et proportionnalité</a>
+          <a class="toc-link" onclick="goArt('tue-6')">Art. 6 — Droits fondamentaux</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">Titre II — Principes démocratiques</div>
+          <a class="toc-link" onclick="goArt('tue-9')">Art. 9 — Égalité des citoyens</a>
+          <a class="toc-link" onclick="goArt('tue-10')">Art. 10 — Démocratie représentative</a>
+          <a class="toc-link" onclick="goArt('tue-11')">Art. 11 — Démocratie participative</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">Titre III — Institutions</div>
+          <a class="toc-link" onclick="goArt('tue-13')">Art. 13 — Cadre institutionnel</a>
+          <a class="toc-link" onclick="goArt('tue-17')">Art. 17 — La Commission</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">Titre V — Action extérieure</div>
+          <a class="toc-link" onclick="goArt('tue-21')">Art. 21 — Principes</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">Titre VI — Dispositions finales</div>
+          <a class="toc-link" onclick="goArt('tue-49')">Art. 49 — Adhésion</a>
+          <a class="toc-link" onclick="goArt('tue-50')">Art. 50 — Retrait</a>
         </div>
       </div>
 
-      <!-- PARTIE 2 : TFUE -->
-      <div class="toc-part">
-        <div class="toc-part-header" onclick="togglePart(this)">
-          <span class="arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <span>PARTIE II — Traité sur le fonctionnement de l'UE</span>
-        </div>
-        <div class="toc-part-body">
-          <div class="toc-item" onclick="scrollTo('tfue-preambule')">Préambule</div>
-          <div class="toc-item" onclick="scrollTo('tfue-p1')"><strong>PREMIÈRE PARTIE</strong> — Principes (Art. 1–17)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art1')">Art. 1<sup>er</sup> — Objet du traité</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art3')">Art. 3 — Compétences exclusives</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art4')">Art. 4 — Compétences partagées</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tfue-p2')"><strong>DEUXIÈME PARTIE</strong> — Non-discrimination et citoyenneté (Art. 18–25)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art18')">Art. 18 — Non-discrimination</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art20')">Art. 20 — Citoyenneté de l'Union</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tfue-p3')"><strong>TROISIÈME PARTIE</strong> — Politiques internes (Art. 26–197)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art26')">Art. 26 — Marché intérieur</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art45')">Art. 45 — Libre circulation des travailleurs</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art101')">Art. 101 — Ententes</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art107')">Art. 107 — Aides d'État</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tfue-p5')"><strong>CINQUIÈME PARTIE</strong> — Action extérieure (Art. 205–222)</div>
-          <div class="toc-divider"></div>
-          <div class="toc-item" onclick="scrollTo('tfue-p6')"><strong>SIXIÈME PARTIE</strong> — Dispositions inst. et fin. (Art. 223–358)</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art263')">Art. 263 — Recours en annulation</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art267')">Art. 267 — Renvoi préjudiciel</div>
-          <div class="toc-item toc-item-sub" onclick="scrollTo('tfue-art288')">Art. 288 — Actes juridiques de l'Union</div>
+      <div class="toc-group">
+        <button class="toc-grp-btn" onclick="tglGrp(this)">
+          <span class="toc-caret">▸</span><span>TFUE — Traité sur le fonctionnement</span>
+        </button>
+        <div class="toc-items">
+          <div class="toc-sec">1ère partie — Principes</div>
+          <a class="toc-link" onclick="goArt('tfue-1')">Art. 1<sup>er</sup> — Objet</a>
+          <a class="toc-link" onclick="goArt('tfue-3')">Art. 3 — Compétences exclusives</a>
+          <a class="toc-link" onclick="goArt('tfue-4')">Art. 4 — Compétences partagées</a>
+          <a class="toc-link" onclick="goArt('tfue-5')">Art. 5 — Coordination</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">2ème partie — Citoyenneté</div>
+          <a class="toc-link" onclick="goArt('tfue-18')">Art. 18 — Non-discrimination</a>
+          <a class="toc-link" onclick="goArt('tfue-20')">Art. 20 — Citoyenneté</a>
+          <a class="toc-link" onclick="goArt('tfue-21')">Art. 21 — Libre circulation</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">3ème partie — Politiques internes</div>
+          <a class="toc-link" onclick="goArt('tfue-26')">Art. 26 — Marché intérieur</a>
+          <a class="toc-link" onclick="goArt('tfue-34')">Art. 34 — Libre circulation marchandises</a>
+          <a class="toc-link" onclick="goArt('tfue-45')">Art. 45 — Libre circulation travailleurs</a>
+          <a class="toc-link" onclick="goArt('tfue-101')">Art. 101 — Ententes</a>
+          <a class="toc-link" onclick="goArt('tfue-102')">Art. 102 — Abus de position dominante</a>
+          <a class="toc-link" onclick="goArt('tfue-107')">Art. 107 — Aides d’État</a>
+          <div class="toc-div"></div>
+          <div class="toc-sec">6ème partie — Dispositions inst.</div>
+          <a class="toc-link" onclick="goArt('tfue-258')">Art. 258 — Recours en manquement</a>
+          <a class="toc-link" onclick="goArt('tfue-263')">Art. 263 — Recours en annulation</a>
+          <a class="toc-link" onclick="goArt('tfue-267')">Art. 267 — Renvoi préjudiciel</a>
+          <a class="toc-link" onclick="goArt('tfue-288')">Art. 288 — Actes juridiques</a>
         </div>
       </div>
     </div>
   </aside>
 
-  <!-- ─── MAIN ─────────────────────────────────────────────────── -->
-  <div class="content">
+  <!-- DOC -->
+  <div class="doc-panel">
 
-    <!-- TOP BAR -->
-    <div class="content-top">
-      <div class="content-title-block">
-        <h1>Code de droit de l'Union européenne</h1>
-        <div class="subtitle">Art. 1<sup>er</sup> TUE</div>
+    <div class="doc-topbar">
+      <div>
+        <p class="doc-title">Code de droit de l’Union européenne</p>
+        <p class="doc-cur" id="docCur">Art. 1er TUE</p>
       </div>
-      <div class="search-block">
-        <label>Votre recherche</label>
-        <div class="search-wrap">
-          <input type="text" placeholder="Chercher dans le document" id="searchInput" />
-          <button type="button"><svg viewBox="0 0 24 24"><path d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z"/></svg></button>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:.4rem">
+        <label style="font-size:.76rem;font-weight:700;color:var(--mid)">Votre recherche</label>
+        <div class="search-box">
+          <input type="text" id="srch" placeholder="Chercher dans le document…" oninput="onSearch()" onkeydown="srchKey(event)"/>
+          <span class="s-cnt" id="srchCnt"></span>
+          <button class="s-btn" onclick="srchNav(-1)" title="Précédent">↑</button>
+          <button class="s-btn" onclick="srchNav(1)" title="Suivant">↓</button>
+          <button class="s-btn" onclick="srchClear()" title="Effacer">×</button>
         </div>
-        <div class="search-radios">
-          <label><input type="radio" name="searchtype" value="doc" checked /> Document</label>
-          <label><input type="radio" name="searchtype" value="art" /> Numéro d'article</label>
+        <div class="search-scope">
+          <label><input type="radio" name="sc" value="doc" checked onchange="srchScope=this.value"> Document</label>
+          <label><input type="radio" name="sc" value="num" onchange="srchScope=this.value"> N° d’article</label>
         </div>
       </div>
     </div>
 
-    <!-- TOOLBAR -->
-    <div class="toolbar">
-      <button class="tool-btn" title="Imprimer"><svg viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg></button>
-      <button class="tool-btn" title="Télécharger"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg></button>
-      <button class="tool-btn" title="Partager"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg></button>
-      <div class="tool-sep"></div>
-      <button class="tool-btn" title="Réduire la taille du texte">A<sup>-</sup></button>
-      <button class="tool-btn" title="Augmenter la taille du texte">A<sup>+</sup></button>
-      <div class="tool-sep"></div>
-      <button class="tool-btn" title="Vue normale">←→</button>
-      <button class="tool-btn" title="Vue plein écran">⊞</button>
-      <div class="tool-sep"></div>
-      <button class="tool-btn" title="Permalien"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></button>
+    <div class="doc-toolbar">
+      <button class="tb" onclick="window.print()">
+        <svg viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+        Imprimer
+      </button>
+      <button class="tb" onclick="exportPDF()">
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        PDF
+      </button>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="chgFont(-1)">A<sup style="font-size:.55em">−</sup></button>
+      <button class="tb" onclick="chgFont(1)">A<sup style="font-size:.55em">+</sup></button>
+      <div class="tb-sep"></div>
+      <button class="tb" onclick="copyLink()">
+        <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        Lien
+      </button>
     </div>
 
-    <!-- DOCUMENT BODY -->
-    <div class="doc-body" id="docBody">
-
-      <div class="code-label">Code de droit de l'Union européenne</div>
-
-      <!-- ══════════════════════════════════════════════════════ -->
-      <!--  PARTIE I — TRAITÉ SUR L'UNION EUROPÉENNE             -->
-      <!-- ══════════════════════════════════════════════════════ -->
-
-      <div class="doc-partie" id="tue-preambule">
-        <div class="doc-partie-label">Partie I</div>
-        <div class="doc-partie-title"><span>Traité sur l'Union européenne</span> (TUE)<br><small style="font-size:.7em;font-weight:400;font-style:italic;color:var(--text-muted)">Signé à Maastricht le 7 février 1992 — version consolidée</small></div>
+    <div class="doc-scroll" id="docScroll">
+      <div class="doc-inner" id="docInner">
+        <div id="sentTop" style="height:1px"></div>
+        <div id="artContainer"></div>
+        <div id="sentBot" style="height:1px"></div>
       </div>
+    </div>
+  </div>
+</div>
 
-      <!-- TITRE I -->
-      <div class="doc-partie" id="tue-titre1" style="margin-top:1.2rem">
-        <div class="doc-partie-label" style="font-size:.75rem">Titre I</div>
-        <div class="doc-partie-title" style="font-size:.9rem"><span>Dispositions communes</span></div>
-      </div>
-
-      <div class="article-block" id="tue-art1">
-        <span class="article-num">Art. 1<sup>er</sup></span>
-        <span class="article-origin">(ex-article 1<sup>er</sup> TUE)</span>
-        <p class="article-text">
-          Par le présent traité, les <em>Hautes Parties contractantes</em> instituent entre elles une <strong>Union européenne</strong>, ci-après dénommée «&nbsp;l'Union&nbsp;», à laquelle les États membres attribuent des compétences pour atteindre leurs objectifs communs.
-        </p>
-        <p class="article-text">
-          Le présent traité marque une nouvelle étape dans le processus créant une union sans cesse plus étroite entre les peuples de l'Europe, dans laquelle les décisions sont prises dans le plus grand respect possible du principe d'ouverture et le plus près possible des citoyens.
-        </p>
-        <p class="article-text">
-          L'Union est fondée sur le présent traité et sur le traité sur le fonctionnement de l'Union européenne (ci-après dénommés «&nbsp;les traités&nbsp;»). Ces deux traités ont la même valeur juridique. L'Union se substitue et succède à la Communauté européenne.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions">
-            <span>Versions de l'article</span>
-            <button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-          </div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tue-art2">
-        <span class="article-num">Art. 2</span>
-        <p class="article-text">
-          L'Union est fondée sur les valeurs de respect de la dignité humaine, de liberté, de démocratie, d'égalité, de l'État de droit, ainsi que de respect des droits de l'homme, y compris des droits des personnes appartenant à des minorités. Ces valeurs sont communes aux États membres dans une société caractérisée par le pluralisme, la non-discrimination, la tolérance, la justice, la solidarité et l'égalité entre les femmes et les hommes.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tue-art3">
-        <span class="article-num">Art. 3</span>
-        <p class="article-text">
-          L'Union a pour but de promouvoir la paix, ses valeurs et le bien-être de ses peuples.
-        </p>
-        <p class="article-text">
-          L'Union offre à ses citoyens un espace de liberté, de sécurité et de justice sans frontières intérieures, au sein duquel est assurée la libre circulation des personnes, en liaison avec des mesures appropriées en matière de contrôle des frontières extérieures, d'asile, d'immigration ainsi que de prévention de la criminalité et de lutte contre ce phénomène.
-        </p>
-        <p class="article-text">
-          L'Union établit un marché intérieur. Elle œuvre pour le développement durable de l'Europe fondé sur une croissance économique équilibrée et sur la stabilité des prix, une économie sociale de marché hautement compétitive, qui tend au plein emploi et au progrès social, et un niveau élevé de protection et d'amélioration de la qualité de l'environnement.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tue-art6">
-        <span class="article-num">Art. 6</span>
-        <p class="article-text">
-          L'Union reconnaît les droits, les libertés et les principes énoncés dans la <em>Charte des droits fondamentaux de l'Union européenne</em> du 7 décembre 2000, telle qu'adaptée le 12 décembre 2007 à Strasbourg, laquelle a la même valeur juridique que les traités.
-        </p>
-        <p class="article-text">
-          Les dispositions de la Charte n'étendent en aucune manière les compétences de l'Union telles que définies dans les traités.
-        </p>
-        <p class="article-text">
-          L'Union adhère à la Convention européenne de sauvegarde des droits de l'Homme et des libertés fondamentales. Cette adhésion ne modifie pas les compétences de l'Union telles qu'elles sont définies dans les traités.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <!-- TITRE III -->
-      <div class="doc-partie" id="tue-titre3" style="margin-top:1.6rem">
-        <div class="doc-partie-label" style="font-size:.75rem">Titre III</div>
-        <div class="doc-partie-title" style="font-size:.9rem"><span>Dispositions relatives aux institutions</span></div>
-      </div>
-
-      <div class="article-block" id="tue-art13">
-        <span class="article-num">Art. 13</span>
-        <p class="article-text">
-          L'Union dispose d'un cadre institutionnel visant à promouvoir ses valeurs, poursuivre ses objectifs, servir ses intérêts, ceux de ses citoyens, et ceux des États membres, ainsi qu'à assurer la cohérence, l'efficacité et la continuité de ses politiques et de ses actions.
-        </p>
-        <p class="article-text">
-          Les institutions de l'Union sont : le Parlement européen ; le Conseil européen ; le Conseil ; la Commission européenne (ci-après dénommée «&nbsp;la Commission&nbsp;») ; la Cour de justice de l'Union européenne ; la Banque centrale européenne ; la Cour des comptes.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tue-art50">
-        <span class="article-num">Art. 50</span>
-        <p class="article-text">
-          Tout État membre peut décider, conformément à ses règles constitutionnelles, de se retirer de l'Union.
-        </p>
-        <p class="article-text">
-          L'État membre qui décide de se retirer notifie son intention au Conseil européen. À la lumière des orientations du Conseil européen, l'Union négocie et conclut avec cet État un accord fixant les modalités de son retrait, en tenant compte du cadre de ses relations futures avec l'Union.
-        </p>
-        <p class="article-note">
-          Cet article a été activé pour la première fois le 29 mars 2017 par le Royaume-Uni (Brexit), en application du résultat du référendum du 23 juin 2016.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-
-      <!-- ══════════════════════════════════════════════════════ -->
-      <!--  PARTIE II — TFUE                                      -->
-      <!-- ══════════════════════════════════════════════════════ -->
-
-      <div class="doc-partie" id="tfue-preambule" style="margin-top:3rem;padding-top:2rem;border-top:2px solid var(--border)">
-        <div class="doc-partie-label">Partie II</div>
-        <div class="doc-partie-title"><span>Traité sur le fonctionnement de l'Union européenne</span> (TFUE)<br><small style="font-size:.7em;font-weight:400;font-style:italic;color:var(--text-muted)">Signé à Rome le 25 mars 1957 — version consolidée (ex-TCE)</small></div>
-      </div>
-
-      <div class="doc-partie" id="tfue-p1" style="margin-top:1.2rem">
-        <div class="doc-partie-label" style="font-size:.75rem">Première partie</div>
-        <div class="doc-partie-title" style="font-size:.9rem"><span>Principes</span></div>
-      </div>
-
-      <div class="article-block" id="tfue-art1">
-        <span class="article-num">Art. 1<sup>er</sup></span>
-        <p class="article-text">
-          Le présent traité organise le fonctionnement de l'Union et détermine les domaines, la délimitation et les modalités d'exercice de ses compétences.
-        </p>
-        <p class="article-text">
-          Le présent traité et le traité sur l'Union européenne constituent les traités sur lesquels l'Union est fondée. Ces deux traités, qui ont la même valeur juridique, sont désignés par les termes «&nbsp;les traités&nbsp;».
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tfue-art3">
-        <span class="article-num">Art. 3</span>
-        <p class="article-text">
-          L'Union dispose d'une compétence exclusive dans les domaines suivants : a) l'union douanière ; b) l'établissement des règles de concurrence nécessaires au fonctionnement du marché intérieur ; c) la politique monétaire pour les États membres dont la monnaie est l'euro ; d) la conservation des ressources biologiques de la mer dans le cadre de la politique commune de la pêche ; e) la politique commerciale commune.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tfue-art18">
-        <span class="article-num">Art. 18</span>
-        <span class="article-origin">(ex-article 12 TCE)</span>
-        <p class="article-text">
-          Dans le domaine d'application des traités, et sans préjudice des dispositions particulières qu'ils prévoient, est interdite toute discrimination exercée en raison de la nationalité.
-        </p>
-        <p class="article-text">
-          Le Parlement européen et le Conseil, statuant conformément à la procédure législative ordinaire, peuvent prendre toute réglementation en vue de l'interdiction de ces discriminations.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tfue-art20">
-        <span class="article-num">Art. 20</span>
-        <span class="article-origin">(ex-article 17 TCE)</span>
-        <p class="article-text">
-          Il est institué une citoyenneté de l'Union. Est citoyen de l'Union toute personne ayant la nationalité d'un État membre. La citoyenneté de l'Union s'ajoute à la citoyenneté nationale et ne la remplace pas.
-        </p>
-        <p class="article-text">
-          Les citoyens de l'Union jouissent des droits et sont soumis aux devoirs prévus par les traités. Ils ont, entre autres : a) le droit de circuler et de séjourner librement sur le territoire des États membres ; b) le droit de vote et d'éligibilité aux élections au Parlement européen ainsi qu'aux élections municipales dans l'État membre où ils résident, dans les mêmes conditions que les ressortissants de cet État.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tfue-art288">
-        <span class="article-num">Art. 288</span>
-        <span class="article-origin">(ex-article 249 TCE)</span>
-        <p class="article-text">
-          Pour exercer les compétences de l'Union, les institutions adoptent des règlements, des directives, des décisions, des recommandations et des avis.
-        </p>
-        <p class="article-text">
-          Le <strong>règlement</strong> a une portée générale. Il est obligatoire dans tous ses éléments et il est directement applicable dans tout État membre.
-        </p>
-        <p class="article-text">
-          La <strong>directive</strong> lie tout État membre destinataire quant au résultat à atteindre, tout en laissant aux instances nationales la compétence quant à la forme et aux moyens.
-        </p>
-        <p class="article-text">
-          La <strong>décision</strong> est obligatoire dans tous ses éléments. Lorsqu'elle désigne des destinataires, elle n'est obligatoire que pour ceux-ci.
-        </p>
-        <p class="article-text">
-          Les <strong>recommandations</strong> et les <strong>avis</strong> ne lient pas.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-      <hr class="article-sep" />
-
-      <div class="article-block" id="tfue-art267">
-        <span class="article-num">Art. 267</span>
-        <span class="article-origin">(ex-article 234 TCE)</span>
-        <p class="article-text">
-          La Cour de justice de l'Union européenne est compétente pour statuer, à titre préjudiciel : a) sur l'interprétation des traités ; b) sur la validité et l'interprétation des actes pris par les institutions, organes ou organismes de l'Union.
-        </p>
-        <p class="article-text">
-          Lorsqu'une telle question est soulevée devant une juridiction d'un des États membres, cette juridiction peut, si elle estime qu'une décision sur ce point est nécessaire pour rendre son jugement, demander à la Cour de statuer sur cette question.
-        </p>
-        <p class="article-text">
-          Lorsqu'une telle question est soulevée dans une affaire pendante devant une juridiction nationale dont les décisions ne sont pas susceptibles d'un recours juridictionnel de droit interne, cette juridiction est tenue de saisir la Cour.
-        </p>
-        <div class="tabs-wrap">
-          <button class="tab active">Bibliographie</button>
-          <button class="tab">Jurisprudence</button>
-          <button class="tab">Textes complémentaires</button>
-          <div class="tab-versions"><span>Versions de l'article</span><button><svg viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-        </div>
-        <div class="tab-line"></div>
-      </div>
-
-    </div><!-- /doc-body -->
-
-    <!-- FOOTER -->
-    <footer>
-      <div class="footer-inner">
-        <div class="footer-logo-wrap">
-          <div class="footer-logo-icon">
-            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5" fill="none"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/><line x1="2" y1="7" x2="22" y2="17" stroke="white" stroke-width="1"/><line x1="22" y1="7" x2="2" y2="17" stroke="white" stroke-width="1"/></svg>
-          </div>
-          <span class="footer-name">Institut de Recherche Scientifique</span>
-        </div>
-        <ul class="footer-links">
-          <li><a href="index.html">Accueil</a></li>
-          <li><a href="#">Bibliothèque</a></li>
-          <li><a href="#">Thématiques</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Flux RSS</a></li>
-        </ul>
-        <span class="footer-cc">Textes officiels de l'UE — domaine public (EUR-Lex). Mise en forme sous CC BY-SA 4.0.</span>
-      </div>
-    </footer>
-
-  </div><!-- /content -->
-</div><!-- /app -->
+<!-- VERSION MODAL -->
+<div class="modal-bg" id="verModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-hd">
+      <h3 id="verModalTitle">Versions de l’article</h3>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="verModalBody"></div>
+  </div>
+</div>
 
 <script>
-  // Toggle TOC parts
-  function togglePart(header) {
-    header.classList.toggle('open');
-    const body = header.nextElementSibling;
-    body.classList.toggle('open');
-  }
+// ===================================================================
+//  DATA
+// ===================================================================
+const DB = {
+'tue-1':{t:'TUE',n:'1<sup>er</sup>',former:'',
+ partLbl:'Partie I — Traité sur l’Union européenne (TUE)',titreLbl:'Titre I — Dispositions communes',
+ body:'<p>Par le présent traité, les <em>Hautes Parties contractantes</em> instituent entre elles une <strong>Union européenne</strong>, ci-après dénommée « l’Union », à laquelle les États membres attribuent des compétences pour atteindre leurs objectifs communs.</p><p>Le présent traité marque une nouvelle étape dans le processus créant une union sans cesse plus étroite entre les peuples de l’Europe, dans laquelle les décisions sont prises dans le plus grand respect possible du principe d’ouverture et le plus près possible des citoyens.</p><p>L’Union est fondée sur le présent traité et sur le traité sur le fonctionnement de l’Union européenne. Ces deux traités ont la même valeur juridique. L’Union se substitue et succède à la Communauté européenne.</p>',
+ tabs:['jur','bib'],
+ vers:[{lbl:'Version Maastricht (1992)',txt:'Par le présent traité, les Hautes Parties contractantes instituent entre elles une Union européenne… (version originale, avant les modifications apportées par le traité de Lisbonne en 2007.)'}]},
 
-  // Scroll to article
-  function scrollTo(id) {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.scrollIntoView({behavior:'smooth', block:'start'});
-    // highlight active toc item
-    document.querySelectorAll('.toc-item').forEach(i => i.classList.remove('active'));
-    event.target.classList.add('active');
-  }
+'tue-2':{t:'TUE',n:'2',former:'',partLbl:'',titreLbl:'',
+ body:'<p>L’Union est fondée sur les valeurs de respect de la dignité humaine, de liberté, de démocratie, d’égalité, de l’État de droit, ainsi que de respect des droits de l’homme, y compris des droits des personnes appartenant à des minorités. Ces valeurs sont communes aux États membres dans une société caractérisée par le pluralisme, la non-discrimination, la tolérance, la justice, la solidarité et l’égalité entre les femmes et les hommes.</p>',
+ tabs:['jur','bib'],vers:[]},
 
-  // Tab switching
-  document.querySelectorAll('.tabs-wrap').forEach(wrap => {
-    wrap.querySelectorAll('.tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        wrap.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-      });
+'tue-3':{t:'TUE',n:'3',former:'',partLbl:'',titreLbl:'',
+ body:'<p>L’Union a pour but de promouvoir la paix, ses valeurs et le bien-être de ses peuples.</p><p>L’Union offre à ses citoyens un espace de liberté, de sécurité et de justice sans frontières intérieures, au sein duquel est assurée la libre circulation des personnes, en liaison avec des mesures appropriées en matière de contrôle des frontières extérieures, d’asile, d’immigration ainsi que de prévention de la criminalité et de lutte contre ce phénomène.</p><p>L’Union établit un marché intérieur. Elle œuvre pour le développement durable de l’Europe fondé sur une croissance économique équilibrée et sur la stabilité des prix, une économie sociale de marché hautement compétitive, qui tend au plein emploi et au progrès social, et un niveau élevé de protection et d’amélioration de la qualité de l’environnement.</p>',
+ tabs:['bib'],vers:[]},
+
+'tue-4':{t:'TUE',n:'4',former:'',partLbl:'',titreLbl:'',
+ body:'<p>Conformément à l’article 5, toute compétence non attribuée à l’Union dans les traités appartient aux États membres.</p><p>L’Union respecte l’égalité des États membres devant les traités ainsi que leur identité nationale, inhérente à leurs structures fondamentales politiques et constitutionnelles, y compris en ce qui concerne l’autonomie locale et régionale. Elle respecte les fonctions essentielles de l’État, notamment celles qui ont pour objet d’assurer son intégrité territoriale, de maintenir l’ordre public et de sauvegarder la sécurité nationale.</p><p>En vertu du principe de coopération loyale, l’Union et les États membres se respectent et s’assistent mutuellement dans l’accomplissement des missions découlant des traités.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tue-5':{t:'TUE',n:'5',former:'',partLbl:'',titreLbl:'',
+ body:'<p>Le délimitation des compétences de l’Union est régie par le principe d’attribution. L’exercice des compétences de l’Union est régi par les principes de subsidiarité et de proportionnalité.</p><p>En vertu du principe d’attribution, l’Union n’agit que dans les limites des compétences que les États membres lui ont attribuées dans les traités pour atteindre les objectifs que ces traités établissent. Toute compétence non attribuée à l’Union dans les traités appartient aux États membres.</p><p>En vertu du principe de subsidiarité, dans les domaines qui ne relèvent pas de sa compétence exclusive, l’Union intervient seulement si, et dans la mesure où, les objectifs de l’action envisagée ne peuvent pas être atteints de manière suffisante par les États membres.</p><p>En vertu du principe de proportionnalité, le contenu et la forme de l’action de l’Union n’excèdent pas ce qui est nécessaire pour atteindre les objectifs des traités.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tue-6':{t:'TUE',n:'6',former:'',partLbl:'',titreLbl:'',
+ body:'<p>L’Union reconnaît les droits, les libertés et les principes énoncés dans la <em>Charte des droits fondamentaux de l’Union européenne</em> du 7 décembre 2000, telle qu’adaptée le 12 décembre 2007 à Strasbourg, laquelle a la même valeur juridique que les traités.</p><p>Les dispositions de la Charte n’étendent en aucune manière les compétences de l’Union telles que définies dans les traités.</p><p>L’Union adhère à la Convention européenne de sauvegarde des droits de l’Homme et des libertés fondamentales. Cette adhésion ne modifie pas les compétences de l’Union telles qu’elles sont définies dans les traités.</p>',
+ tabs:['jur','bib','cmp'],vers:[]},
+
+'tue-9':{t:'TUE',n:'9',former:'',partLbl:'',titreLbl:'Titre II — Dispositions relatives aux principes démocratiques',
+ body:'<p>Dans toutes ses activités, l’Union respecte le principe de l’égalité de ses citoyens, qui bénéficient d’une égale attention de la part de ses institutions, organes et organismes. Est citoyen de l’Union toute personne ayant la nationalité d’un État membre. La citoyenneté de l’Union s’ajoute à la citoyenneté nationale et ne la remplace pas.</p>',
+ tabs:['bib'],vers:[]},
+
+'tue-10':{t:'TUE',n:'10',former:'',partLbl:'',titreLbl:'',
+ body:'<p>Le fonctionnement de l’Union est fondé sur la démocratie représentative.</p><p>Les citoyens sont directement représentés, au niveau de l’Union, au Parlement européen. Les États membres sont représentés au Conseil européen par leur chef d’État ou de gouvernement et au Conseil par leurs gouvernements, eux-mêmes démocratiquement responsables, soit devant leurs parlements nationaux, soit devant leurs citoyens.</p><p>Tout citoyen a le droit de participer à la vie démocratique de l’Union. Les décisions sont prises aussi ouvertement et aussi près que possible des citoyens.</p>',
+ tabs:['bib'],vers:[]},
+
+'tue-11':{t:'TUE',n:'11',former:'',partLbl:'',titreLbl:'',
+ body:'<p>Les institutions donnent, par les voies appropriées, aux citoyens et aux associations représentatives la possibilité de faire connaître et d’échanger publiquement leurs points de vue dans tous les domaines d’action de l’Union.</p><p>Des citoyens de l’Union, au nombre d’un million au moins, ressortissants d’un nombre significatif d’États membres, peuvent prendre l’initiative d’inviter la Commission européenne, dans le cadre de ses attributions, à soumettre une proposition appropriée sur des questions pour lesquelles ces citoyens considèrent qu’un acte juridique de l’Union est nécessaire aux fins de l’application des traités.</p>',
+ tabs:[],vers:[]},
+
+'tue-13':{t:'TUE',n:'13',former:'',partLbl:'',titreLbl:'Titre III — Dispositions relatives aux institutions',
+ body:'<p>L’Union dispose d’un cadre institutionnel visant à promouvoir ses valeurs, poursuivre ses objectifs, servir ses intérêts, ceux de ses citoyens, et ceux des États membres, ainsi qu’à assurer la cohérence, l’efficacité et la continuité de ses politiques et de ses actions.</p><p>Les institutions de l’Union sont : le Parlement européen ; le Conseil européen ; le Conseil ; la Commission européenne ; la Cour de justice de l’Union européenne ; la Banque centrale européenne ; la Cour des comptes.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tue-17':{t:'TUE',n:'17',former:'',partLbl:'',titreLbl:'',
+ body:'<p>La Commission promeut l’intérêt général de l’Union et prend les initiatives appropriées à cette fin. Elle veille à l’application des traités ainsi que des mesures adoptées par les institutions en vertu de ceux-ci.</p><p>Sauf disposition contraire des traités, un acte législatif de l’Union ne peut être adopté que sur proposition de la Commission.</p><p>Le mandat de la Commission est de cinq ans. Le président de la Commission est élu par le Parlement européen à la majorité des membres qui le composent, sur proposition du Conseil européen.</p>',
+ tabs:['bib'],vers:[]},
+
+'tue-21':{t:'TUE',n:'21',former:'',partLbl:'',titreLbl:'Titre V — Action extérieure de l’Union',
+ body:'<p>L’action de l’Union sur la scène internationale repose sur les principes qui ont présidé à sa création : la démocratie, l’État de droit, l’universalité et l’indivisibilité des droits de l’homme et des libertés fondamentales, le respect de la dignité humaine, les principes d’égalité et de solidarité et le respect des principes de la Charte des Nations unies et du droit international.</p>',
+ tabs:[],vers:[]},
+
+'tue-49':{t:'TUE',n:'49',former:'',partLbl:'',titreLbl:'Titre VI — Dispositions finales',
+ body:'<p>Tout État européen qui respecte les valeurs visées à l’article 2 et s’engage à les promouvoir peut demander à devenir membre de l’Union.</p>',
+ tabs:[],vers:[]},
+
+'tue-50':{t:'TUE',n:'50',former:'',partLbl:'',titreLbl:'',
+ note:'Cet article a été activé pour la première fois le 29 mars 2017 par le Royaume-Uni (Brexit).',
+ body:'<p>Tout État membre peut décider, conformément à ses règles constitutionnelles, de se retirer de l’Union.</p><p>L’État membre qui décide de se retirer notifie son intention au Conseil européen. À la lumière des orientations du Conseil européen, l’Union négocie et conclut avec cet État un accord fixant les modalités de son retrait, en tenant compte du cadre de ses relations futures avec l’Union.</p><p>Les traités cessent d’être applicables à l’État concerné à partir de la date d’entrée en vigueur de l’accord de retrait ou, à défaut, deux ans après la notification visée au paragraphe 2.</p>',
+ tabs:['jur','bib'],vers:[{lbl:'Version originale — Traité de Lisbonne (2007)',txt:'Tout État membre peut décider, conformément à ses règles constitutionnelles, de se retirer de l’Union… (texte non amendé depuis 2007.)'}]},
+
+'tfue-1':{t:'TFUE',n:'1<sup>er</sup>',former:'',
+ partLbl:'Partie II — Traité sur le fonctionnement de l’Union européenne (TFUE)',titreLbl:'Première partie — Principes',
+ body:'<p>Le présent traité organise le fonctionnement de l’Union et détermine les domaines, la délimitation et les modalités d’exercice de ses compétences.</p><p>Le présent traité et le traité sur l’Union européenne constituent les traités sur lesquels l’Union est fondée. Ces deux traités, qui ont la même valeur juridique, sont désignés par les termes « les traités ».</p>',
+ tabs:['bib'],vers:[]},
+
+'tfue-3':{t:'TFUE',n:'3',former:'',partLbl:'',titreLbl:'',
+ body:'<p>L’Union dispose d’une compétence exclusive dans les domaines suivants : a) l’union douanière ; b) l’établissement des règles de concurrence nécessaires au fonctionnement du marché intérieur ; c) la politique monétaire pour les États membres dont la monnaie est l’euro ; d) la conservation des ressources biologiques de la mer dans le cadre de la politique commune de la pêche ; e) la politique commerciale commune.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-4':{t:'TFUE',n:'4',former:'',partLbl:'',titreLbl:'',
+ body:'<p>L’Union dispose d’une compétence partagée avec les États membres lorsque les traités lui attribuent une compétence qui ne relève pas des domaines visés aux articles 3 et 6.</p><p>Les compétences partagées s’appliquent notamment aux domaines suivants : a) le marché intérieur ; b) la politique sociale ; c) la cohésion économique, sociale et territoriale ; d) l’agriculture et la pêche ; e) l’environnement ; f) la protection des consommateurs ; g) les transports ; i) l’énergie ; j) l’espace de liberté, de sécurité et de justice.</p>',
+ tabs:['bib'],vers:[]},
+
+'tfue-5':{t:'TFUE',n:'5',former:'',partLbl:'',titreLbl:'',
+ body:'<p>Les États membres coordonnent leurs politiques économiques au sein de l’Union. À cette fin, le Conseil adopte des mesures et notamment les grandes orientations de ces politiques.</p><p>L’Union prend des mesures pour assurer la coordination des politiques de l’emploi des États membres, notamment en définissant les lignes directrices de ces politiques.</p>',
+ tabs:[],vers:[]},
+
+'tfue-18':{t:'TFUE',n:'18',former:'ex-art. 12 TCE',
+ partLbl:'',titreLbl:'Deuxième partie — Non-discrimination et citoyenneté de l’Union',
+ body:'<p>Dans le domaine d’application des traités, et sans préjudice des dispositions particulières qu’ils prévoient, est interdite toute discrimination exercée en raison de la nationalité.</p><p>Le Parlement européen et le Conseil, statuant conformément à la procédure législative ordinaire, peuvent prendre toute réglementation en vue de l’interdiction de ces discriminations.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-20':{t:'TFUE',n:'20',former:'ex-art. 17 TCE',partLbl:'',titreLbl:'',
+ body:'<p>Il est institué une citoyenneté de l’Union. Est citoyen de l’Union toute personne ayant la nationalité d’un État membre. La citoyenneté de l’Union s’ajoute à la citoyenneté nationale et ne la remplace pas.</p><p>Les citoyens de l’Union jouissent des droits et sont soumis aux devoirs prévus par les traités. Ils ont, entre autres : a) le droit de circuler et de séjourner librement sur le territoire des États membres ; b) le droit de vote et d’éligibilité aux élections au Parlement européen ainsi qu’aux élections municipales dans l’État membre où ils résident.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-21':{t:'TFUE',n:'21',former:'ex-art. 18 TCE',partLbl:'',titreLbl:'',
+ body:'<p>Tout citoyen de l’Union a le droit de circuler et de séjourner librement sur le territoire des États membres, sous réserve des limitations et conditions prévues par les traités et par les dispositions prises en application de ceux-ci.</p>',
+ tabs:['jur'],vers:[]},
+
+'tfue-26':{t:'TFUE',n:'26',former:'ex-art. 14 TCE',partLbl:'',titreLbl:'Troisième partie — Politiques et actions internes de l’Union',
+ body:'<p>L’Union adopte les mesures destinées à établir ou assurer le fonctionnement du marché intérieur, conformément aux dispositions pertinentes des traités.</p><p>Le marché intérieur comporte un espace sans frontières intérieures dans lequel la libre circulation des marchandises, des personnes, des services et des capitaux est assurée selon les dispositions des traités.</p>',
+ tabs:['bib'],vers:[]},
+
+'tfue-34':{t:'TFUE',n:'34',former:'ex-art. 28 TCE',partLbl:'',titreLbl:'',
+ note:'Interprété extensivement par la Cour de justice depuis l’arrêt Dassonville (CJCE, 11 juill. 1974, aff. 8/74).',
+ body:'<p>Les restrictions quantitatives à l’importation ainsi que toutes mesures d’effet équivalent sont interdites entre les États membres.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-45':{t:'TFUE',n:'45',former:'ex-art. 39 TCE',partLbl:'',titreLbl:'',
+ body:'<p>La libre circulation des travailleurs est assurée à l’intérieur de l’Union.</p><p>Elle implique l’abolition de toute discrimination, fondée sur la nationalité, entre les travailleurs des États membres, en ce qui concerne l’emploi, la rémunération et les autres conditions de travail.</p><p>Elle comporte le droit, sous réserve des limitations justifiées par des raisons d’ordre public, de sécurité publique et de santé publique : a) de répondre à des emplois effectivement offerts ; b) de se déplacer à cet effet librement sur le territoire des États membres ; c) de séjourner dans un des États membres afin d’y exercer un emploi ; d) de demeurer, dans des conditions qui feront l’objet de règlements établis par la Commission, sur le territoire d’un État membre, après y avoir occupé un emploi.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-101':{t:'TFUE',n:'101',former:'ex-art. 81 TCE',partLbl:'',titreLbl:'',
+ body:'<p>Sont incompatibles avec le marché intérieur et interdits tous accords entre entreprises, toutes décisions d’associations d’entreprises et toutes pratiques concertées, qui sont susceptibles d’affecter le commerce entre États membres et qui ont pour objet ou pour effet d’empêcher, de restreindre ou de fausser le jeu de la concurrence à l’intérieur du marché intérieur.</p><p>Les accords ou décisions interdits en vertu du présent article sont nuls de plein droit.</p><p>Toutefois, les dispositions du paragraphe 1 peuvent être déclarées inapplicables à tout accord qui contribue à améliorer la production ou la distribution des produits ou à promouvoir le progrès technique ou économique, tout en réservant aux utilisateurs une partie équitable du profit qui en résulte.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-102':{t:'TFUE',n:'102',former:'ex-art. 82 TCE',partLbl:'',titreLbl:'',
+ body:'<p>Est incompatible avec le marché intérieur et interdit, dans la mesure où le commerce entre États membres est susceptible d’en être affecté, le fait pour une ou plusieurs entreprises d’exploiter de façon abusive une position dominante sur le marché intérieur ou dans une partie substantielle de celui-ci.</p><p>Ces pratiques abusives peuvent notamment consister à : a) imposer des prix ou d’autres conditions de transaction non équitables ; b) limiter la production, les débouchés ou le développement technique au préjudice des consommateurs ; c) appliquer à l’égard de partenaires commerciaux des conditions inégales à des prestations équivalentes.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-107':{t:'TFUE',n:'107',former:'ex-art. 87 TCE',partLbl:'',titreLbl:'',
+ body:'<p>Sauf dérogations prévues par les traités, sont incompatibles avec le marché intérieur, dans la mesure où elles affectent les échanges entre États membres, les aides accordées par les États ou au moyen de ressources d’État sous quelque forme que ce soit qui faussent ou qui menacent de fausser la concurrence en favorisant certaines entreprises ou certaines productions.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-258':{t:'TFUE',n:'258',former:'ex-art. 226 TCE',partLbl:'',titreLbl:'Sixième partie — Dispositions institutionnelles et financières',
+ body:'<p>Si la Commission estime qu’un État membre a manqué à une des obligations qui lui incombent en vertu des traités, elle émet un avis motivé à ce sujet, après avoir mis cet État en mesure de présenter ses observations.</p><p>Si l’État en cause ne se conforme pas à cet avis dans le délai déterminé par la Commission, celle-ci peut saisir la Cour de justice de l’Union européenne.</p>',
+ tabs:['jur'],vers:[]},
+
+'tfue-263':{t:'TFUE',n:'263',former:'ex-art. 230 TCE',partLbl:'',titreLbl:'',
+ body:'<p>La Cour de justice de l’Union européenne contrôle la légalité des actes législatifs, des actes du Conseil, de la Commission et de la Banque centrale européenne, et des actes du Parlement européen et du Conseil européen destinés à produire des effets juridiques à l’égard des tiers.</p><p>La Cour est compétente pour se prononcer sur les recours pour incompétence, violation des formes substantielles, violation des traités ou de toute règle de droit relative à leur application, ou détournement de pouvoir, formés par un État membre, le Parlement européen, le Conseil ou la Commission.</p><p>Toute personne physique ou morale peut former, dans les mêmes conditions, un recours contre les actes dont elle est le destinataire ou qui la concernent directement et individuellement.</p>',
+ tabs:['jur','bib'],vers:[]},
+
+'tfue-267':{t:'TFUE',n:'267',former:'ex-art. 234 TCE',partLbl:'',titreLbl:'',
+ body:'<p>La Cour de justice de l’Union européenne est compétente pour statuer, à titre préjudiciel : a) sur l’interprétation des traités ; b) sur la validité et l’interprétation des actes pris par les institutions, organes ou organismes de l’Union.</p><p>Lorsqu’une telle question est soulevée devant une juridiction d’un des États membres, cette juridiction peut, si elle estime qu’une décision sur ce point est nécessaire pour rendre son jugement, demander à la Cour de statuer sur cette question.</p><p>Lorsqu’une telle question est soulevée dans une affaire pendante devant une juridiction nationale dont les décisions ne sont pas susceptibles d’un recours juridictionnel de droit interne, cette juridiction est tenue de saisir la Cour.</p>',
+ tabs:['jur','bib'],
+ vers:[{lbl:'Version antérieure au Traité de Lisbonne — Art. 234 TCE (2001)',txt:'La Cour de justice est compétente pour statuer, à titre préjudiciel, sur l’interprétation du présent traité, sur la validité et l’interprétation des actes pris par les institutions de la Communauté… (texte TCE, version consolidée 2002)'}]},
+
+'tfue-288':{t:'TFUE',n:'288',former:'ex-art. 249 TCE',partLbl:'',titreLbl:'',
+ body:'<p>Pour exercer les compétences de l’Union, les institutions adoptent des règlements, des directives, des décisions, des recommandations et des avis.</p><p>Le <strong>règlement</strong> a une portée générale. Il est obligatoire dans tous ses éléments et il est directement applicable dans tout État membre.</p><p>La <strong>directive</strong> lie tout État membre destinataire quant au résultat à atteindre, tout en laissant aux instances nationales la compétence quant à la forme et aux moyens.</p><p>La <strong>décision</strong> est obligatoire dans tous ses éléments. Lorsqu’elle désigne des destinataires, elle n’est obligatoire que pour ceux-ci.</p><p>Les <strong>recommandations</strong> et les <strong>avis</strong> ne lient pas.</p>',
+ tabs:['jur','bib'],vers:[]}
+};
+
+const ORDER=['tue-1','tue-2','tue-3','tue-4','tue-5','tue-6','tue-9','tue-10','tue-11','tue-13','tue-17','tue-21','tue-49','tue-50','tfue-1','tfue-3','tfue-4','tfue-5','tfue-18','tfue-20','tfue-21','tfue-26','tfue-34','tfue-45','tfue-101','tfue-102','tfue-107','tfue-258','tfue-263','tfue-267','tfue-288'];
+
+// Sample annotations
+const ANNOTS={'tfue-267':{jur:[{title:'Obligation de renvoi — Théorie de l’acte clair',entries:[{jur:'CJCE, 6 oct. 1982, aff. 283/81, CILFIT £ CJUE, 6 oct. 2021, aff. C‑561/19, Consorzio Italian Management',bib:'BARAV, A., « L’acte clair en droit communautaire », RTDE, 1983, p. 439',apport:'L’arrêt CILFIT a posé les conditions dans lesquelles une juridiction nationale de dernière instance peut s’abstenir de poser une question préjudicielle. La Cour a exigé notamment que la solution s’impose avec une telle évidence qu’elle ne laisse place à aucun doute raisonnable. L’arrêt Consorzio de 2021 a précisé cette doctrine en assouplissant l’exigence d’une interprétation uniforme dans toutes les langues officielles de l’Union.'}]}]},
+'tue-2':{jur:[{title:'Mécanisme de conditionnalié budgétaire',entries:[{jur:'CJUE, gde ch., 16 févr. 2022, aff. C‑156/21, Hongrie c. Parlement et Conseil £ CJUE, gde ch., 16 févr. 2022, aff. C‑157/21, Pologne c. Parlement et Conseil',bib:'BONNET, B., « La conditionnalié budgétaire », RTDE, 2022, p. 567',apport:'Par ces deux arrêts rendus le même jour, la Cour a jugé que le mécanisme de conditionnalié budgétaire était compatible avec les traités et a confirmé que les valeurs de l’art. 2 TUE constituent des normes juridiquement contraignantes et non de simples déclarations programmatiques.'}]}]}};
+
+// ===================================================================
+//  STATE & LAZY LOADING
+// ===================================================================
+let rStart=0,rEnd=0;
+const WIN=6;
+let tocOpen=true;
+let srchScope='doc',srchMatches=[],srchIdx=-1;
+let baseFontSize=20;
+
+function init(){
+  const n=Math.min(WIN,ORDER.length);
+  render(0,n);rStart=0;rEnd=n;
+  setupIO();
+  const h=location.hash.replace('#','');
+  if(h&&DB[h])setTimeout(()=>goArt(h),150);
+}
+
+function render(from,to){
+  const c=document.getElementById('artContainer');
+  for(let i=from;i<to;i++){
+    const id=ORDER[i];
+    if(!document.getElementById('a-'+id)){
+      const el=buildEl(id);
+      if(el)c.appendChild(el);
+    }
+  }
+}
+
+function prepend(from,to){
+  const c=document.getElementById('artContainer');
+  for(let i=to-1;i>=from;i--){
+    const id=ORDER[i];
+    if(!document.getElementById('a-'+id)){
+      const el=buildEl(id);
+      if(el)c.prepend(el);
+    }
+  }
+}
+
+function buildEl(id){
+  const d=DB[id];if(!d)return null;
+  const div=document.createElement('div');
+  div.id='a-'+id;div.dataset.aid=id;div.className='art';
+  let h='';
+  if(d.partLbl){h+=`<hr class="part-sep"/><p class="part-lbl">${d.partLbl}</p>`;}
+  if(d.titreLbl){h+=`<p class="titre-lbl">${d.titreLbl}</p>`;}
+  h+=`<div class="art-hd"><span class="art-num">Art. ${d.n}</span>${d.former?`<span class="art-former">(${d.former})</span>`:''}</div>`;
+  h+=`<div class="art-body">${d.body}</div>`;
+  if(d.note)h+=`<p class="art-note">${d.note}</p>`;
+  if(d.tabs&&d.tabs.length){
+    const lbls={jur:'Jurisprudence',bib:'Bibliographie',cmp:'Textes complémentaires'};
+    h+='<div class="art-tabs">';
+    d.tabs.forEach((t,i)=>{
+      if(i>0)h+='<span class="tab-dot">•</span>';
+      h+=`<button class="tab-btn" onclick="togTab(this,'${id}','${t}')">${lbls[t]}</button>`;
     });
-  });
+    if(d.vers&&d.vers.length){
+      h+='<span class="tab-dot">•</span>';
+      h+=`<button class="ver-btn" onclick="showVer('${id}')">Versions de l’article</button>`;
+    }
+    h+='</div>';
+    d.tabs.forEach(t=>{ h+=`<div class="tab-content" id="tc-${id}-${t}"></div>`; });
+  }
+  div.innerHTML=h;return div;
+}
 
-  // Font size controls
-  const docBody = document.getElementById('docBody');
-  let fontSize = 16;
-  document.querySelectorAll('.tool-btn').forEach(btn => {
-    if (btn.textContent.includes('A+')) btn.addEventListener('click', () => { fontSize = Math.min(22, fontSize+1); docBody.style.fontSize = fontSize+'px'; });
-    if (btn.textContent.includes('A-')) btn.addEventListener('click', () => { fontSize = Math.max(12, fontSize-1); docBody.style.fontSize = fontSize+'px'; });
+// ===================================================================
+//  INTERSECTION OBSERVERS (lazy load)
+// ===================================================================
+function setupIO(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting)return;
+      if(e.target.id==='sentBot'&&rEnd<ORDER.length){
+        const ne=Math.min(rEnd+4,ORDER.length);
+        render(rEnd,ne);rEnd=ne;
+      }
+      if(e.target.id==='sentTop'&&rStart>0){
+        const ns=Math.max(0,rStart-4);
+        prepend(ns,rStart);rStart=ns;
+      }
+    });
+  },{rootMargin:'300px 0px'});
+  obs.observe(document.getElementById('sentTop'));
+  obs.observe(document.getElementById('sentBot'));
+
+  // Active article tracking
+  const ao=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const id=e.target.dataset.aid;
+        if(id)setActive(id);
+      }
+    });
+  },{root:document.getElementById('docScroll'),rootMargin:'-15% 0px -70% 0px'});
+  setTimeout(()=>{
+    document.querySelectorAll('.art').forEach(el=>ao.observe(el));
+  },400);
+}
+
+// ===================================================================
+//  NAVIGATION
+// ===================================================================
+function goArt(id){
+  const idx=ORDER.indexOf(id);if(idx<0)return;
+  if(!document.getElementById('a-'+id)){
+    const f=Math.max(0,idx-3),t=Math.min(ORDER.length,idx+5);
+    if(idx>=rEnd){render(rEnd,t);rEnd=t;}
+    else if(idx<rStart){prepend(f,rStart);rStart=f;}
+  }
+  setTimeout(()=>{
+    const el=document.getElementById('a-'+id);if(!el)return;
+    el.scrollIntoView({behavior:'smooth',block:'start'});
+    el.classList.add('flash');
+    setTimeout(()=>el.classList.remove('flash'),2000);
+    setActive(id);
+    history.replaceState(null,'','#'+id);
+    const d=DB[id];
+    document.getElementById('docCur').textContent='Art. '+(d.n.replace(/<[^>]+>/g,''))+' '+d.t;
+  },60);
+}
+
+function setActive(id){
+  document.querySelectorAll('.toc-link').forEach(l=>l.classList.remove('cur'));
+  document.querySelectorAll('.toc-link').forEach(l=>{
+    if((l.getAttribute('onclick')||'').includes("'"+id+"'"))l.classList.add('cur');
   });
+}
+
+// ===================================================================
+//  TOC TOGGLE
+// ===================================================================
+function toggleTOC(){
+  tocOpen=!tocOpen;
+  document.getElementById('shell').classList.toggle('toc-hidden',!tocOpen);
+}
+function tglGrp(btn){
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+
+// ===================================================================
+//  TABS
+// ===================================================================
+function togTab(btn,id,type){
+  const el=document.getElementById('tc-'+id+'-'+type);
+  const was=el.classList.contains('on');
+  // close all tabs for this article
+  document.querySelectorAll(`[id^='tc-${id}-']`).forEach(e=>e.classList.remove('on'));
+  document.querySelectorAll(`#a-${id} .tab-btn`).forEach(b=>b.classList.remove('on'));
+  if(!was){
+    el.classList.add('on');btn.classList.add('on');
+    if(!el.dataset.loaded){fillTab(id,type,el);el.dataset.loaded='1';}
+  }
+}
+
+function fillTab(id,type,el){
+  const src=(ANNOTS[id]||{})[type];
+  // Try server first
+  fetch('/.netlify/functions/get-annotations?article_id='+id+'&type='+type)
+    .then(r=>r.ok?r.json():null)
+    .then(data=>{
+      if(data&&data.length){renderAnnots(data,el,type);}
+      else if(src&&src.length){renderAnnots(src,el,type);}
+      else{el.innerHTML='<p class="tab-empty">Aucune annotation pour le moment.</p>';}
+    }).catch(()=>{
+      if(src&&src.length)renderAnnots(src,el,type);
+      else el.innerHTML='<p class="tab-empty">Aucune annotation pour le moment.</p>';
+    });
+}
+
+function renderAnnots(data,el,type){
+  const isJur=type==='jur'||type==='jurisprudence';
+  let h='';
+  data.forEach((g,gi)=>{
+    const entries=Array.isArray(g.entries)?g.entries:JSON.parse(g.entries||'[]');
+    h+=`<div class="annot-group">`;
+    h+=`<p class="annot-gtitle"><span class="annot-n">${gi+1}.</span> ${g.title||''}</p>`;
+    entries.forEach(en=>{
+      const jurStr=en.jur||en.jurisprudence||'';
+      const bibStr=en.bib||en.bibliography||'';
+      const apport=en.apport||'';
+      if(jurStr){
+        // split by £
+        const parts=jurStr.split('£').map(s=>s.trim()).filter(Boolean);
+        h+=parts.map((p,pi)=>{
+          return (pi>0?`<span class="annot-pound">£</span>`:'')
+               +`<span class="annot-jur-line">${p}</span>`;
+        }).join('');
+      }
+      if(bibStr){
+        h+=`<span class="annot-star">✶</span>`;
+        h+=`<span class="annot-bib-line">${bibStr}</span>`;
+      }
+      if(apport){h+=`<div class="annot-apport">${apport}</div>`;}
+    });
+    h+=`</div>`;
+  });
+  el.innerHTML=h||'<p class="tab-empty">Aucune annotation.</p>';
+}
+
+// ===================================================================
+//  VERSION MODAL
+// ===================================================================
+function showVer(id){
+  const d=DB[id];if(!d)return;
+  document.getElementById('verModalTitle').textContent=
+    'Art. '+(d.n.replace(/<[^>]+>/g,''))+' '+d.t+' — Versions antérieures';
+  let h='';
+  // try server
+  fetch('/.netlify/functions/get-versions?article_id='+id)
+    .then(r=>r.ok?r.json():null)
+    .then(data=>{
+      if(data&&data.length){
+        data.forEach(v=>{h+=`<div class="ver-card"><p class="ver-card-lbl">${v.label||v.created_at?.slice(0,10)||''}</p><div>${v.content||v.txt||''}</div></div>`;});
+      } else {
+        if(d.vers&&d.vers.length){d.vers.forEach(v=>{h+=`<div class="ver-card"><p class="ver-card-lbl">${v.lbl}</p><div>${v.txt}</div></div>`;});}
+        else{h='<p style="color:var(--muted);font-style:italic">Aucune version antérieure enregistrée.</p>';}
+      }
+      document.getElementById('verModalBody').innerHTML=h;
+    }).catch(()=>{
+      if(d.vers&&d.vers.length){d.vers.forEach(v=>{h+=`<div class="ver-card"><p class="ver-card-lbl">${v.lbl}</p><div>${v.txt}</div></div>`;});}
+      else{h='<p style="color:var(--muted);font-style:italic">Aucune version antérieure enregistrée.</p>';}
+      document.getElementById('verModalBody').innerHTML=h;
+    });
+  document.getElementById('verModal').classList.add('open');
+}
+function closeModal(){document.getElementById('verModal').classList.remove('open');}
+
+// ===================================================================
+//  SEARCH
+// ===================================================================
+let srchTimer;
+function onSearch(){clearTimeout(srchTimer);srchTimer=setTimeout(doSearch,220);}
+function doSearch(){
+  clearHL();
+  const q=document.getElementById('srch').value.trim();
+  if(!q||q.length<2){document.getElementById('srchCnt').textContent='';return;}
+  if(srchScope==='num'){
+    const m=Object.keys(DB).find(k=>DB[k].n.replace(/<[^>]+>/g,'').trim()===q.trim());
+    if(m){goArt(m);document.getElementById('srchCnt').textContent='1 résultat';}
+    else{document.getElementById('srchCnt').textContent='0 résultat';}
+    return;
+  }
+  const re=new RegExp(q.replace(/[.*+?^${}()|[\]\]/g,'\$&'),'gi');
+  walkHL(document.getElementById('artContainer'),re);
+  document.getElementById('srchCnt').textContent=srchMatches.length+(srchMatches.length!==1?' occurrences':' occurrence');
+  if(srchMatches.length)srchNav(1);
+}
+function walkHL(node,re){
+  if(node.nodeType===3){
+    if(!re.test(node.textContent))return;re.lastIndex=0;
+    const frag=document.createDocumentFragment();
+    let t=node.textContent,last=0,m;
+    while((m=re.exec(t))!==null){
+      frag.appendChild(document.createTextNode(t.slice(last,m.index)));
+      const mk=document.createElement('mark');mk.className='hl';mk.textContent=m[0];
+      srchMatches.push(mk);frag.appendChild(mk);last=m.index+m[0].length;
+    }
+    frag.appendChild(document.createTextNode(t.slice(last)));
+    node.parentNode.replaceChild(frag,node);
+  } else if(node.nodeType===1&&!['SCRIPT','STYLE','MARK'].includes(node.tagName)){
+    [...node.childNodes].forEach(c=>walkHL(c,re));
+  }
+}
+function clearHL(){
+  document.querySelectorAll('mark.hl').forEach(m=>{
+    m.parentNode.replaceChild(document.createTextNode(m.textContent),m);
+  });
+  srchMatches=[];srchIdx=-1;document.getElementById('srchCnt').textContent='';
+}
+function srchNav(dir){
+  if(!srchMatches.length)return;
+  if(srchIdx>=0&&srchMatches[srchIdx])srchMatches[srchIdx].classList.remove('cur');
+  srchIdx=(srchIdx+dir+srchMatches.length)%srchMatches.length;
+  const m=srchMatches[srchIdx];
+  if(m){m.classList.add('cur');m.scrollIntoView({behavior:'smooth',block:'center'});}
+  document.getElementById('srchCnt').textContent=(srchIdx+1)+'/'+srchMatches.length;
+}
+function srchClear(){document.getElementById('srch').value='';clearHL();}
+function srchKey(e){if(e.key==='Enter')srchNav(1);if(e.key==='Escape')srchClear();}
+
+// ===================================================================
+//  MISC
+// ===================================================================
+function chgFont(d){
+  baseFontSize=Math.max(14,Math.min(26,baseFontSize+d));
+  document.documentElement.style.setProperty('--fs',baseFontSize+'px');
+}
+function exportPDF(){alert('Astuce : utilisez « Imprimer › Enregistrer en PDF » pour exporter ce document.');}
+function copyLink(){
+  navigator.clipboard?.writeText(location.href);
+  alert('Lien copié !');
+}
+
+init();
 </script>
 </body>
 </html>
