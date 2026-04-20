@@ -5,15 +5,19 @@ exports.handler = async () => {
     process.env.SUPABASE_URL,
     process.env.SUPABASE_KEY
   );
+
   const { data, error } = await supabase
     .from('articles')
-    .select('*')
+    .select('id, title, excerpt, author, category, journal, doi, date, created_at')
     .eq('published', true)
     .order('created_at', { ascending: false });
 
   return {
     statusCode: error ? 500 : 200,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(error ? { error } : data)
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    },
+    body: JSON.stringify(error ? { error: error.message } : data)
   };
 };
