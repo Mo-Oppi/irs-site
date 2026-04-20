@@ -468,14 +468,12 @@ textarea.fi{resize:vertical}
 <div class="notif" id="notif"></div>
 
 <script>
-var ADMIN_PWD='...';
 var API='/.netlify/functions';
 var _ec=0;
 
 // ── AUTH ─────────────────────────────────────────────────────
 function doLogin(){
   var v=document.getElementById('pwdIn').value;
-  if(v===ADMIN_PWD){
     sessionStorage.setItem('irs_auth','1');
     sessionStorage.setItem('irs_pwd',v);
     document.getElementById('ls').style.display='none';
