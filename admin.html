@@ -146,6 +146,35 @@ textarea.fi{resize:vertical}
 .new-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:4px;cursor:pointer;font-family:var(--ui)}
 .new-btn:hover{background:var(--red2)}
 @media(max-width:800px){.stats{grid-template-columns:1fr 1fr}.ed-grid,.annot-grid,.two-col{grid-template-columns:1fr}.sidenav{width:160px}}
+
+/* ── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:900px){
+  .sidenav{width:170px}
+  .stats{grid-template-columns:1fr 1fr}
+  .ed-grid,.annot-grid,.two-col{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  /* Sidebar becomes a bottom drawer */
+  .layout{flex-direction:column}
+  .sidenav{width:100%;max-height:48px;overflow:hidden;flex-direction:row;flex-wrap:wrap;border-right:none;border-bottom:1px solid var(--ln);transition:max-height .25s ease}
+  .sidenav.mob-open{max-height:400px;overflow-y:auto}
+  .sn-section{padding:.3rem 0}
+  .sn-lbl{display:none}
+  .sn-item{padding:.4rem .75rem;font-size:.78rem}
+  .sn-div{display:none}
+  .mob-nav-toggle{display:flex!important}
+  .main{padding:1rem}
+  .stats{grid-template-columns:1fr 1fr}
+  .topbar{padding:0 .75rem}
+  .tb-badge{display:none}
+  table{font-size:.72rem}
+  th,td{padding:.4rem .5rem}
+}
+.mob-nav-toggle{
+  display:none;align-items:center;justify-content:space-between;
+  width:100%;padding:.5rem .9rem;font-size:.8rem;font-weight:600;color:var(--mid);
+  background:none;border:none;border-bottom:1px solid var(--ln);cursor:pointer;font-family:var(--ui)
+}
 </style>
 </head>
 <body>
@@ -181,7 +210,10 @@ textarea.fi{resize:vertical}
   </div>
 
   <div class="layout">
-    <nav class="sidenav">
+    <nav class="sidenav" id="sidenav">
+      <button class="mob-nav-toggle" onclick="document.getElementById('sidenav').classList.toggle('mob-open')">
+        ☰ Menu administration <span id="mobNavCaret">▾</span>
+      </button>
       <div class="sn-section">
         <p class="sn-lbl">Publications</p>
         <button class="sn-item on" id="nav-dashboard" onclick="showPanel('dashboard')">
@@ -425,7 +457,7 @@ textarea.fi{resize:vertical}
 <!-- SETTINGS -->
 <div class="panel" id="p-settings">
   <p class="phead">Paramètres des onglets</p>
-  <p class="psub">Configure les onglets disponibles pour chaque article du Code UE.</p>
+  <p class="psub">Cochez les onglets à afficher pour chaque article du Code UE. Ces réglages sont appliqués en temps réel sur la page Code UE (via localStorage).</p>
   <div class="set-grid" id="settingsGrid"><p style="color:var(--mu);font-size:.82rem">Chargement…</p></div>
 </div>
 
@@ -615,6 +647,7 @@ async function saveArt(pub) {
   var id = document.getElementById('edId').value || (Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6));
   var article = {
     id: id,
+    slug: makeSlug(title),
     title: title,
     excerpt: document.getElementById('edExcerpt').value.trim(),
     author: document.getElementById('edAuthor').value.trim() || 'Anonyme',
