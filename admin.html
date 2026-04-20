@@ -455,16 +455,20 @@ textarea.fi{resize:vertical}
 <div class="notif" id="notif"></div>
 
 <script>
-var API='/.netlify/functions';
-var _ec=0;
+// Configuration de base
+var API = '/.netlify/functions';
+
+// Vérification immédiate que le script est chargé
+console.log("Script IRS Admin : Chargé avec succès");
 
 // ── AUTHENTIFICATION ─────────────────────────────────────────
-async function doLogin(){
+async function doLogin() {
+    console.log("Tentative de connexion...");
     var v = document.getElementById('pwdIn').value;
     var err = document.getElementById('lerr');
 
     try {
-        const res = await fetch(`${API}/login`, {
+        const res = await fetch(API + '/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: v })
@@ -473,17 +477,17 @@ async function doLogin(){
         if (res.ok) {
             document.getElementById('ls').style.display = 'none';
             document.getElementById('app').style.display = 'flex';
-            loadDashboard(); // On charge les articles de la base de données
+            loadDashboard(); 
         } else {
             err.style.display = 'block';
         }
     } catch (e) {
-        console.error("Erreur de connexion", e);
-        alert("Impossible de contacter le serveur.");
+        console.error("Erreur login:", e);
+        alert("Erreur de communication avec le serveur.");
     }
 }
 
-function doLogout(){
+function doLogout() {
     window.location.reload();
 }
 
@@ -494,7 +498,7 @@ async function loadDashboard() {
     var artTable = document.getElementById('artTable');
 
     try {
-        const res = await fetch(`${API}/admin-articles?password=${v}`);
+        const res = await fetch(API + '/admin-articles?password=' + v);
         const data = await res.json();
 
         if (res.ok) {
@@ -510,40 +514,38 @@ async function loadDashboard() {
 }
 
 function renderArticles(articles, container) {
+    if (!container) return;
     if (!articles || articles.length === 0) {
         container.innerHTML = '<tr><td colspan="6" class="empty-td">Aucun article trouvé.</td></tr>';
         return;
     }
-    container.innerHTML = articles.map(art => `
-        <tr>
-            <td><strong>${art.title || 'Sans titre'}</strong></td>
-            <td>${art.author || '—'}</td>
-            <td>${art.category || 'Général'}</td>
-            <td>${art.created_at ? new Date(art.created_at).toLocaleDateString() : '—'}</td>
-            <td><span class="badge ${art.status === 'pub' ? 'bp' : 'bd'}">${art.status === 'pub' ? 'Publié' : 'Brouillon'}</span></td>
-            <td class="act-btns">
-                <button class="act-btn" onclick="editArt('${art.id}')">Éditer</button>
-                <button class="act-btn del">Supprimer</button>
-            </td>
-        </tr>
-    `).join('');
+    container.innerHTML = articles.map(function(art) {
+        return '<tr>' +
+            '<td><strong>' + (art.title || 'Sans titre') + '</strong></td>' +
+            '<td>' + (art.author || '—') + '</td>' +
+            '<td>' + (art.category || 'Général') + '</td>' +
+            '<td>' + (art.created_at ? new Date(art.created_at).toLocaleDateString() : '—') + '</td>' +
+            '<td><span class="badge ' + (art.status === 'pub' ? 'bp' : 'bd') + '">' + (art.status === 'pub' ? 'Publié' : 'Brouillon') + '</span></td>' +
+            '<td class="act-btns"><button class="act-btn" onclick="editArt(\'' + art.id + '\')">Éditer</button></td>' +
+            '</tr>';
+    }).join('');
 }
 
 function updateStats(articles) {
-    document.getElementById('stTotal').innerText = articles.length;
-    document.getElementById('stPub').innerText = articles.filter(a => a.status === 'pub').length;
-    document.getElementById('stDraft').innerText = articles.filter(a => a.status !== 'pub').length;
-    const cats = [...new Set(articles.map(a => a.category))].filter(c => c);
-    document.getElementById('stCat').innerText = cats.length;
+    if(document.getElementById('stTotal')) document.getElementById('stTotal').innerText = articles.length;
+    if(document.getElementById('stPub')) document.getElementById('stPub').innerText = articles.filter(a => a.status === 'pub').length;
+    if(document.getElementById('stDraft')) document.getElementById('stDraft').innerText = articles.filter(a => a.status !== 'pub').length;
 }
 
 // ── NAVIGATION & UI ──────────────────────────────────────────
 function showPanel(id) {
-    document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
-    document.querySelectorAll('.sn-item').forEach(btn => btn.classList.remove('on'));
+    document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('on'); });
+    document.querySelectorAll('.sn-item').forEach(function(btn) { btn.classList.remove('on'); });
     
-    document.getElementById('p-' + id).classList.add('on');
-    document.getElementById('nav-' + id).classList.add('on');
+    var target = document.getElementById('p-' + id);
+    var nav = document.getElementById('nav-' + id);
+    if(target) target.classList.add('on');
+    if(nav) nav.classList.add('on');
 }
 
 function showNewEditor() {
@@ -551,19 +553,23 @@ function showNewEditor() {
     document.getElementById('edHead').innerText = "Nouvel article";
     document.getElementById('edId').value = "";
     document.getElementById('edTitle').value = "";
-    document.getElementById('rteBody').innerHTML = "<p>Rédigez votre article ici…</p>";
+    document.getElementById('rteBody').innerHTML = "<p>Rédigez votre article ici...</p>";
 }
 
-// ── FONCTIONS À COMPLÉTER PLUS TARD ──────────────────────────
-// Ces fonctions sont conservées pour ne pas créer d'erreurs dans la console
-// lorsque tu cliques sur les autres boutons de ton interface.
-function saveArt(isPub) { alert("Fonction d'enregistrement à connecter à Supabase !"); }
-function previewArt() { alert("Prévisualisation en cours de développement..."); }
-function editArt(id) { alert("Édition de l'article : " + id); }
-function loadAnnotList(type, selId, listId) { console.log("Chargement des annotations..."); }
-function openAnnotEditor(type) { document.getElementById(type + 'Editor').style.display = 'block'; }
+// ── FONCTIONS COMPLÉMENTAIRES ────────────────────────────────
+function saveArt(isPub) { alert("Sauvegarde à venir."); }
+function previewArt() { alert("Prévisualisation..."); }
+function editArt(id) { alert("ID: " + id); }
+function loadAnnotList(type, selId, listId) { console.log("Chargement " + type); }
+function openAnnotEditor(type) { 
+    var el = document.getElementById(type + 'Editor');
+    if(el) el.style.display = 'block'; 
+}
+function saveAnnot(type) { 
+    var el = document.getElementById(type + 'Editor');
+    if(el) el.style.display = 'none'; 
+}
 function addJurEntry() {}
-function saveAnnot(type) { document.getElementById(type + 'Editor').style.display = 'none'; }
 function addBibEntry() {}
 function loadVersions() {}
 function openVerEditor() { document.getElementById('verEd').style.display = 'block'; }
@@ -575,229 +581,6 @@ function rteBlk(v) { document.execCommand('formatBlock', false, v); }
 function rteSz(v) { document.execCommand('fontSize', false, v); }
 function rteCol(v) { document.execCommand('foreColor', false, v); }
 function rteLink() { var u = prompt("URL:"); if(u) rteC('createLink', u); }
-
-// ── ANNOTATIONS ───────────────────────────────────────────────
-var _annotType='jur', _annotEditId=null, _jurEntryCount=0, _bibEntryCount=0;
-
-async function loadAnnotList(type,selId,listId){
-  var artId=document.getElementById(selId).value;
-  var ul=document.getElementById(listId);
-  if(!artId){ ul.innerHTML='<li class="ann-empty">Sélectionnez un article.</li>'; return; }
-  ul.innerHTML='<li class="ann-empty">Chargement…</li>';
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    var data=await apiFetch('/admin-annotations?article_id='+artId+'&type='+type+'&password='+encodeURIComponent(pwd));
-    if(!data.length){ ul.innerHTML='<li class="ann-empty">Aucune annotation. Cliquez sur "+ Ajouter".</li>'; return; }
-    ul.innerHTML=data.map(function(a){
-      return '<li><span style="font-weight:600">'+(a.title||'(sans titre)')+'</span>'
-        +'<div class="act-btns"><button class="act-btn" onclick="editAnnot(''+type+'',''+a.id+'')">Modifier</button>'
-        +'<button class="act-btn del" onclick="delAnnot(''+a.id+'',''+type+'')">Suppr.</button></div></li>';
-    }).join('');
-  } catch(e){ ul.innerHTML='<li class="ann-empty" style="color:var(--red)">Erreur de chargement.</li>'; }
-}
-
-function openAnnotEditor(type){
-  _annotType=type; _annotEditId=null;
-  var isJur=(type==='jur');
-  var ed=document.getElementById(isJur?'jurEditor':'bibEditor');
-  var et=document.getElementById(isJur?'jurEdTitle':'bibEdTitle');
-  var gt=document.getElementById(isJur?'jurGroupTitle':'bibGroupTitle');
-  var ai=document.getElementById(isJur?'jurAnnotId':'bibAnnotId');
-  var ent=document.getElementById(isJur?'jurEntries':'bibEntries');
-  et.textContent='Nouvelle annotation';
-  gt.value='';
-  ai.value='';
-  ent.innerHTML='';
-  ed.style.display='block';
-  if(isJur) addJurEntry(); else addBibEntry();
-}
-
-async function editAnnot(type,id){
-  var isJur=(type==='jur');
-  var selId=isJur?'jurSel':'bibSel';
-  var artId=document.getElementById(selId).value;
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    var data=await apiFetch('/admin-annotations?article_id='+artId+'&type='+type+'&password='+encodeURIComponent(pwd));
-    var a=data.find(function(x){return x.id===id;}); if(!a) return;
-    openAnnotEditor(type);
-    var gt=document.getElementById(isJur?'jurGroupTitle':'bibGroupTitle');
-    var ai=document.getElementById(isJur?'jurAnnotId':'bibAnnotId');
-    var et=document.getElementById(isJur?'jurEdTitle':'bibEdTitle');
-    var ent=document.getElementById(isJur?'jurEntries':'bibEntries');
-    et.textContent='Modifier l’annotation';
-    gt.value=a.title||'';
-    ai.value=a.id;
-    ent.innerHTML='';
-    var entries=Array.isArray(a.entries)?a.entries:(typeof a.entries==='string'?JSON.parse(a.entries||'[]'):[]);
-    entries.forEach(function(e){
-      if(isJur){addJurEntry(e);}else{addBibEntry(e);}
-    });
-  } catch(err){ alert('Erreur : '+err.message); }
-}
-
-async function delAnnot(id,type){
-  if(!confirm('Supprimer cette annotation ?')) return;
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    await apiFetch('/delete-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id:id})});
-    notify('Annotation supprimée.');
-    var isJur=(type==='jur');
-    loadAnnotList(type,isJur?'jurSel':'bibSel',isJur?'jurList':'bibList');
-  } catch(e){ alert('Erreur : '+e.message); }
-}
-
-async function saveAnnot(type){
-  var isJur=(type==='jur');
-  var selId=isJur?'jurSel':'bibSel';
-  var artId=document.getElementById(selId).value;
-  if(!artId){ alert('Sélectionnez un article.'); return; }
-  var gt=document.getElementById(isJur?'jurGroupTitle':'bibGroupTitle');
-  var ai=document.getElementById(isJur?'jurAnnotId':'bibAnnotId');
-  var ent=document.getElementById(isJur?'jurEntries':'bibEntries');
-  var title=gt.value.trim(); if(!title){ alert('Le titre est obligatoire.'); return; }
-  var cards=ent.querySelectorAll('.ecard');
-  var entries=[];
-  cards.forEach(function(c){
-    if(isJur){
-      var ref=c.querySelector('.jur-ref')||c.querySelector('input[data-field="ref"]');
-      var bib=c.querySelector('.bib-ref')||c.querySelector('input[data-field="bib"]');
-      var apport=c.querySelector('textarea');
-      entries.push({jur:(ref?ref.value.trim():''),bib:(bib?bib.value.trim():''),apport:(apport?apport.value.trim():'')});
-    } else {
-      var inputs=c.querySelectorAll('input');
-      var ta=c.querySelector('textarea');
-      entries.push({jur:(inputs[0]?inputs[0].value.trim():''),bib:(inputs[1]?inputs[1].value.trim():''),apport:(ta?ta.value.trim():'')});
-    }
-  });
-  var annotation={id:ai.value||Date.now().toString(36),article_id:artId,type:type,title:title,entries:JSON.stringify(entries),position:0};
-  notify('Enregistrement…');
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    await apiFetch('/save-annotation',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,annotation:annotation})});
-    notify('Annotation enregistrée !');
-    document.getElementById(isJur?'jurEditor':'bibEditor').style.display='none';
-    loadAnnotList(type,selId,isJur?'jurList':'bibList');
-  } catch(e){ alert('Erreur : '+e.message); }
-}
-
-// ── ENTRY BUILDERS ────────────────────────────────────────────
-function addJurEntry(prefill){
-  var c=document.createElement('div'); c.className='ecard';
-  _jurEntryCount++;
-  var ref=(prefill&&prefill.jur)||'';
-  var bib=(prefill&&prefill.bib)||'';
-  var ap=(prefill&&prefill.apport)||'';
-  c.innerHTML='<button class="ecard-del" onclick="this.parentNode.remove()">×</button>'
-    +'<p class="ecard-ttl">Décision '+_jurEntryCount+'</p>'
-    +'<div class="fg"><label class="lbl">Référence(s) jurisprudentielle(s)</label>'
-    +'<input type="text" class="fi jur-ref" value="'+escHtml(ref)+'" placeholder="Ex : CJUE, gde ch., 16 févr. 2022, aff. C-156/21 £ CJCE, 6 oct. 1982, aff. 283/81, CILFIT"/>'
-    +'<p class="ref-hint">Séparez plusieurs décisions par <strong>£</strong></p></div>'
-    +'<div class="fg"><label class="lbl">Bibliographie spécifique à cette décision (optionnel)</label>'
-    +'<input type="text" class="fi bib-ref" value="'+escHtml(bib)+'" placeholder="Ex : DUPONT, M., « Titre », RTDE, 2022, p. 123."/></div>'
-    +'<div class="fg"><label class="lbl">Apport de la décision <span style="font-weight:400;color:var(--mu)">(champ libre)</span></label>'
-    +'<textarea class="fi" rows="5" placeholder="Décrivez l’apport, la portée, les critiques doctrinales…" style="resize:vertical">'+escHtml(ap)+'</textarea></div>';
-  document.getElementById('jurEntries').appendChild(c);
-}
-
-function addBibEntry(prefill){
-  var c=document.createElement('div'); c.className='ecard';
-  _bibEntryCount++;
-  var ref=(prefill&&prefill.jur)||'';
-  var bib=(prefill&&prefill.bib)||'';
-  var ap=(prefill&&prefill.apport)||'';
-  c.innerHTML='<button class="ecard-del" onclick="this.parentNode.remove()">×</button>'
-    +'<p class="ecard-ttl">Référence '+_bibEntryCount+'</p>'
-    +'<div class="fg"><label class="lbl">Référence bibliographique complète</label>'
-    +'<input type="text" class="fi" value="'+escHtml(ref)+'" placeholder="Ex : MARTIN, J., Droit de l’UE, LGDJ, 2e éd., 2023, p. 145."/></div>'
-    +'<div class="fg"><label class="lbl">DOI / Lien (optionnel)</label>'
-    +'<input type="text" class="fi" value="'+escHtml(bib)+'" placeholder="https://doi.org/…"/></div>'
-    +'<div class="fg"><label class="lbl">Commentaire / apport <span style="font-weight:400;color:var(--mu)">(champ libre)</span></label>'
-    +'<textarea class="fi" rows="4" placeholder="Résumé du contenu et pertinence…" style="resize:vertical">'+escHtml(ap)+'</textarea></div>';
-  document.getElementById('bibEntries').appendChild(c);
-}
-
-function escHtml(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-// ── VERSIONS ─────────────────────────────────────────────────
-async function loadVersions(){
-  var artId=document.getElementById('verSel').value;
-  var ul=document.getElementById('verList');
-  if(!artId){ ul.innerHTML='<li class="ann-empty">Sélectionnez un article.</li>'; return; }
-  ul.innerHTML='<li class="ann-empty">Chargement…</li>';
-  try{
-    var data=await apiFetch('/get-versions?article_id='+artId);
-    if(!data.length){ ul.innerHTML='<li class="ann-empty">Aucune version. Cliquez sur "+ Ajouter".</li>'; return; }
-    ul.innerHTML=data.map(function(v){
-      return '<li><div><strong>'+(v.label||v.l||'')+'</strong><br><span style="font-size:.7rem;color:var(--mu)">'+(v.created_at||'').slice(0,10)+'</span></div>'
-        +'<div class="act-btns"><button class="act-btn del" onclick="delVer(''+v.id+'')">Suppr.</button></div></li>';
-    }).join('');
-  } catch(e){ ul.innerHTML='<li class="ann-empty" style="color:var(--red)">Erreur.</li>'; }
-}
-function openVerEditor(){ document.getElementById('verEd').style.display='block'; document.getElementById('verLabel').value=''; document.getElementById('verContent').value=''; document.getElementById('verId').value=''; }
-async function saveVer(){
-  var artId=document.getElementById('verSel').value; if(!artId){ alert('Sélectionnez un article.'); return; }
-  var label=document.getElementById('verLabel').value.trim();
-  var content=document.getElementById('verContent').value.trim();
-  if(!label||!content){ alert('Libellé et contenu obligatoires.'); return; }
-  var ver={id:document.getElementById('verId').value||Date.now().toString(36),article_id:artId,label:label,content:content};
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  notify('Enregistrement…');
-  try{
-    await apiFetch('/save-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,version:ver})});
-    notify('Version enregistrée !');
-    document.getElementById('verEd').style.display='none';
-    loadVersions();
-  } catch(e){ alert('Erreur : '+e.message); }
-}
-async function delVer(id){
-  if(!confirm('Supprimer cette version ?')) return;
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    await apiFetch('/delete-version',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id:id})});
-    notify('Version supprimée.'); loadVersions();
-  } catch(e){ alert('Erreur : '+e.message); }
-}
-
-// ── SETTINGS ─────────────────────────────────────────────────
-async function loadSettings(){
-  var grid=document.getElementById('settingsGrid');
-  var arts=await getArts();
-  if(!arts.length){ grid.innerHTML='<p style="color:var(--mu);font-size:.82rem">Aucun article publié.</p>'; return; }
-  grid.innerHTML=arts.map(function(a){
-    var s=(a.settings&&a.settings.tabs)||{};
-    return '<div class="set-card"><h4>'+(a.title||'').slice(0,40)+'</h4>'
-      +'<label class="cb-row"><input type="checkbox"'+(s.jur?' checked':'')+' onchange="updateSetting(''+a.id+'','jur',this.checked)"/> Jurisprudence</label>'
-      +'<label class="cb-row"><input type="checkbox"'+(s.bib?' checked':'')+' onchange="updateSetting(''+a.id+'','bib',this.checked)"/> Bibliographie</label>'
-      +'<label class="cb-row"><input type="checkbox"'+(s.cmp?' checked':'')+' onchange="updateSetting(''+a.id+'','cmp',this.checked)"/> Textes complémentaires</label>'
-      +'</div>';
-  }).join('');
-}
-async function updateSetting(artId,tab,val){
-  var arts=await getArts();
-  var a=arts.find(function(x){return x.id===artId;}); if(!a) return;
-  var s=a.settings||{tabs:{}};
-  s.tabs=s.tabs||{};s.tabs[tab]=val;
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  await apiFetch('/save-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,article:Object.assign({},a,{settings:s})})});
-  notify('Paramètre mis à jour.');
-}
-
-// ── NOTIF ─────────────────────────────────────────────────────
-var _nt;
-function notify(msg){
-  var n=document.getElementById('notif');
-  n.textContent=msg; n.style.display='block';
-  clearTimeout(_nt); _nt=setTimeout(function(){n.style.display='none';},2600);
-}
-
-// ── STARTUP ───────────────────────────────────────────────────
-if(sessionStorage.getItem('irs_auth')==='1'){
-  document.getElementById('ls').style.display='none';
-  document.getElementById('app').style.display='flex';
-  initApp();
-}
-document.getElementById('pwdIn').addEventListener('keydown',function(e){ if(e.key==='Enter') doLogin(); });
 </script>
 </body>
 </html>
