@@ -12,57 +12,49 @@
       --ui:'Inter',system-ui,sans-serif;--ser:'EB Garamond',Georgia,serif}
 html,body{height:100%}
 body{background:var(--bg);color:var(--tx);font-family:var(--ui);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
-*{box-sizing:border-box}
 
-/* ── LOGIN ─────────────────────────────────────── */
+/* LOGIN */
 #ls{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:1.5rem}
 .lb{background:var(--bg3);border:1px solid var(--ln);padding:2.5rem;width:360px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.07)}
 .ll{display:flex;justify-content:center;align-items:center;gap:.6rem;margin-bottom:1.5rem}
 .lsq{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center;border-radius:4px}
-.lsq svg{width:20px;height:20px}
 .lh1{font-family:var(--ser);font-size:1.35rem;font-weight:700;margin-bottom:.25rem}
 .lsub{font-size:.82rem;color:var(--mu);margin-bottom:1.5rem}
 .lf{width:100%;border:1px solid var(--ln);background:var(--bg);padding:.5rem .75rem;font-size:.9rem;color:var(--tx);outline:none;border-radius:4px;margin-bottom:.75rem;font-family:var(--ui)}
 .lf:focus{border-color:var(--red)}
-.lbtn{width:100%;background:var(--red);color:#fff;border:none;font-size:.9rem;font-weight:600;padding:.5rem;cursor:pointer;border-radius:4px;font-family:var(--ui);transition:background .15s}
+.lbtn{width:100%;background:var(--red);color:#fff;border:none;font-size:.9rem;font-weight:600;padding:.5rem;cursor:pointer;border-radius:4px;font-family:var(--ui)}
 .lbtn:hover{background:var(--red2)}
 .lerr{font-size:.78rem;color:var(--red);margin-top:.5rem;display:none}
 .lhint{font-size:.72rem;color:var(--mu);margin-top:.8rem}
 
-/* ── APP ───────────────────────────────────────── */
+/* APP */
 #app{display:none;flex:1;flex-direction:column;height:100%}
 
-/* TOP BAR */
+/* TOPBAR */
 .topbar{background:#1c1917;height:50px;display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;flex-shrink:0}
 .tb-left{display:flex;align-items:center;gap:.8rem}
 .tb-logo{display:flex;align-items:center;gap:.5rem}
 .tb-lsq{width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center;border-radius:3px}
-.tb-lsq svg{width:16px;height:16px}
 .tb-name{font-size:.8rem;font-weight:700;color:#fff}
 .tb-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.65);font-size:.65rem;padding:.1rem .45rem;border-radius:2px;letter-spacing:.05em;text-transform:uppercase}
 .tb-right{display:flex;align-items:center;gap:.75rem}
-.tb-link{font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;text-decoration:none;transition:color .15s}
+.tb-link{font-size:.78rem;color:rgba(255,255,255,.55);cursor:pointer;text-decoration:none}
 .tb-link:hover{color:#fff}
-.tb-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.25rem .75rem;border-radius:3px;cursor:pointer;transition:background .15s;font-family:var(--ui)}
+.tb-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.25rem .75rem;border-radius:3px;cursor:pointer;font-family:var(--ui)}
 .tb-btn:hover{background:var(--red2)}
 
 /* LAYOUT */
 .layout{display:flex;flex:1;overflow:hidden}
-
-/* SIDEBAR NAV */
-.sidenav{width:200px;background:#fff;border-right:1px solid var(--ln);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
+.sidenav{width:210px;background:#fff;border-right:1px solid var(--ln);display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto}
 .sn-section{padding:.75rem 0 .25rem}
 .sn-lbl{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mu);padding:.25rem .9rem .1rem;pointer-events:none}
-.sn-item{display:flex;align-items:center;gap:.55rem;padding:.42rem .9rem;font-size:.82rem;color:var(--mid);cursor:pointer;transition:background .1s,color .1s;border-left:2px solid transparent;text-decoration:none;background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:var(--ui)}
+.sn-item{display:flex;align-items:center;gap:.55rem;padding:.45rem .9rem;font-size:.82rem;color:var(--mid);cursor:pointer;border-left:2px solid transparent;background:none;border-top:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:var(--ui);transition:background .1s,color .1s}
 .sn-item:hover{background:#faf9f7;color:var(--tx)}
 .sn-item.on{background:var(--redl);color:var(--red);border-left-color:var(--red);font-weight:600}
 .sn-item svg{width:14px;height:14px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sn-div{height:1px;background:var(--ln);margin:.25rem .9rem}
 
-/* MAIN CONTENT */
 .main{flex:1;overflow-y:auto;padding:1.5rem 2rem}
-
-/* PANELS */
 .panel{display:none}
 .panel.on{display:block}
 .phead{font-family:var(--ser);font-size:1.2rem;font-weight:700;margin-bottom:1.2rem}
@@ -74,7 +66,7 @@ body{background:var(--bg);color:var(--tx);font-family:var(--ui);font-size:14px;l
 .snum{font-family:var(--ser);font-size:1.8rem;font-weight:700;line-height:1;color:var(--red)}
 .slbl{font-size:.72rem;color:var(--mu);margin-top:.25rem}
 
-/* TABLE */
+/* TABLES */
 .tbl-wrap{background:var(--bg3);border:1px solid var(--ln);border-radius:6px;overflow:hidden}
 .tbl-top{display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;border-bottom:1px solid var(--ln)}
 .tbl-top h2{font-size:.92rem;font-weight:700}
@@ -87,14 +79,14 @@ tr:hover td{background:#faf9f7}
 .bp{background:var(--grl);color:var(--gr)}
 .bd{background:var(--bg2);color:var(--mu)}
 .act-btns{display:flex;gap:.3rem}
-.act-btn{border:1px solid var(--ln);background:transparent;font-size:.7rem;padding:.18rem .5rem;cursor:pointer;color:var(--mid);font-family:var(--ui);border-radius:3px;transition:background .1s;text-decoration:none;display:inline-block}
+.act-btn{border:1px solid var(--ln);background:transparent;font-size:.7rem;padding:.2rem .55rem;cursor:pointer;color:var(--mid);font-family:var(--ui);border-radius:3px;text-decoration:none;display:inline-block}
 .act-btn:hover{background:var(--bg2)}
 .act-btn.del{border-color:var(--red);color:var(--red)}
 .act-btn.del:hover{background:var(--redl)}
 .empty-td{text-align:center;color:var(--mu);font-style:italic;padding:2rem}
 
 /* EDITOR */
-.ed-back{background:none;border:1px solid var(--ln);font-size:.75rem;padding:.25rem .65rem;cursor:pointer;color:var(--mid);font-family:var(--ui);border-radius:3px;transition:background .1s;margin-bottom:1rem}
+.ed-back{background:none;border:1px solid var(--ln);font-size:.75rem;padding:.25rem .65rem;cursor:pointer;color:var(--mid);font-family:var(--ui);border-radius:3px;margin-bottom:1rem}
 .ed-back:hover{background:var(--bg2)}
 .ed-grid{display:grid;grid-template-columns:1fr 260px;gap:1.2rem}
 .lbl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mu);margin-bottom:.28rem}
@@ -102,33 +94,29 @@ tr:hover td{background:#faf9f7}
 .fi:focus{border-color:var(--red)}
 textarea.fi{resize:vertical}
 .fg{margin-bottom:.8rem}
-/* RTE */
 .rte-wrap{border:1px solid var(--ln);border-radius:4px;overflow:hidden}
 .rte-tb{display:flex;flex-wrap:wrap;gap:0;padding:.3rem .45rem;background:#faf9f7;border-bottom:1px solid var(--ln);align-items:center}
 .rte-tb select{border:1px solid var(--ln);background:var(--bg3);font-size:.72rem;padding:.16rem .28rem;color:var(--tx);cursor:pointer;outline:none;border-radius:3px;margin-right:.15rem;font-family:var(--ui)}
-.rtb{border:1px solid transparent;background:transparent;padding:.2rem .4rem;cursor:pointer;font-size:.76rem;color:var(--mid);font-family:var(--ui);border-radius:3px;transition:background .1s;line-height:1}
+.rtb{border:1px solid transparent;background:transparent;padding:.2rem .4rem;cursor:pointer;font-size:.76rem;color:var(--mid);font-family:var(--ui);border-radius:3px;line-height:1}
 .rtb:hover{background:var(--bg3);border-color:var(--ln)}
-.rtb.on{background:var(--redl);color:var(--red);border-color:var(--red)}
 .rte-sep{width:1px;height:16px;background:var(--ln);margin:0 .2rem}
 .rte-body{min-height:340px;padding:1rem 1.2rem;font-family:var(--ser);font-size:1rem;line-height:1.78;outline:none;color:var(--tx)}
 .rte-body h2{font-size:1.2rem;font-weight:700;margin:.7rem 0 .35rem}
 .rte-body p{margin-bottom:.65rem}
 .rte-body blockquote{border-left:3px solid var(--red);padding:.4rem .9rem;margin:1rem 0;font-style:italic;color:var(--mu)}
 .rte-cc{font-size:.68rem;color:var(--mu);text-align:right;padding:.25rem .45rem;border-top:1px solid var(--ln);background:#faf9f7}
-/* Meta card */
 .mcard{background:var(--bg3);border:1px solid var(--ln);padding:.9rem;border-radius:6px;margin-bottom:.8rem}
 .mcard-ttl{font-size:.67rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mu);margin-bottom:.65rem;padding-bottom:.4rem;border-bottom:1px solid var(--ln)}
-.btn-pub{background:var(--red);color:#fff;border:none;font-size:.82rem;font-weight:600;padding:.36rem .9rem;cursor:pointer;border-radius:4px;font-family:var(--ui);transition:background .15s}
+.btn-pub{background:var(--red);color:#fff;border:none;font-size:.82rem;font-weight:600;padding:.36rem .9rem;cursor:pointer;border-radius:4px;font-family:var(--ui)}
 .btn-pub:hover{background:var(--red2)}
-.btn-dft{background:var(--bg2);color:var(--mid);border:1px solid var(--ln);font-size:.82rem;font-weight:600;padding:.36rem .9rem;cursor:pointer;border-radius:4px;font-family:var(--ui);transition:background .15s}
+.btn-dft{background:var(--bg2);color:var(--mid);border:1px solid var(--ln);font-size:.82rem;font-weight:600;padding:.36rem .9rem;cursor:pointer;border-radius:4px;font-family:var(--ui)}
 .btn-dft:hover{background:var(--bg3)}
 .btn-row{display:flex;gap:.4rem;margin-top:.4rem}
 .btn-full{width:100%;margin-bottom:.3rem}
 
-/* ── ANNOTATIONS PANEL ─────────────────────────── */
+/* ANNOTATIONS */
 .annot-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
 .art-sel{width:100%;border:1px solid var(--ln);background:var(--bg3);padding:.42rem .65rem;font-size:.85rem;color:var(--tx);outline:none;border-radius:4px;font-family:var(--ui);margin-bottom:.75rem}
-.art-sel:focus{border-color:var(--red)}
 .ann-list{list-style:none;border:1px solid var(--ln);border-radius:4px;overflow:hidden;background:var(--bg3)}
 .ann-list li{padding:.48rem .75rem;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
 .ann-list li:last-child{border-bottom:none}
@@ -138,65 +126,61 @@ textarea.fi{resize:vertical}
 .ecard-del:hover{background:var(--redl)}
 .ecard-ttl{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mu);margin-bottom:.6rem}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
-.add-entry-btn{width:100%;border:1px dashed var(--ln);background:transparent;font-size:.75rem;padding:.35rem;color:var(--mu);cursor:pointer;border-radius:4px;font-family:var(--ui);margin-top:.3rem;transition:border-color .1s,color .1s}
+.add-entry-btn{width:100%;border:1px dashed var(--ln);background:transparent;font-size:.75rem;padding:.35rem;color:var(--mu);cursor:pointer;border-radius:4px;font-family:var(--ui);margin-top:.3rem}
 .add-entry-btn:hover{border-color:var(--red);color:var(--red)}
-.ref-hint{font-size:.68rem;color:var(--mu);margin:.1rem 0 .4rem}
-.ref-generated{font-size:.78rem;font-style:italic;color:var(--mid);background:var(--bg2);border:1px solid var(--ln);border-radius:3px;padding:.3rem .55rem;margin-top:.3rem}
 
-/* ── VERSIONS PANEL ────────────────────────────── */
+/* VERSIONS */
 .vlist{list-style:none;border:1px solid var(--ln);border-radius:4px;overflow:hidden;background:var(--bg3)}
 .vlist li{padding:.5rem .75rem;border-bottom:1px solid var(--ln);display:flex;align-items:center;justify-content:space-between;font-size:.8rem}
 .vlist li:last-child{border-bottom:none}
 .ved{display:none;background:var(--bg3);border:1px solid var(--ln);border-radius:6px;padding:1rem;margin-top:.8rem}
 
-/* ── SETTINGS PANEL ────────────────────────────── */
+/* SETTINGS */
 .set-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem}
 .set-card{background:var(--bg3);border:1px solid var(--ln);padding:.85rem;border-radius:6px}
 .set-card h4{font-size:.8rem;font-weight:600;margin-bottom:.6rem;padding-bottom:.4rem;border-bottom:1px solid var(--ln);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .cb-row{display:flex;align-items:center;gap:.4rem;font-size:.78rem;color:var(--mid);margin-bottom:.3rem;cursor:pointer}
 .cb-row input{accent-color:var(--red);cursor:pointer}
 
-/* NOTIF */
 .notif{position:fixed;bottom:1.2rem;right:1.2rem;background:var(--gr);color:#fff;padding:.5rem 1rem;font-size:.8rem;font-weight:600;border-radius:4px;display:none;z-index:999;box-shadow:0 2px 12px rgba(0,0,0,.15)}
-
-/* MISC */
-.new-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:4px;cursor:pointer;font-family:var(--ui);transition:background .15s}
+.new-btn{background:var(--red);color:#fff;border:none;font-size:.75rem;font-weight:600;padding:.28rem .7rem;border-radius:4px;cursor:pointer;font-family:var(--ui)}
 .new-btn:hover{background:var(--red2)}
-@media(max-width:700px){.stats{grid-template-columns:1fr 1fr}.ed-grid,.annot-grid,.two-col{grid-template-columns:1fr}.sidenav{width:160px}}
+@media(max-width:800px){.stats{grid-template-columns:1fr 1fr}.ed-grid,.annot-grid,.two-col{grid-template-columns:1fr}.sidenav{width:160px}}
 </style>
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="ls">
   <div class="lb">
     <div class="ll"><div class="lsq"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div></div>
     <p class="lh1">Espace administration</p>
     <p class="lsub">Institut de Recherche Scientifique</p>
-    <input type="password" class="lf" id="pwdIn" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <input type="password" class="lf" id="pwdIn" placeholder="Mot de passe"/>
     <button class="lbtn" onclick="doLogin()">Se connecter</button>
     <p class="lerr" id="lerr">Mot de passe incorrect.</p>
-    <p class="lhint">Mot de passe par défaut : <code>Test</code></p>
+    <p class="lhint">Mot de passe configuré sur Netlify (variable ADMIN_PASSWORD)</p>
   </div>
 </div>
 
-<div id="app" style="display:none;flex:1;flex-direction:column;height:100%">
-
+<!-- APP -->
+<div id="app">
   <div class="topbar">
     <div class="tb-left">
       <div class="tb-logo">
-        <div class="tb-lsq"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div>
+        <div class="tb-lsq"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/></svg></div>
         <span class="tb-name">IRS</span>
       </div>
       <span class="tb-badge">Admin</span>
     </div>
     <div class="tb-right">
       <a href="index.html" target="_blank" class="tb-link">Voir le site →</a>
+      <a href="code-ue.html" target="_blank" class="tb-link">Code UE →</a>
       <button class="tb-btn" onclick="doLogout()">Déconnexion</button>
     </div>
   </div>
 
   <div class="layout">
-
     <nav class="sidenav">
       <div class="sn-section">
         <p class="sn-lbl">Publications</p>
@@ -215,7 +199,7 @@ textarea.fi{resize:vertical}
       </div>
       <div class="sn-div"></div>
       <div class="sn-section">
-        <p class="sn-lbl">Code de l’UE</p>
+        <p class="sn-lbl">Code UE</p>
         <button class="sn-item" id="nav-jur" onclick="showPanel('jur')">
           <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h12"/></svg>
           Jurisprudence
@@ -233,7 +217,7 @@ textarea.fi{resize:vertical}
       <div class="sn-section">
         <p class="sn-lbl">Paramètres</p>
         <button class="sn-item" id="nav-settings" onclick="showPanel('settings')">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v6m0 10v6M4.2 4.2l4.3 4.3m7 7l4.3 4.3M1 12h6m10 0h6M4.2 19.8l4.3-4.3m7-7l4.3-4.3"/></svg>
           Onglets par article
         </button>
       </div>
@@ -241,6 +225,7 @@ textarea.fi{resize:vertical}
 
     <main class="main">
 
+<!-- DASHBOARD -->
 <div class="panel on" id="p-dashboard">
   <p class="phead">Tableau de bord</p>
   <div class="stats">
@@ -256,6 +241,7 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
+<!-- ARTICLES -->
 <div class="panel" id="p-articles">
   <p class="phead">Articles</p>
   <div class="tbl-wrap">
@@ -265,54 +251,50 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
+<!-- EDITOR -->
 <div class="panel" id="p-editor">
-  <button class="ed-back" onclick="showPanel('articles')">← Retour aux articles</button>
+  <button class="ed-back" onclick="showPanel('articles')">← Retour</button>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem">
     <p class="phead" id="edHead" style="margin:0">Nouvel article</p>
     <div style="display:flex;gap:.4rem">
-      <button class="btn-dft" onclick="saveArt(false)">Enregistrer brouillon</button>
+      <button class="btn-dft" onclick="saveArt(false)">Brouillon</button>
       <button class="btn-pub" onclick="saveArt(true)">Publier →</button>
     </div>
   </div>
   <div class="ed-grid">
     <div>
-      <div class="fg"><label class="lbl">Titre de l’article *</label><input type="text" id="edTitle" class="fi" placeholder="Titre…" style="font-size:1rem;font-weight:600"/></div>
-      <div class="fg"><label class="lbl">Résumé / Accroche</label><textarea id="edExcerpt" class="fi" rows="3" placeholder="Court résumé affiché sur la page d’accueil…"></textarea></div>
+      <div class="fg"><label class="lbl">Titre *</label><input type="text" id="edTitle" class="fi" placeholder="Titre…" style="font-size:1rem;font-weight:600"/></div>
+      <div class="fg"><label class="lbl">Résumé / Accroche</label><textarea id="edExcerpt" class="fi" rows="3" placeholder="Résumé affiché sur la page d'accueil…"></textarea></div>
       <div class="fg">
-        <label class="lbl">Corps de l’article</label>
+        <label class="lbl">Corps de l'article</label>
         <div class="rte-wrap">
           <div class="rte-tb">
             <select onchange="rteBlk(this.value)"><option value="p">Paragraphe</option><option value="h2">Titre H2</option><option value="h3">Titre H3</option><option value="blockquote">Citation</option></select>
-            <select onchange="rteSz(this.value)"><option value="">Taille</option><option value="1">XS</option><option value="2">S</option><option value="3">M</option><option value="4">L</option><option value="5">XL</option></select>
             <div class="rte-sep"></div>
             <button class="rtb" onclick="rteC('bold')"><b>G</b></button>
             <button class="rtb" onclick="rteC('italic')"><i>I</i></button>
             <button class="rtb" onclick="rteC('underline')"><u>S</u></button>
             <div class="rte-sep"></div>
-            <button class="rtb" onclick="rteC('insertUnorderedList')">&#8226; Liste</button>
+            <button class="rtb" onclick="rteC('insertUnorderedList')">• Liste</button>
             <button class="rtb" onclick="rteC('insertOrderedList')">1. Liste</button>
             <button class="rtb" onclick="rteC('justifyFull')">Justifié</button>
             <div class="rte-sep"></div>
             <button class="rtb" onclick="rteLink()">Lien</button>
             <button class="rtb" onclick="rteC('removeFormat')">× Format</button>
-            <div class="rte-sep"></div>
-            <label style="font-size:.7rem;color:var(--mu);display:flex;align-items:center;gap:.25rem">A <input type="color" value="#a51c2e" style="width:20px;height:16px;border:none;padding:0;cursor:pointer" onchange="rteCol(this.value)"/></label>
           </div>
           <div class="rte-body" id="rteBody" contenteditable="true" spellcheck="true"><p>Rédigez votre article ici…</p></div>
           <div class="rte-cc" id="rteCC">0 mot</div>
         </div>
       </div>
-      <div class="fg"><label class="lbl">Notes de bas de page</label><textarea id="edFootnotes" class="fi" rows="3" placeholder="1. Référence…
-2. Référence…"></textarea></div>
+      <div class="fg"><label class="lbl">Notes de bas de page</label><textarea id="edFootnotes" class="fi" rows="3" placeholder="1. Référence…"></textarea></div>
     </div>
     <div>
       <div class="mcard">
         <p class="mcard-ttl">Publication</p>
-        <div class="fg"><label class="lbl">Statut</label><select id="edStatus" class="fi"><option value="draft">Brouillon</option><option value="pub">Publié</option></select></div>
         <div class="fg"><label class="lbl">Date</label><input type="date" id="edDate" class="fi"/></div>
         <div class="btn-row"><button class="btn-pub btn-full" onclick="saveArt(true)">Publier →</button></div>
         <div class="btn-row"><button class="btn-dft btn-full" onclick="saveArt(false)">Brouillon</button></div>
-        <div class="btn-row"><button class="btn-dft btn-full" onclick="previewArt()" style="margin-top:.2rem">Prévisualiser</button></div>
+        <div class="btn-row"><button class="btn-dft btn-full" onclick="previewArt()">Prévisualiser</button></div>
       </div>
       <div class="mcard">
         <p class="mcard-ttl">Métadonnées</p>
@@ -325,34 +307,30 @@ textarea.fi{resize:vertical}
           <option>Neurosciences</option><option>Chimie</option><option>Autre</option></select>
         </div>
         <div class="fg"><label class="lbl">Revue / Source</label><input type="text" id="edJournal" class="fi" placeholder="Nature, 2025"/></div>
-        <div class="fg"><label class="lbl">DOI / Lien externe</label><input type="url" id="edDoi" class="fi" placeholder="https://doi.org/…"/></div>
+        <div class="fg"><label class="lbl">DOI / Lien</label><input type="url" id="edDoi" class="fi" placeholder="https://doi.org/…"/></div>
       </div>
     </div>
   </div>
   <input type="hidden" id="edId"/>
 </div>
 
+<!-- JURISPRUDENCE -->
 <div class="panel" id="p-jur">
   <p class="phead">Gestion de la jurisprudence</p>
-  <p class="psub">Sélectionnez un article du Code de l’UE pour ajouter ou modifier des annotations jurisprudentielles.</p>
+  <p class="psub">Les annotations sont stockées en local (localStorage). Pour les synchroniser en ligne, vous pouvez ajouter une table "annotations" dans Supabase.</p>
   <div class="annot-grid">
     <div>
-      <label class="lbl">Article du Code</label>
-      <select class="art-sel" id="jurSel" onchange="loadAnnotList('jur','jurSel','jurList')">
+      <label class="lbl">Article du Code UE</label>
+      <select class="art-sel" id="jurSel" onchange="loadAnnotList('jur')">
         <option value="">-- Sélectionner un article --</option>
         <optgroup label="TUE">
-          <option value="tue-1">Art. 1ᵉʳ TUE</option><option value="tue-2">Art. 2 TUE</option>
+          <option value="tue-1">Art. 1 TUE</option><option value="tue-2">Art. 2 TUE</option>
           <option value="tue-3">Art. 3 TUE</option><option value="tue-4">Art. 4 TUE</option>
           <option value="tue-5">Art. 5 TUE</option><option value="tue-6">Art. 6 TUE</option>
-          <option value="tue-9">Art. 9 TUE</option><option value="tue-10">Art. 10 TUE</option>
-          <option value="tue-13">Art. 13 TUE</option><option value="tue-17">Art. 17 TUE</option>
-          <option value="tue-49">Art. 49 TUE</option><option value="tue-50">Art. 50 TUE</option>
+          <option value="tue-50">Art. 50 TUE</option>
         </optgroup>
         <optgroup label="TFUE">
-          <option value="tfue-1">Art. 1ᵉʳ TFUE</option><option value="tfue-3">Art. 3 TFUE</option>
-          <option value="tfue-4">Art. 4 TFUE</option><option value="tfue-5">Art. 5 TFUE</option>
           <option value="tfue-18">Art. 18 TFUE</option><option value="tfue-20">Art. 20 TFUE</option>
-          <option value="tfue-21">Art. 21 TFUE</option><option value="tfue-26">Art. 26 TFUE</option>
           <option value="tfue-34">Art. 34 TFUE</option><option value="tfue-45">Art. 45 TFUE</option>
           <option value="tfue-101">Art. 101 TFUE</option><option value="tfue-102">Art. 102 TFUE</option>
           <option value="tfue-107">Art. 107 TFUE</option><option value="tfue-258">Art. 258 TFUE</option>
@@ -369,7 +347,7 @@ textarea.fi{resize:vertical}
     <div id="jurEditor" style="display:none">
       <div class="mcard">
         <p class="mcard-ttl" id="jurEdTitle">Nouvelle annotation</p>
-        <div class="fg"><label class="lbl">Titre du groupe (numéroté automatiquement)</label><input type="text" id="jurGroupTitle" class="fi" placeholder="Ex : Obligation de renvoi — Acte clair"/></div>
+        <div class="fg"><label class="lbl">Titre du groupe</label><input type="text" id="jurGroupTitle" class="fi" placeholder="Ex: Obligation de renvoi"/></div>
         <div id="jurEntries"></div>
         <button class="add-entry-btn" onclick="addJurEntry()">+ Ajouter une décision</button>
         <div class="btn-row" style="margin-top:.7rem">
@@ -382,23 +360,24 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
+<!-- BIBLIOGRAPHIE -->
 <div class="panel" id="p-bib">
   <p class="phead">Gestion de la bibliographie</p>
-  <p class="psub">Sélectionnez un article du Code de l’UE pour ajouter ou modifier des références bibliographiques.</p>
+  <p class="psub">Stockage local pour l'instant. Synchronisation Supabase disponible en ajoutant une table "annotations".</p>
   <div class="annot-grid">
     <div>
-      <label class="lbl">Article du Code</label>
-      <select class="art-sel" id="bibSel" onchange="loadAnnotList('bib','bibSel','bibList')">
+      <label class="lbl">Article du Code UE</label>
+      <select class="art-sel" id="bibSel" onchange="loadAnnotList('bib')">
         <option value="">-- Sélectionner un article --</option>
         <optgroup label="TUE">
-          <option value="tue-1">Art. 1ᵉʳ TUE</option><option value="tue-2">Art. 2 TUE</option>
+          <option value="tue-1">Art. 1 TUE</option><option value="tue-2">Art. 2 TUE</option>
           <option value="tue-3">Art. 3 TUE</option><option value="tue-6">Art. 6 TUE</option>
-          <option value="tue-13">Art. 13 TUE</option><option value="tue-50">Art. 50 TUE</option>
+          <option value="tue-50">Art. 50 TUE</option>
         </optgroup>
         <optgroup label="TFUE">
-          <option value="tfue-18">Art. 18 TFUE</option><option value="tfue-20">Art. 20 TFUE</option>
-          <option value="tfue-101">Art. 101 TFUE</option><option value="tfue-263">Art. 263 TFUE</option>
-          <option value="tfue-267">Art. 267 TFUE</option><option value="tfue-288">Art. 288 TFUE</option>
+          <option value="tfue-18">Art. 18 TFUE</option><option value="tfue-101">Art. 101 TFUE</option>
+          <option value="tfue-263">Art. 263 TFUE</option><option value="tfue-267">Art. 267 TFUE</option>
+          <option value="tfue-288">Art. 288 TFUE</option>
         </optgroup>
       </select>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem">
@@ -409,8 +388,8 @@ textarea.fi{resize:vertical}
     </div>
     <div id="bibEditor" style="display:none">
       <div class="mcard">
-        <p class="mcard-ttl" id="bibEdTitle">Nouvelle entrée bibliographique</p>
-        <div class="fg"><label class="lbl">Titre du groupe</label><input type="text" id="bibGroupTitle" class="fi" placeholder="Ex : Doctrine générale"/></div>
+        <p class="mcard-ttl" id="bibEdTitle">Nouvelle entrée</p>
+        <div class="fg"><label class="lbl">Titre du groupe</label><input type="text" id="bibGroupTitle" class="fi" placeholder="Ex: Doctrine générale"/></div>
         <div id="bibEntries"></div>
         <button class="add-entry-btn" onclick="addBibEntry()">+ Ajouter une référence</button>
         <div class="btn-row" style="margin-top:.7rem">
@@ -423,28 +402,30 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
+<!-- VERSIONS -->
 <div class="panel" id="p-versions">
   <p class="phead">Versions antérieures des articles</p>
-  <p class="psub">Ajoutez les versions antérieures d’un article du Code (affichées dans la fenêtre modale « Versions »).</p>
-  <label class="lbl">Article du Code</label>
+  <p class="psub">Stockage local. Les versions sont affichées dans la modal "Versions de l'article" sur la page Code UE.</p>
+  <label class="lbl">Article du Code UE</label>
   <select class="art-sel" id="verSel" style="max-width:380px" onchange="loadVersions()">
     <option value="">-- Sélectionner --</option>
-    <optgroup label="TUE"><option value="tue-1">Art. 1ᵉʳ TUE</option><option value="tue-2">Art. 2 TUE</option><option value="tue-50">Art. 50 TUE</option></optgroup>
+    <optgroup label="TUE"><option value="tue-1">Art. 1 TUE</option><option value="tue-2">Art. 2 TUE</option><option value="tue-50">Art. 50 TUE</option></optgroup>
     <optgroup label="TFUE"><option value="tfue-267">Art. 267 TFUE</option><option value="tfue-288">Art. 288 TFUE</option></optgroup>
   </select>
   <button class="new-btn" onclick="openVerEditor()" style="margin-bottom:.75rem">+ Ajouter une version</button>
   <ul class="vlist" id="verList"><li class="ann-empty">Sélectionnez un article.</li></ul>
   <div class="ved" id="verEd">
-    <div class="fg"><label class="lbl">Libellé</label><input type="text" id="verLabel" class="fi" placeholder="Ex : Version Maastricht (1992)"/></div>
-    <div class="fg"><label class="lbl">Texte de la version antérieure</label><textarea id="verContent" class="fi" rows="7" placeholder="Texte tel qu’il était rédigé dans la version antérieure…"></textarea></div>
+    <div class="fg"><label class="lbl">Libellé</label><input type="text" id="verLabel" class="fi" placeholder="Ex: Version Maastricht (1992)"/></div>
+    <div class="fg"><label class="lbl">Texte de la version antérieure</label><textarea id="verContent" class="fi" rows="7" placeholder="Texte original…"></textarea></div>
     <div class="btn-row"><button class="btn-pub" onclick="saveVer()">Enregistrer</button><button class="btn-dft" onclick="document.getElementById('verEd').style.display='none'">Annuler</button></div>
     <input type="hidden" id="verId"/>
   </div>
 </div>
 
+<!-- SETTINGS -->
 <div class="panel" id="p-settings">
   <p class="phead">Paramètres des onglets</p>
-  <p class="psub">Activez ou désactivez les onglets Jurisprudence, Bibliographie et Textes complémentaires pour chaque article publié.</p>
+  <p class="psub">Configure les onglets disponibles pour chaque article du Code UE.</p>
   <div class="set-grid" id="settingsGrid"><p style="color:var(--mu);font-size:.82rem">Chargement…</p></div>
 </div>
 
@@ -455,138 +436,505 @@ textarea.fi{resize:vertical}
 <div class="notif" id="notif"></div>
 
 <script>
+// ═══════════════════════════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════════════════════════
 var API = '/.netlify/functions';
-var _ec = 0; // Compteur pour les IDs uniques des entrées
+var _pwd = '';
+var _ec = 0;
 
-// ── AUTHENTIFICATION (FONCTIONNELLE) ─────────────────────────
+// ═══════════════════════════════════════════════════════════════
+//  AUTH
+// ═══════════════════════════════════════════════════════════════
 async function doLogin() {
-    var v = document.getElementById('pwdIn').value;
-    var err = document.getElementById('lerr');
-    try {
-        const res = await fetch(API + '/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ password: v })
-        });
-        if (res.ok) {
-            document.getElementById('ls').style.display = 'none';
-            document.getElementById('app').style.display = 'flex';
-            loadDashboard(); 
-        } else {
-            err.style.display = 'block';
-        }
-    } catch (e) {
-        alert("Erreur de communication avec le serveur.");
+  var v = document.getElementById('pwdIn').value;
+  var err = document.getElementById('lerr');
+  err.style.display = 'none';
+  if (!v) { err.textContent = 'Veuillez entrer un mot de passe.'; err.style.display='block'; return; }
+
+  try {
+    var res = await fetch(API + '/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: v })
+    });
+    if (res.ok) {
+      _pwd = v;
+      sessionStorage.setItem('irs_pwd', v);
+      document.getElementById('ls').style.display = 'none';
+      document.getElementById('app').style.display = 'flex';
+      loadDashboard();
+    } else {
+      err.textContent = 'Mot de passe incorrect.';
+      err.style.display = 'block';
     }
+  } catch (e) {
+    err.textContent = 'Erreur de connexion au serveur.';
+    err.style.display = 'block';
+  }
 }
 
-function doLogout() { window.location.reload(); }
-
-// ── CHARGEMENT DEPUIS SUPABASE ───────────────────────────────
-async function loadDashboard() {
-    var v = document.getElementById('pwdIn').value;
-    try {
-        const res = await fetch(API + '/admin-articles?password=' + v);
-        const data = await res.json();
-        if (res.ok) {
-            renderArticles(data, 'dashTable');
-            renderArticles(data, 'artTable');
-            updateStats(data);
-        }
-    } catch (e) { console.error("Erreur chargement:", e); }
+function doLogout() {
+  sessionStorage.removeItem('irs_pwd');
+  _pwd = '';
+  window.location.reload();
 }
 
-function renderArticles(data, tableId) {
-    const table = document.getElementById(tableId);
-    if (!data || data.length === 0) {
-        table.innerHTML = '<tr><td colspan="6" class="empty-td">Aucun article trouvé.</td></tr>';
-        return;
-    }
-    table.innerHTML = data.map(function(art) {
-        return '<tr>' +
-            '<td><strong>' + (art.title || 'Sans titre') + '</strong></td>' +
-            '<td>' + (art.author || '—') + '</td>' +
-            '<td>' + (art.category || '—') + '</td>' +
-            '<td>' + (art.created_at ? new Date(art.created_at).toLocaleDateString() : '—') + '</td>' +
-            '<td><span class="badge ' + (art.status === 'pub' ? 'bp' : 'bd') + '">' + (art.status === 'pub' ? 'Publié' : 'Brouillon') + '</span></td>' +
-            '<td class="act-btns"><button class="act-btn" onclick="editArt(\'' + art.id + '\')">Éditer</button></td>' +
-            '</tr>';
-    }).join('');
-}
+// Enter key on password field
+document.getElementById('pwdIn').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
 
-function updateStats(data) {
-    document.getElementById('stTotal').innerText = data.length;
-    document.getElementById('stPub').innerText = data.filter(function(a){return a.status==='pub'}).length;
-    document.getElementById('stDraft').innerText = data.filter(function(a){return a.status!=='pub'}).length;
-}
+// Auto-login if session exists
+window.addEventListener('DOMContentLoaded', function() {
+  var stored = sessionStorage.getItem('irs_pwd');
+  if (stored) {
+    _pwd = stored;
+    document.getElementById('ls').style.display = 'none';
+    document.getElementById('app').style.display = 'flex';
+    loadDashboard();
+  }
+});
 
-// ── LOGIQUE DES ANNOTATIONS (TES AJOUTS RESTAURÉS) ───────────
-
-// Ajouter une ligne de Jurisprudence
-function addJurEntry() {
-    _ec++;
-    var container = document.getElementById('jurEntries');
-    var html = '<div class="ecard" id="jur-e-' + _ec + '">' +
-        '<button class="ecard-del" onclick="this.parentElement.remove()">Supprimer</button>' +
-        '<div class="fg"><label class="lbl">Décision (Nom / Date / Référence)</label>' +
-        '<input type="text" class="fi" placeholder="ex: CJUE, 15 juil. 1964, Costa c/ ENEL, 6/64"></div>' +
-        '<div class="fg"><label class="lbl">Commentaire court</label>' +
-        '<textarea class="fi" rows="2" placeholder="Portée de l’arrêt..."></textarea></div>' +
-        '</div>';
-    container.insertAdjacentHTML('beforeend', html);
-}
-
-// Ajouter une ligne de Bibliographie
-function addBibEntry() {
-    _ec++;
-    var container = document.getElementById('bibEntries');
-    var html = '<div class="ecard" id="bib-e-' + _ec + '">' +
-        '<button class="ecard-del" onclick="this.parentElement.remove()">Supprimer</button>' +
-        '<div class="fg"><label class="lbl">Auteur(s)</label><input type="text" class="fi" placeholder="Nom Prénom"></div>' +
-        '<div class="fg"><label class="lbl">Titre de l’ouvrage / Article</label><input type="text" class="fi"></div>' +
-        '<div class="two-col">' +
-        '<div class="fg"><label class="lbl">Éditeur / Revue</label><input type="text" class="fi"></div>' +
-        '<div class="fg"><label class="lbl">Année</label><input type="text" class="fi"></div>' +
-        '</div></div>';
-    container.insertAdjacentHTML('beforeend', html);
-}
-
-// ── NAVIGATION & ÉDITEUR ─────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════════════════════
 function showPanel(id) {
-    document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
-    document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('on'); });
-    document.getElementById('p-' + id).classList.add('on');
-    document.getElementById('nav-' + id).classList.add('on');
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('on'); });
+  var p = document.getElementById('p-' + id);
+  if (p) p.classList.add('on');
+  var n = document.getElementById('nav-' + id);
+  if (n) n.classList.add('on');
+  if (id === 'dashboard' || id === 'articles') loadArticles();
+  if (id === 'settings') loadSettings();
 }
 
 function showNewEditor() {
+  clearEditor();
+  showPanel('editor');
+  document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('nav-new').classList.add('on');
+}
+
+function clearEditor() {
+  document.getElementById('edId').value = '';
+  document.getElementById('edHead').textContent = 'Nouvel article';
+  document.getElementById('edTitle').value = '';
+  document.getElementById('edExcerpt').value = '';
+  document.getElementById('edAuthor').value = '';
+  document.getElementById('edCat').value = '';
+  document.getElementById('edJournal').value = '';
+  document.getElementById('edDoi').value = '';
+  document.getElementById('edDate').value = new Date().toISOString().slice(0,10);
+  document.getElementById('edFootnotes').value = '';
+  document.getElementById('rteBody').innerHTML = '<p>Rédigez votre article ici…</p>';
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  ARTICLES — API Supabase
+// ═══════════════════════════════════════════════════════════════
+async function loadDashboard() { await loadArticles(); }
+
+async function loadArticles() {
+  try {
+    var res = await fetch(API + '/admin-articles?password=' + encodeURIComponent(_pwd));
+    if (!res.ok) {
+      notify('Erreur chargement articles', true);
+      return;
+    }
+    var data = await res.json();
+    renderTable('dashTable', data.slice(0, 10));
+    renderTable('artTable', data);
+    updateStats(data);
+  } catch (e) {
+    notify('Erreur réseau', true);
+    console.error(e);
+  }
+}
+
+function renderTable(tbId, data) {
+  var tb = document.getElementById(tbId);
+  if (!tb) return;
+  if (!data || !data.length) {
+    tb.innerHTML = '<tr><td colspan="6" class="empty-td">Aucun article. Cliquez sur "+ Nouvel article".</td></tr>';
+    return;
+  }
+  tb.innerHTML = data.map(function(a) {
+    var t = (a.title || '').length > 50 ? (a.title || '').slice(0, 50) + '…' : (a.title || 'Sans titre');
+    var au = (a.author || '').length > 22 ? (a.author || '').slice(0, 22) + '…' : (a.author || '—');
+    var d = a.date ? new Date(a.date).toLocaleDateString('fr-FR') : (a.created_at ? new Date(a.created_at).toLocaleDateString('fr-FR') : '—');
+    var isPub = a.published === true;
+    return '<tr>' +
+      '<td><strong>' + escapeHtml(t) + '</strong></td>' +
+      '<td>' + escapeHtml(au) + '</td>' +
+      '<td>' + escapeHtml(a.category || '—') + '</td>' +
+      '<td>' + d + '</td>' +
+      '<td><span class="badge ' + (isPub ? 'bp' : 'bd') + '">' + (isPub ? 'Publié' : 'Brouillon') + '</span></td>' +
+      '<td><div class="act-btns">' +
+        '<button class="act-btn" onclick="editArt(\'' + a.id + '\')">Modifier</button>' +
+        '<a href="article.html?id=' + a.id + '" target="_blank" class="act-btn">Voir</a>' +
+        '<button class="act-btn del" onclick="delArt(\'' + a.id + '\')">Suppr.</button>' +
+      '</div></td>' +
+      '</tr>';
+  }).join('');
+}
+
+function updateStats(data) {
+  document.getElementById('stTotal').textContent = data.length;
+  document.getElementById('stPub').textContent = data.filter(function(a){ return a.published === true; }).length;
+  document.getElementById('stDraft').textContent = data.filter(function(a){ return a.published !== true; }).length;
+  var cats = new Set(data.map(function(a){ return a.category; }).filter(Boolean));
+  document.getElementById('stCat').textContent = cats.size;
+}
+
+async function editArt(id) {
+  try {
+    var res = await fetch(API + '/admin-articles?password=' + encodeURIComponent(_pwd));
+    var data = await res.json();
+    var a = data.find(function(x){ return x.id === id; });
+    if (!a) { notify('Article introuvable', true); return; }
+    document.getElementById('edId').value = a.id;
+    document.getElementById('edHead').textContent = 'Modifier l\'article';
+    document.getElementById('edTitle').value = a.title || '';
+    document.getElementById('edExcerpt').value = a.excerpt || '';
+    document.getElementById('edAuthor').value = a.author || '';
+    document.getElementById('edCat').value = a.category || '';
+    document.getElementById('edJournal').value = a.journal || '';
+    document.getElementById('edDoi').value = a.doi || '';
+    document.getElementById('edDate').value = a.date || '';
+    document.getElementById('edFootnotes').value = a.footnotes || '';
+    document.getElementById('rteBody').innerHTML = a.content || '<p></p>';
     showPanel('editor');
-    document.getElementById('edHead').innerText = "Nouvel article";
-    document.getElementById('edId').value = "";
-    document.getElementById('edTitle').value = "";
-    document.getElementById('rteBody').innerHTML = "<p>Rédigez ici...</p>";
+  } catch (e) { notify('Erreur: ' + e.message, true); }
 }
 
-function saveArt(isPub) {
-    // Cette fonction sera à lier à ta fonction Netlify "save-article"
-    alert("Données prêtes pour l'envoi vers Supabase (Statut: " + (isPub ? 'Publié' : 'Brouillon') + ")");
-}
-
-// Gestion du compteur de mots
-if(document.getElementById('rteBody')) {
-    document.getElementById('rteBody').addEventListener('input', function() {
-        var text = this.innerText || "";
-        var count = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
-        document.getElementById('rteCC').innerText = count + " mot(s)";
+async function saveArt(pub) {
+  var title = document.getElementById('edTitle').value.trim();
+  if (!title) { alert('Le titre est obligatoire.'); return; }
+  var id = document.getElementById('edId').value || (Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 6));
+  var article = {
+    id: id,
+    title: title,
+    excerpt: document.getElementById('edExcerpt').value.trim(),
+    author: document.getElementById('edAuthor').value.trim() || 'Anonyme',
+    category: document.getElementById('edCat').value || null,
+    journal: document.getElementById('edJournal').value.trim(),
+    doi: document.getElementById('edDoi').value.trim(),
+    date: document.getElementById('edDate').value || null,
+    footnotes: document.getElementById('edFootnotes').value.trim(),
+    content: document.getElementById('rteBody').innerHTML,
+    published: pub === true,
+    created_at: new Date().toISOString()
+  };
+  notify('Enregistrement…');
+  try {
+    var res = await fetch(API + '/save-article', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: _pwd, article: article })
     });
+    if (!res.ok) { var txt = await res.text(); notify('Erreur: ' + txt, true); return; }
+    document.getElementById('edId').value = id;
+    document.getElementById('edHead').textContent = 'Modifier l\'article';
+    notify(pub ? 'Article publié !' : 'Brouillon enregistré.');
+    loadArticles();
+  } catch (e) { notify('Erreur: ' + e.message, true); }
 }
 
-// ── RICH TEXT EDITOR (RTE) ───────────────────────────────────
-function rteC(c, v) { document.execCommand(c, false, v); }
-function rteBlk(v) { document.execCommand('formatBlock', false, v); }
-function rteSz(v) { document.execCommand('fontSize', false, v); }
-function rteCol(v) { document.execCommand('foreColor', false, v); }
-function rteLink() { var u = prompt("URL:"); if(u) rteC('createLink', u); }
+async function delArt(id) {
+  if (!confirm('Supprimer cet article ? Action irréversible.')) return;
+  try {
+    var res = await fetch(API + '/delete-article', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: _pwd, id: id })
+    });
+    if (res.ok) { notify('Article supprimé.'); loadArticles(); }
+    else { var txt = await res.text(); notify('Erreur: ' + txt, true); }
+  } catch (e) { notify('Erreur: ' + e.message, true); }
+}
+
+function previewArt() {
+  var id = document.getElementById('edId').value;
+  if (!id) { saveArt(false).then(function(){ var id2 = document.getElementById('edId').value; if (id2) window.open('article.html?id=' + id2, '_blank'); }); }
+  else { window.open('article.html?id=' + id, '_blank'); }
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  RICH TEXT EDITOR
+// ═══════════════════════════════════════════════════════════════
+function rteC(cmd, val) { document.execCommand(cmd, false, val || null); document.getElementById('rteBody').focus(); }
+function rteBlk(t) { document.execCommand('formatBlock', false, t); document.getElementById('rteBody').focus(); }
+function rteLink() { var u = prompt('URL:', 'https://'); if (u) document.execCommand('createLink', false, u); document.getElementById('rteBody').focus(); }
+
+document.getElementById('rteBody').addEventListener('input', function() {
+  var text = this.innerText || '';
+  var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  document.getElementById('rteCC').textContent = words + ' mot' + (words > 1 ? 's' : '');
+});
+
+// ═══════════════════════════════════════════════════════════════
+//  ANNOTATIONS (localStorage — pas de Supabase pour l'instant)
+// ═══════════════════════════════════════════════════════════════
+function getAnnots(type) {
+  try { return JSON.parse(localStorage.getItem('irs_annots_' + type) || '{}'); }
+  catch(e) { return {}; }
+}
+function saveAnnots(type, data) { localStorage.setItem('irs_annots_' + type, JSON.stringify(data)); }
+
+function loadAnnotList(type) {
+  var selId = type === 'jur' ? 'jurSel' : 'bibSel';
+  var listId = type === 'jur' ? 'jurList' : 'bibList';
+  var artId = document.getElementById(selId).value;
+  var ul = document.getElementById(listId);
+  if (!artId) { ul.innerHTML = '<li class="ann-empty">Sélectionnez un article.</li>'; return; }
+  var all = getAnnots(type);
+  var list = all[artId] || [];
+  if (!list.length) { ul.innerHTML = '<li class="ann-empty">Aucune annotation. Cliquez sur "+ Ajouter".</li>'; return; }
+  ul.innerHTML = list.map(function(a) {
+    return '<li><span style="font-weight:600">' + escapeHtml(a.title || '(sans titre)') + '</span>' +
+      '<div class="act-btns">' +
+        '<button class="act-btn" onclick="editAnnot(\'' + type + '\',\'' + a.id + '\')">Modifier</button>' +
+        '<button class="act-btn del" onclick="delAnnot(\'' + type + '\',\'' + a.id + '\')">Suppr.</button>' +
+      '</div></li>';
+  }).join('');
+}
+
+function openAnnotEditor(type) {
+  var selId = type === 'jur' ? 'jurSel' : 'bibSel';
+  var artId = document.getElementById(selId).value;
+  if (!artId) { alert('Sélectionnez d\'abord un article.'); return; }
+  var isJur = type === 'jur';
+  var ed = document.getElementById(isJur ? 'jurEditor' : 'bibEditor');
+  document.getElementById(isJur ? 'jurEdTitle' : 'bibEdTitle').textContent = 'Nouvelle annotation';
+  document.getElementById(isJur ? 'jurGroupTitle' : 'bibGroupTitle').value = '';
+  document.getElementById(isJur ? 'jurAnnotId' : 'bibAnnotId').value = '';
+  document.getElementById(isJur ? 'jurEntries' : 'bibEntries').innerHTML = '';
+  ed.style.display = 'block';
+  if (isJur) addJurEntry(); else addBibEntry();
+}
+
+function addJurEntry(prefill) {
+  _ec++;
+  var c = document.createElement('div'); c.className = 'ecard';
+  var ref = (prefill && prefill.ref) || '';
+  var bib = (prefill && prefill.bib) || '';
+  var ap = (prefill && prefill.apport) || '';
+  c.innerHTML =
+    '<button class="ecard-del" onclick="this.parentNode.remove()">×</button>' +
+    '<p class="ecard-ttl">Décision ' + _ec + '</p>' +
+    '<div class="fg"><label class="lbl">Référence(s) — séparer par £</label>' +
+    '<input type="text" class="fi jur-ref" value="' + escapeHtml(ref) + '" placeholder="CJUE, gde ch., 16 févr. 2022, aff. C-156/21 £ CJCE, 6 oct. 1982, CILFIT"/></div>' +
+    '<div class="fg"><label class="lbl">Bibliographie spécifique (optionnel)</label>' +
+    '<input type="text" class="fi jur-bib" value="' + escapeHtml(bib) + '" placeholder="Auteur, « Titre », Revue, p. 00"/></div>' +
+    '<div class="fg"><label class="lbl">Apport de la décision</label>' +
+    '<textarea class="fi jur-apport" rows="4" placeholder="Décrivez l\'apport de la décision…">' + escapeHtml(ap) + '</textarea></div>';
+  document.getElementById('jurEntries').appendChild(c);
+}
+
+function addBibEntry(prefill) {
+  _ec++;
+  var c = document.createElement('div'); c.className = 'ecard';
+  var ref = (prefill && prefill.ref) || '';
+  var link = (prefill && prefill.bib) || '';
+  var ap = (prefill && prefill.apport) || '';
+  c.innerHTML =
+    '<button class="ecard-del" onclick="this.parentNode.remove()">×</button>' +
+    '<p class="ecard-ttl">Référence ' + _ec + '</p>' +
+    '<div class="fg"><label class="lbl">Référence bibliographique complète</label>' +
+    '<input type="text" class="fi bib-ref" value="' + escapeHtml(ref) + '" placeholder="MARTIN, J., Droit de l\'UE, LGDJ, 2023"/></div>' +
+    '<div class="fg"><label class="lbl">DOI / Lien (optionnel)</label>' +
+    '<input type="text" class="fi bib-link" value="' + escapeHtml(link) + '" placeholder="https://doi.org/…"/></div>' +
+    '<div class="fg"><label class="lbl">Commentaire</label>' +
+    '<textarea class="fi bib-apport" rows="3" placeholder="Résumé et pertinence…">' + escapeHtml(ap) + '</textarea></div>';
+  document.getElementById('bibEntries').appendChild(c);
+}
+
+function editAnnot(type, id) {
+  var selId = type === 'jur' ? 'jurSel' : 'bibSel';
+  var artId = document.getElementById(selId).value;
+  var all = getAnnots(type);
+  var a = (all[artId] || []).find(function(x){ return x.id === id; });
+  if (!a) return;
+  var isJur = type === 'jur';
+  openAnnotEditor(type);
+  document.getElementById(isJur ? 'jurEdTitle' : 'bibEdTitle').textContent = 'Modifier l\'annotation';
+  document.getElementById(isJur ? 'jurGroupTitle' : 'bibGroupTitle').value = a.title || '';
+  document.getElementById(isJur ? 'jurAnnotId' : 'bibAnnotId').value = a.id;
+  document.getElementById(isJur ? 'jurEntries' : 'bibEntries').innerHTML = '';
+  _ec = 0;
+  (a.entries || []).forEach(function(e) { if (isJur) addJurEntry(e); else addBibEntry(e); });
+}
+
+function delAnnot(type, id) {
+  if (!confirm('Supprimer cette annotation ?')) return;
+  var selId = type === 'jur' ? 'jurSel' : 'bibSel';
+  var artId = document.getElementById(selId).value;
+  var all = getAnnots(type);
+  all[artId] = (all[artId] || []).filter(function(a){ return a.id !== id; });
+  saveAnnots(type, all);
+  loadAnnotList(type);
+  notify('Annotation supprimée.');
+}
+
+function saveAnnot(type) {
+  var selId = type === 'jur' ? 'jurSel' : 'bibSel';
+  var artId = document.getElementById(selId).value;
+  if (!artId) { alert('Sélectionnez un article.'); return; }
+  var isJur = type === 'jur';
+  var title = document.getElementById(isJur ? 'jurGroupTitle' : 'bibGroupTitle').value.trim();
+  if (!title) { alert('Le titre est obligatoire.'); return; }
+  var aid = document.getElementById(isJur ? 'jurAnnotId' : 'bibAnnotId').value || (Date.now().toString(36));
+  var cards = document.getElementById(isJur ? 'jurEntries' : 'bibEntries').querySelectorAll('.ecard');
+  var entries = [];
+  cards.forEach(function(c) {
+    if (isJur) {
+      entries.push({
+        ref: (c.querySelector('.jur-ref') || {}).value || '',
+        bib: (c.querySelector('.jur-bib') || {}).value || '',
+        apport: (c.querySelector('.jur-apport') || {}).value || ''
+      });
+    } else {
+      entries.push({
+        ref: (c.querySelector('.bib-ref') || {}).value || '',
+        bib: (c.querySelector('.bib-link') || {}).value || '',
+        apport: (c.querySelector('.bib-apport') || {}).value || ''
+      });
+    }
+  });
+  var all = getAnnots(type);
+  all[artId] = (all[artId] || []).filter(function(a){ return a.id !== aid; });
+  all[artId].push({ id: aid, title: title, entries: entries, created_at: new Date().toISOString() });
+  saveAnnots(type, all);
+  document.getElementById(isJur ? 'jurEditor' : 'bibEditor').style.display = 'none';
+  loadAnnotList(type);
+  notify('Annotation enregistrée !');
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  VERSIONS (localStorage)
+// ═══════════════════════════════════════════════════════════════
+function getVersions() { try { return JSON.parse(localStorage.getItem('irs_versions') || '{}'); } catch(e) { return {}; } }
+function saveVersions(d) { localStorage.setItem('irs_versions', JSON.stringify(d)); }
+
+function loadVersions() {
+  var artId = document.getElementById('verSel').value;
+  var ul = document.getElementById('verList');
+  if (!artId) { ul.innerHTML = '<li class="ann-empty">Sélectionnez un article.</li>'; return; }
+  var all = getVersions();
+  var list = all[artId] || [];
+  if (!list.length) { ul.innerHTML = '<li class="ann-empty">Aucune version. Cliquez sur "+ Ajouter".</li>'; return; }
+  ul.innerHTML = list.map(function(v) {
+    return '<li><div><strong>' + escapeHtml(v.label) + '</strong><br>' +
+      '<span style="font-size:.7rem;color:var(--mu)">' + (v.created_at || '').slice(0, 10) + '</span></div>' +
+      '<div class="act-btns">' +
+        '<button class="act-btn" onclick="editVer(\'' + v.id + '\')">Modifier</button>' +
+        '<button class="act-btn del" onclick="delVer(\'' + v.id + '\')">Suppr.</button>' +
+      '</div></li>';
+  }).join('');
+}
+
+function openVerEditor() {
+  var artId = document.getElementById('verSel').value;
+  if (!artId) { alert('Sélectionnez d\'abord un article.'); return; }
+  document.getElementById('verEd').style.display = 'block';
+  document.getElementById('verLabel').value = '';
+  document.getElementById('verContent').value = '';
+  document.getElementById('verId').value = '';
+}
+
+function editVer(id) {
+  var artId = document.getElementById('verSel').value;
+  var all = getVersions();
+  var v = (all[artId] || []).find(function(x){ return x.id === id; });
+  if (!v) return;
+  document.getElementById('verEd').style.display = 'block';
+  document.getElementById('verLabel').value = v.label || '';
+  document.getElementById('verContent').value = v.content || '';
+  document.getElementById('verId').value = v.id;
+}
+
+function saveVer() {
+  var artId = document.getElementById('verSel').value;
+  if (!artId) { alert('Sélectionnez un article.'); return; }
+  var label = document.getElementById('verLabel').value.trim();
+  var content = document.getElementById('verContent').value.trim();
+  if (!label || !content) { alert('Libellé et contenu obligatoires.'); return; }
+  var id = document.getElementById('verId').value || Date.now().toString(36);
+  var all = getVersions();
+  all[artId] = (all[artId] || []).filter(function(v){ return v.id !== id; });
+  all[artId].push({ id: id, label: label, content: content, created_at: new Date().toISOString() });
+  saveVersions(all);
+  document.getElementById('verEd').style.display = 'none';
+  loadVersions();
+  notify('Version enregistrée !');
+}
+
+function delVer(id) {
+  if (!confirm('Supprimer cette version ?')) return;
+  var artId = document.getElementById('verSel').value;
+  var all = getVersions();
+  all[artId] = (all[artId] || []).filter(function(v){ return v.id !== id; });
+  saveVersions(all);
+  loadVersions();
+  notify('Version supprimée.');
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SETTINGS (localStorage)
+// ═══════════════════════════════════════════════════════════════
+var CODE_ARTICLES = [
+  {id:'tue-1', label:'Art. 1er TUE'},{id:'tue-2', label:'Art. 2 TUE'},
+  {id:'tue-3', label:'Art. 3 TUE'},{id:'tue-4', label:'Art. 4 TUE'},
+  {id:'tue-5', label:'Art. 5 TUE'},{id:'tue-6', label:'Art. 6 TUE'},
+  {id:'tue-50', label:'Art. 50 TUE'},
+  {id:'tfue-18', label:'Art. 18 TFUE'},{id:'tfue-20', label:'Art. 20 TFUE'},
+  {id:'tfue-34', label:'Art. 34 TFUE'},{id:'tfue-45', label:'Art. 45 TFUE'},
+  {id:'tfue-101', label:'Art. 101 TFUE'},{id:'tfue-102', label:'Art. 102 TFUE'},
+  {id:'tfue-107', label:'Art. 107 TFUE'},{id:'tfue-258', label:'Art. 258 TFUE'},
+  {id:'tfue-263', label:'Art. 263 TFUE'},{id:'tfue-267', label:'Art. 267 TFUE'},
+  {id:'tfue-288', label:'Art. 288 TFUE'}
+];
+
+function getSettings() { try { return JSON.parse(localStorage.getItem('irs_settings') || '{}'); } catch(e) { return {}; } }
+function saveSettings(d) { localStorage.setItem('irs_settings', JSON.stringify(d)); }
+
+function loadSettings() {
+  var grid = document.getElementById('settingsGrid');
+  var settings = getSettings();
+  grid.innerHTML = CODE_ARTICLES.map(function(a) {
+    var s = settings[a.id] || {};
+    return '<div class="set-card"><h4>' + a.label + '</h4>' +
+      '<label class="cb-row"><input type="checkbox"' + (s.jur ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'jur\',this.checked)"/> Jurisprudence</label>' +
+      '<label class="cb-row"><input type="checkbox"' + (s.bib ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'bib\',this.checked)"/> Bibliographie</label>' +
+      '<label class="cb-row"><input type="checkbox"' + (s.cmp ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'cmp\',this.checked)"/> Textes complémentaires</label>' +
+      '</div>';
+  }).join('');
+}
+
+function updateSetting(artId, tab, val) {
+  var settings = getSettings();
+  settings[artId] = settings[artId] || {};
+  settings[artId][tab] = val;
+  saveSettings(settings);
+  notify('Paramètre mis à jour.');
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  UTILS
+// ═══════════════════════════════════════════════════════════════
+function escapeHtml(s) { return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+var _notifTimer;
+function notify(msg, isErr) {
+  var n = document.getElementById('notif');
+  n.textContent = msg;
+  n.style.background = isErr ? 'var(--red)' : 'var(--gr)';
+  n.style.display = 'block';
+  clearTimeout(_notifTimer);
+  _notifTimer = setTimeout(function() { n.style.display = 'none'; }, 3000);
+}
 </script>
 </body>
 </html>
