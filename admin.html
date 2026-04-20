@@ -167,7 +167,6 @@ textarea.fi{resize:vertical}
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="ls">
   <div class="lb">
     <div class="ll"><div class="lsq"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div></div>
@@ -176,14 +175,12 @@ textarea.fi{resize:vertical}
     <input type="password" class="lf" id="pwdIn" placeholder="Mot de passe" onkeydown="if(event.key==='Enter')doLogin()"/>
     <button class="lbtn" onclick="doLogin()">Se connecter</button>
     <p class="lerr" id="lerr">Mot de passe incorrect.</p>
-    <p class="lhint">Mot de passe par défaut : <code>Test</code></p>
+    <p class="lhint">Mot de passe par défaut : <code>Test</code></p>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app" style="display:none;flex:1;flex-direction:column;height:100%">
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <div class="tb-left">
       <div class="tb-logo">
@@ -194,14 +191,12 @@ textarea.fi{resize:vertical}
     </div>
     <div class="tb-right">
       <a href="index.html" target="_blank" class="tb-link">Voir le site →</a>
-      <a href="code-ue.html" target="_blank" class="tb-link">Code de l’UE →</a>
       <button class="tb-btn" onclick="doLogout()">Déconnexion</button>
     </div>
   </div>
 
   <div class="layout">
 
-    <!-- SIDEBAR NAV -->
     <nav class="sidenav">
       <div class="sn-section">
         <p class="sn-lbl">Publications</p>
@@ -244,10 +239,8 @@ textarea.fi{resize:vertical}
       </div>
     </nav>
 
-    <!-- MAIN -->
     <main class="main">
 
-<!-- ═══ DASHBOARD ═══════════════════════════════ -->
 <div class="panel on" id="p-dashboard">
   <p class="phead">Tableau de bord</p>
   <div class="stats">
@@ -263,7 +256,6 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
-<!-- ═══ ARTICLES ═══════════════════════════════ -->
 <div class="panel" id="p-articles">
   <p class="phead">Articles</p>
   <div class="tbl-wrap">
@@ -273,7 +265,6 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
-<!-- ═══ EDITOR ═════════════════════════════════ -->
 <div class="panel" id="p-editor">
   <button class="ed-back" onclick="showPanel('articles')">← Retour aux articles</button>
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem">
@@ -341,7 +332,6 @@ textarea.fi{resize:vertical}
   <input type="hidden" id="edId"/>
 </div>
 
-<!-- ═══ JURISPRUDENCE ════════════════════════════ -->
 <div class="panel" id="p-jur">
   <p class="phead">Gestion de la jurisprudence</p>
   <p class="psub">Sélectionnez un article du Code de l’UE pour ajouter ou modifier des annotations jurisprudentielles.</p>
@@ -379,7 +369,7 @@ textarea.fi{resize:vertical}
     <div id="jurEditor" style="display:none">
       <div class="mcard">
         <p class="mcard-ttl" id="jurEdTitle">Nouvelle annotation</p>
-        <div class="fg"><label class="lbl">Titre du groupe (numéroté automatiquement)</label><input type="text" id="jurGroupTitle" class="fi" placeholder="Ex : Obligation de renvoi — Acte clair"/></div>
+        <div class="fg"><label class="lbl">Titre du groupe (numéroté automatiquement)</label><input type="text" id="jurGroupTitle" class="fi" placeholder="Ex : Obligation de renvoi — Acte clair"/></div>
         <div id="jurEntries"></div>
         <button class="add-entry-btn" onclick="addJurEntry()">+ Ajouter une décision</button>
         <div class="btn-row" style="margin-top:.7rem">
@@ -392,7 +382,6 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
-<!-- ═══ BIBLIOGRAPHIE ════════════════════════════ -->
 <div class="panel" id="p-bib">
   <p class="phead">Gestion de la bibliographie</p>
   <p class="psub">Sélectionnez un article du Code de l’UE pour ajouter ou modifier des références bibliographiques.</p>
@@ -421,7 +410,7 @@ textarea.fi{resize:vertical}
     <div id="bibEditor" style="display:none">
       <div class="mcard">
         <p class="mcard-ttl" id="bibEdTitle">Nouvelle entrée bibliographique</p>
-        <div class="fg"><label class="lbl">Titre du groupe</label><input type="text" id="bibGroupTitle" class="fi" placeholder="Ex : Doctrine générale"/></div>
+        <div class="fg"><label class="lbl">Titre du groupe</label><input type="text" id="bibGroupTitle" class="fi" placeholder="Ex : Doctrine générale"/></div>
         <div id="bibEntries"></div>
         <button class="add-entry-btn" onclick="addBibEntry()">+ Ajouter une référence</button>
         <div class="btn-row" style="margin-top:.7rem">
@@ -434,7 +423,6 @@ textarea.fi{resize:vertical}
   </div>
 </div>
 
-<!-- ═══ VERSIONS ════════════════════════════════ -->
 <div class="panel" id="p-versions">
   <p class="phead">Versions antérieures des articles</p>
   <p class="psub">Ajoutez les versions antérieures d’un article du Code (affichées dans la fenêtre modale « Versions »).</p>
@@ -447,14 +435,13 @@ textarea.fi{resize:vertical}
   <button class="new-btn" onclick="openVerEditor()" style="margin-bottom:.75rem">+ Ajouter une version</button>
   <ul class="vlist" id="verList"><li class="ann-empty">Sélectionnez un article.</li></ul>
   <div class="ved" id="verEd">
-    <div class="fg"><label class="lbl">Libellé</label><input type="text" id="verLabel" class="fi" placeholder="Ex : Version Maastricht (1992)"/></div>
+    <div class="fg"><label class="lbl">Libellé</label><input type="text" id="verLabel" class="fi" placeholder="Ex : Version Maastricht (1992)"/></div>
     <div class="fg"><label class="lbl">Texte de la version antérieure</label><textarea id="verContent" class="fi" rows="7" placeholder="Texte tel qu’il était rédigé dans la version antérieure…"></textarea></div>
     <div class="btn-row"><button class="btn-pub" onclick="saveVer()">Enregistrer</button><button class="btn-dft" onclick="document.getElementById('verEd').style.display='none'">Annuler</button></div>
     <input type="hidden" id="verId"/>
   </div>
 </div>
 
-<!-- ═══ SETTINGS ════════════════════════════════ -->
 <div class="panel" id="p-settings">
   <p class="phead">Paramètres des onglets</p>
   <p class="psub">Activez ou désactivez les onglets Jurisprudence, Bibliographie et Textes complémentaires pour chaque article publié.</p>
@@ -471,174 +458,123 @@ textarea.fi{resize:vertical}
 var API='/.netlify/functions';
 var _ec=0;
 
-// ── AUTH ─────────────────────────────────────────────────────
+// ── AUTHENTIFICATION ─────────────────────────────────────────
 async function doLogin(){
-  var v=document.getElementById('pwdIn').value;
+    var v = document.getElementById('pwdIn').value;
+    var err = document.getElementById('lerr');
 
-  const res = await fetch('/.netlify/functions/login', {
-    method: 'POST',
-    body: JSON.stringify({ password: v })
-  });
+    try {
+        const res = await fetch(`${API}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: v })
+        });
 
-  if(res.ok){
-    sessionStorage.setItem('irs_auth','1');
-    document.getElementById('ls').style.display='none';
-    document.getElementById('app').style.display='flex';
-    initApp();
-  } else {
-    document.getElementById('lerr').style.display='block';
-  }
-}
-      
-function doLogout(){ sessionStorage.clear(); location.reload(); }
-
-// ── INIT ─────────────────────────────────────────────────────
-function initApp(){
-  var d=new Date(); document.getElementById('edDate').value=d.toISOString().slice(0,10);
-  loadDashboard();
+        if (res.ok) {
+            document.getElementById('ls').style.display = 'none';
+            document.getElementById('app').style.display = 'flex';
+            loadDashboard(); // On charge les articles de la base de données
+        } else {
+            err.style.display = 'block';
+        }
+    } catch (e) {
+        console.error("Erreur de connexion", e);
+        alert("Impossible de contacter le serveur.");
+    }
 }
 
-// ── PANELS ───────────────────────────────────────────────────
-function showPanel(name){
-  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
-  document.querySelectorAll('.sn-item').forEach(function(b){ b.classList.remove('on'); });
-  var p=document.getElementById('p-'+name);
-  if(p) p.classList.add('on');
-  var n=document.getElementById('nav-'+name);
-  if(n) n.classList.add('on');
-  if(name==='dashboard') loadDashboard();
-  if(name==='articles') loadArticleTable('artTable');
-  if(name==='settings') loadSettings();
+function doLogout(){
+    window.location.reload();
 }
 
-// ── API ───────────────────────────────────────────────────────
-async function apiFetch(path,opts){
-  var res=await fetch(API+path,opts||{});
-  if(!res.ok){ var t=await res.text(); throw new Error(t||'Erreur réseau'); }
-  return res.json();
-}
-async function getArts(){
-  try{
-    var pwd=sessionStorage.getItem('irs_pwd')||'';
-    return await apiFetch('/admin-articles?password='+encodeURIComponent(pwd));
-  } catch(e){ return []; }
+// ── CHARGEMENT DEPUIS SUPABASE ───────────────────────────────
+async function loadDashboard() {
+    var v = document.getElementById('pwdIn').value;
+    var dashTable = document.getElementById('dashTable');
+    var artTable = document.getElementById('artTable');
+
+    try {
+        const res = await fetch(`${API}/admin-articles?password=${v}`);
+        const data = await res.json();
+
+        if (res.ok) {
+            renderArticles(data, dashTable);
+            renderArticles(data, artTable);
+            updateStats(data);
+        } else {
+            console.error("Erreur Supabase:", data.error);
+        }
+    } catch (e) {
+        console.error("Erreur réseau:", e);
+    }
 }
 
-// ── DASHBOARD ─────────────────────────────────────────────────
-async function loadDashboard(){
-  var arts=await getArts();
-  var pub=arts.filter(function(a){return a.published;}).length;
-  var drft=arts.filter(function(a){return !a.published;}).length;
-  var cats=new Set(arts.map(function(a){return a.category;}).filter(Boolean)).size;
-  document.getElementById('stTotal').textContent=arts.length;
-  document.getElementById('stPub').textContent=pub;
-  document.getElementById('stDraft').textContent=drft;
-  document.getElementById('stCat').textContent=cats;
-  renderTable('dashTable',arts.slice(0,8));
+function renderArticles(articles, container) {
+    if (!articles || articles.length === 0) {
+        container.innerHTML = '<tr><td colspan="6" class="empty-td">Aucun article trouvé.</td></tr>';
+        return;
+    }
+    container.innerHTML = articles.map(art => `
+        <tr>
+            <td><strong>${art.title || 'Sans titre'}</strong></td>
+            <td>${art.author || '—'}</td>
+            <td>${art.category || 'Général'}</td>
+            <td>${art.created_at ? new Date(art.created_at).toLocaleDateString() : '—'}</td>
+            <td><span class="badge ${art.status === 'pub' ? 'bp' : 'bd'}">${art.status === 'pub' ? 'Publié' : 'Brouillon'}</span></td>
+            <td class="act-btns">
+                <button class="act-btn" onclick="editArt('${art.id}')">Éditer</button>
+                <button class="act-btn del">Supprimer</button>
+            </td>
+        </tr>
+    `).join('');
 }
 
-async function loadArticleTable(tbId){
-  var arts=await getArts();
-  renderTable(tbId,arts);
+function updateStats(articles) {
+    document.getElementById('stTotal').innerText = articles.length;
+    document.getElementById('stPub').innerText = articles.filter(a => a.status === 'pub').length;
+    document.getElementById('stDraft').innerText = articles.filter(a => a.status !== 'pub').length;
+    const cats = [...new Set(articles.map(a => a.category))].filter(c => c);
+    document.getElementById('stCat').innerText = cats.length;
 }
 
-function renderTable(tbId,arts){
-  var tb=document.getElementById(tbId);
-  if(!arts.length){ tb.innerHTML='<tr><td colspan="6" class="empty-td">Aucun article. Cliquez sur "+ Nouvel article".</td></tr>'; return; }
-  tb.innerHTML=arts.sort(function(a,b){return new Date(b.created_at||0)-new Date(a.created_at||0);}).map(function(a){
-    var d=a.date?new Date(a.date).toLocaleDateString('fr-FR'):'—';
-    var t=(a.title||'').length>50?(a.title||'').slice(0,50)+'…':(a.title||'');
-    var au=(a.author||'').length>22?(a.author||'').slice(0,22)+'…':(a.author||'');
-    return '<tr><td><strong>'+t+'</strong></td><td>'+au+'</td><td>'+(a.category||'—')+'</td><td>'+d+'</td>'
-      +'<td><span class="badge '+(a.published?'bp':'bd')+'">'+(a.published?'Publié':'Brouillon')+'</span></td>'
-      +'<td><div class="act-btns"><button class="act-btn" onclick="editArt(''+a.id+'')">Modifier</button>'
-      +'<a href="article.html?id='+a.id+'" target="_blank" class="act-btn">Voir</a>'
-      +'<button class="act-btn del" onclick="delArt(''+a.id+'')">Suppr.</button></div></td></tr>';
-  }).join('');
+// ── NAVIGATION & UI ──────────────────────────────────────────
+function showPanel(id) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+    document.querySelectorAll('.sn-item').forEach(btn => btn.classList.remove('on'));
+    
+    document.getElementById('p-' + id).classList.add('on');
+    document.getElementById('nav-' + id).classList.add('on');
 }
 
-// ── EDITOR ────────────────────────────────────────────────────
-function showNewEditor(){
-  clearEditor();
-  showPanel('editor');
-  document.getElementById('nav-new').classList.add('on');
+function showNewEditor() {
+    showPanel('editor');
+    document.getElementById('edHead').innerText = "Nouvel article";
+    document.getElementById('edId').value = "";
+    document.getElementById('edTitle').value = "";
+    document.getElementById('rteBody').innerHTML = "<p>Rédigez votre article ici…</p>";
 }
-function clearEditor(){
-  document.getElementById('edId').value='';
-  document.getElementById('edHead').textContent='Nouvel article';
-  document.getElementById('edTitle').value='';
-  document.getElementById('edExcerpt').value='';
-  document.getElementById('edAuthor').value='';
-  document.getElementById('edCat').value='';
-  document.getElementById('edJournal').value='';
-  document.getElementById('edDoi').value='';
-  document.getElementById('edDate').value=new Date().toISOString().slice(0,10);
-  document.getElementById('edStatus').value='draft';
-  document.getElementById('edFootnotes').value='';
-  document.getElementById('rteBody').innerHTML='<p>Rédigez votre article ici…</p>';
-}
-async function editArt(id){
-  var arts=await getArts();
-  var a=arts.find(function(x){return x.id===id;});
-  if(!a) return;
-  document.getElementById('edId').value=id;
-  document.getElementById('edHead').textContent='Modifier l’article';
-  document.getElementById('edTitle').value=a.title||'';
-  document.getElementById('edExcerpt').value=a.excerpt||'';
-  document.getElementById('edAuthor').value=a.author||'';
-  document.getElementById('edCat').value=a.category||'';
-  document.getElementById('edJournal').value=a.journal||'';
-  document.getElementById('edDoi').value=a.doi||'';
-  document.getElementById('edDate').value=a.date||'';
-  document.getElementById('edStatus').value=a.published?'pub':'draft';
-  document.getElementById('edFootnotes').value=a.footnotes||'';
-  document.getElementById('rteBody').innerHTML=a.content||'<p></p>';
-  showPanel('editor');
-}
-async function delArt(id){
-  if(!confirm('Supprimer cet article ? Action irréversible.')) return;
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    await apiFetch('/delete-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,id:id})});
-    notify('Article supprimé.');
-    loadDashboard();
-  } catch(e){ alert('Erreur : '+e.message); }
-}
-async function saveArt(pub){
-  var title=document.getElementById('edTitle').value.trim();
-  if(!title){ alert('Le titre est obligatoire.'); return; }
-  var id=document.getElementById('edId').value||Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,5);
-  var art={id:id,title:title,excerpt:document.getElementById('edExcerpt').value.trim(),
-    author:document.getElementById('edAuthor').value.trim()||'Anonyme',
-    category:document.getElementById('edCat').value,
-    journal:document.getElementById('edJournal').value.trim(),
-    doi:document.getElementById('edDoi').value.trim(),
-    date:document.getElementById('edDate').value,
-    footnotes:document.getElementById('edFootnotes').value.trim(),
-    content:document.getElementById('rteBody').innerHTML,
-    published:pub||(document.getElementById('edStatus').value==='pub'),
-    created_at:new Date().toISOString()};
-  notify('Enregistrement…');
-  var pwd=sessionStorage.getItem('irs_pwd')||'';
-  try{
-    await apiFetch('/save-article',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pwd,article:art})});
-    document.getElementById('edId').value=id;
-    document.getElementById('edHead').textContent='Modifier l’article';
-    notify(pub?'Article publié !':'Brouillon enregistré.');
-  } catch(e){ alert('Erreur : '+e.message); }
-}
-function previewArt(){ var id=document.getElementById('edId').value; if(id) window.open('article.html?id='+id,'_blank'); else saveArt(false).then(function(){ var id2=document.getElementById('edId').value; if(id2) window.open('article.html?id='+id2,'_blank'); }); }
 
-// ── RTE ───────────────────────────────────────────────────────
-function rteC(cmd){ document.execCommand(cmd,false,null); document.getElementById('rteBody').focus(); }
-function rteBlk(t){ document.execCommand('formatBlock',false,t); document.getElementById('rteBody').focus(); }
-function rteSz(s){ if(s) document.execCommand('fontSize',false,s); document.getElementById('rteBody').focus(); }
-function rteCol(c){ document.execCommand('foreColor',false,c); document.getElementById('rteBody').focus(); }
-function rteLink(){ var u=prompt('URL :','https://'); if(u) document.execCommand('createLink',false,u); document.getElementById('rteBody').focus(); }
-document.addEventListener('DOMContentLoaded',function(){
-  var rb=document.getElementById('rteBody');
-  if(rb) rb.addEventListener('input',function(){ var w=this.innerText.trim().split(/\s+/).filter(Boolean).length; document.getElementById('rteCC').textContent=w+' mot'+(w>1?'s':''); });
-});
+// ── FONCTIONS À COMPLÉTER PLUS TARD ──────────────────────────
+// Ces fonctions sont conservées pour ne pas créer d'erreurs dans la console
+// lorsque tu cliques sur les autres boutons de ton interface.
+function saveArt(isPub) { alert("Fonction d'enregistrement à connecter à Supabase !"); }
+function previewArt() { alert("Prévisualisation en cours de développement..."); }
+function editArt(id) { alert("Édition de l'article : " + id); }
+function loadAnnotList(type, selId, listId) { console.log("Chargement des annotations..."); }
+function openAnnotEditor(type) { document.getElementById(type + 'Editor').style.display = 'block'; }
+function addJurEntry() {}
+function saveAnnot(type) { document.getElementById(type + 'Editor').style.display = 'none'; }
+function addBibEntry() {}
+function loadVersions() {}
+function openVerEditor() { document.getElementById('verEd').style.display = 'block'; }
+function saveVer() { document.getElementById('verEd').style.display = 'none'; }
+
+// ── RICH TEXT EDITOR (RTE) ───────────────────────────────────
+function rteC(c, v) { document.execCommand(c, false, v); }
+function rteBlk(v) { document.execCommand('formatBlock', false, v); }
+function rteSz(v) { document.execCommand('fontSize', false, v); }
+function rteCol(v) { document.execCommand('foreColor', false, v); }
+function rteLink() { var u = prompt("URL:"); if(u) rteC('createLink', u); }
 
 // ── ANNOTATIONS ───────────────────────────────────────────────
 var _annotType='jur', _annotEditId=null, _jurEntryCount=0, _bibEntryCount=0;
