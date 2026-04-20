@@ -472,10 +472,16 @@ var API='/.netlify/functions';
 var _ec=0;
 
 // ── AUTH ─────────────────────────────────────────────────────
-function doLogin(){
+async function doLogin(){
   var v=document.getElementById('pwdIn').value;
+
+  const res = await fetch('/.netlify/functions/login', {
+    method: 'POST',
+    body: JSON.stringify({ password: v })
+  });
+
+  if(res.ok){
     sessionStorage.setItem('irs_auth','1');
-    sessionStorage.setItem('irs_pwd',v);
     document.getElementById('ls').style.display='none';
     document.getElementById('app').style.display='flex';
     initApp();
@@ -483,6 +489,7 @@ function doLogin(){
     document.getElementById('lerr').style.display='block';
   }
 }
+      
 function doLogout(){ sessionStorage.clear(); location.reload(); }
 
 // ── INIT ─────────────────────────────────────────────────────
