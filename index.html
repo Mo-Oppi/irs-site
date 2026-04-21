@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Institut de Recherche Scientifique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f0ece3;--bg2:#e8e3d8;--text:#1a1917;--mid:#3d3b35;
+      --muted:#6b6860;--red:#a51c2e;--red2:#7a1220;--redl:#f7eced;
+      --line:#c8c2b5;--serif:'EB Garamond',Georgia,serif
+    }
+    @media(prefers-color-scheme:dark){
+      :root{
+        --bg:#17161400;--bg:#17161480;
+        --bg:#181714;--bg2:#211f1c;--text:#e8e3d8;--mid:#c4bdb3;
+        --muted:#7a756d;--red:#c4263b;--red2:#e03a50;--redl:#2a1215;
+        --line:#332f2a
+      }
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:var(--serif);font-size:17px;line-height:1.72;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+
+    /* NAV */
+    nav{border-bottom:1px solid var(--line);padding:0 2.5rem;position:sticky;top:0;z-index:100;background:var(--bg);transition:background .3s}
+    .nav-inner{max-width:1360px;margin:0 auto;display:flex;align-items:center;height:60px;gap:2rem}
+    .nav-logo{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
+    .logo-sq{width:36px;height:36px;background:var(--red);display:flex;align-items:center;justify-content:center}
+    .logo-sq svg{width:20px;height:20px}
+    .logo-txt{font-size:.72rem;font-weight:700;line-height:1.25;letter-spacing:.01em}
+    .nav-links{display:flex;gap:2rem;list-style:none;flex:1;justify-content:center}
+    .nav-links a{font-size:.85rem;color:var(--muted);transition:color .15s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-r{display:flex;align-items:center;gap:1rem;flex-shrink:0}
+    .btn-red{background:var(--red);color:#fff;font-family:var(--serif);font-size:.84rem;font-weight:600;padding:.32rem 1rem;transition:background .15s;display:inline-block}
+    .btn-red:hover{background:var(--red2);color:#fff}
+    .nav-lang{font-size:.76rem;font-weight:700;color:var(--muted)}
+
+    /* PAGE */
+    .page{max-width:1360px;margin:0 auto;display:grid;grid-template-columns:280px 1fr;min-height:80vh}
+
+    /* LEFT */
+    .left{padding:3rem 2.5rem 4rem 2.5rem;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:2.8rem}
+    .tagline{font-size:1.45rem;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+    .tagline em{font-style:italic;color:var(--red)}
+    .about-txt{font-size:.88rem;color:var(--muted);line-height:1.8}
+    .left-section{display:flex;flex-direction:column;gap:.6rem}
+    .left-section-label{font-size:.7rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-bottom:.5rem;border-bottom:1px solid var(--line)}
+    .widget-link{display:flex;align-items:baseline;justify-content:space-between;font-size:.88rem;font-weight:600;color:var(--mid);padding:.3rem 0;border-bottom:1px solid var(--line);transition:color .15s}
+    .widget-link:last-child{border-bottom:none}
+    .widget-link:hover{color:var(--red)}
+    .widget-link span{font-size:.7rem;opacity:.6}
+    .about-widget{font-size:.82rem;color:var(--muted);line-height:1.7}
+    .about-widget strong{font-style:italic;color:var(--mid)}
+    .btn-outline{display:inline-block;margin-top:.7rem;border:1px solid var(--red);color:var(--red);font-family:var(--serif);font-size:.82rem;font-weight:600;padding:.3rem .9rem;transition:background .15s,color .15s}
+    .btn-outline:hover{background:var(--red);color:#fff}
+    .theme-pills{display:flex;flex-direction:column;gap:.3rem}
+    .theme-pill{display:flex;align-items:center;justify-content:space-between;font-size:.84rem;padding:.38rem 0;border-bottom:1px solid var(--line);cursor:pointer;transition:color .15s}
+    .theme-pill:last-child{border-bottom:none}
+    .theme-pill:hover{color:var(--red)}
+    .theme-pill .cnt{font-size:.72rem;color:var(--muted)}
+
+    /* RIGHT */
+    .right{padding:0}
+
+    /* FEATURED */
+    .featured{border-bottom:1px solid var(--line);padding:2.5rem 3rem 2.5rem}
+    .featured-inner{display:grid;grid-template-columns:1fr 420px;gap:3rem;align-items:center}
+    .feat-text{}
+    .feat-tag{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:.8rem}
+    .feat-title{font-size:2rem;font-weight:700;line-height:1.15;margin-bottom:1rem}
+    .feat-title a:hover{color:var(--red)}
+    .feat-meta{font-size:.8rem;color:var(--muted);margin-bottom:.9rem}
+    .feat-meta strong{font-variant:small-caps;color:var(--mid);letter-spacing:.04em}
+    .feat-excerpt{font-size:.92rem;color:var(--mid);line-height:1.75;margin-bottom:1.2rem}
+    .feat-readmore{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--red);font-weight:700;transition:opacity .15s}
+    .feat-readmore:hover{opacity:.7}
+    .feat-img{aspect-ratio:16/10;background:linear-gradient(135deg,#2a2520,#5a4530 50%,#7a6045);overflow:hidden;position:relative}
+    .feat-img img{width:100%;height:100%;object-fit:cover}
+    .feat-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-style:italic;font-size:.82rem;color:#c8b89a}
+
+    /* ARTICLES STREAM */
+    .stream{padding:2rem 3rem 3rem}
+    .stream-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:1.6rem;padding-bottom:.7rem;border-bottom:1px solid var(--line)}
+    .stream-head h2{font-size:1.1rem;font-weight:700}
+    .stream-head a{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .15s}
+    .stream-head a:hover{color:var(--red)}
+    .stream-empty{font-size:.9rem;color:var(--muted);font-style:italic}
+
+    /* ARTICLE CARD */
+    .art-card{padding:1.4rem 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:1.5rem;align-items:start}
+    .art-card:first-child{padding-top:0}
+    .art-card:last-child{border-bottom:none}
+    .art-meta{font-size:.76rem;color:var(--muted);margin-bottom:.35rem;font-variant:small-caps;letter-spacing:.04em}
+    .art-meta .cat{color:var(--red);font-weight:600}
+    .art-title{font-size:1.12rem;font-weight:700;line-height:1.3;margin-bottom:.4rem;transition:color .15s}
+    .art-title a:hover{color:var(--red)}
+    .art-excerpt{font-size:.88rem;color:var(--muted);line-height:1.7}
+    .art-date{font-size:.75rem;color:var(--muted);white-space:nowrap;padding-top:.15rem;font-variant:small-caps}
+
+    /* BIBLIOTHEQUE BAND */
+    .bib-band{border-top:1px solid var(--line);padding:2rem 3rem 2.5rem}
+    .bib-band h2{font-size:1.1rem;font-weight:700;margin-bottom:1.4rem;padding-bottom:.6rem;border-bottom:1px solid var(--line)}
+    .bib-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0}
+    .bib-item{padding:1rem 1.2rem 1rem 0;border-right:1px solid var(--line)}
+    .bib-item:last-child{border-right:none;padding-right:0;padding-left:1.2rem}
+    .bib-item:nth-child(2){padding:1rem 1.2rem}
+    .bib-author{font-size:.72rem;font-weight:700;font-variant:small-caps;letter-spacing:.06em;color:var(--red);margin-bottom:.2rem}
+    .bib-title{font-size:.9rem;font-weight:600;line-height:1.35;margin-bottom:.2rem}
+    .bib-title a:hover{color:var(--red)}
+    .bib-year{font-size:.74rem;color:var(--muted)}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--line);margin-top:2rem}
+    .foot{max-width:1360px;margin:0 auto;padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .foot-logo{display:flex;align-items:center;gap:.5rem}
+    .foot-logo-sq{width:28px;height:28px;background:var(--red);display:flex;align-items:center;justify-content:center}
+    .foot-name{font-size:.78rem;font-weight:700;color:var(--mid)}
+    .foot-links{display:flex;flex-wrap:wrap;gap:.4rem 1.5rem;list-style:none}
+    .foot-links a{font-size:.78rem;color:var(--muted);transition:color .15s}
+    .foot-links a:hover{color:var(--red)}
+    .foot-cc{font-size:.72rem;color:var(--muted)}
+
+    @media(max-width:1024px){
+      .featured-inner{grid-template-columns:1fr}
+      .feat-img{max-height:220px}
+      .bib-grid{grid-template-columns:1fr 1fr}
+      .bib-item:nth-child(3){border-right:none;padding-left:0}
+    }
+    @media(max-width:768px){
+      .page{grid-template-columns:1fr}
+      .left{border-right:none;border-bottom:1px solid var(--line);padding:2rem 1.5rem}
+      .featured,.stream,.bib-band{padding-left:1.5rem;padding-right:1.5rem}
+      .nav-links{display:none}
+      .bib-grid{grid-template-columns:1fr}
+      .bib-item{border-right:none!important;padding:1rem 0!important;border-bottom:1px solid var(--line)}
+      .bib-item:last-child{border-bottom:none}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-sq"><svg viewBox="0 0 24 24" fill="none"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/><line x1="2" y1="7" x2="22" y2="17" stroke="white" stroke-width="1"/><line x1="22" y1="7" x2="2" y2="17" stroke="white" stroke-width="1"/></svg></div>
+      <span class="logo-txt">Institut de<br>Recherche<br>Scientifique</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" style="color:var(--text)">Accueil</a></li>
+      <li><a href="#">Bibliothèque</a></li>
+      <li><a href="code-ue.html">Droit de l'UE</a></li>
+      <li><a href="about.html">À propos</a></li>
+    </ul>
+    <div class="nav-r">
+      <a href="admin.html" class="btn-red">Publier</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ── LEFT ────────────────────────────────────────────── -->
+  <aside class="left">
+    <div>
+      <p class="tagline">Diffuser et préserver<br><em>la connaissance</em><br>scientifique</p>
+    </div>
+
+    <p class="about-txt">
+      L'Institut réunit des chercheurs, académiciens et contributeurs indépendants autour d'une mission commune : rendre accessibles des travaux rigoureux, soumis à évaluation par les pairs, sur l'ensemble des disciplines scientifiques.
+    </p>
+
+    <div class="left-section">
+      <span class="left-section-label">Newsletter</span>
+      <a href="#" class="widget-link">Abonnez-vous <span>→</span></a>
+      <p class="about-widget" style="margin-top:.3rem;font-size:.8rem">Recevez les nouvelles publications directement dans votre boîte.</p>
+    </div>
+
+    <div class="left-section">
+      <span class="left-section-label">Soutenir l'Institut</span>
+      <p class="about-widget">L'Institut est indépendant et à but non lucratif. Les contributions permettent de maintenir l'accès libre à tous les articles. <strong>Déductibles fiscalement.</strong></p>
+      <a href="#" class="btn-outline">Faire un don →</a>
+    </div>
+
+    <div class="left-section">
+      <span class="left-section-label">Thématiques</span>
+      <div class="theme-pills" id="themeList">
+        <a href="#" class="theme-pill"><span>Physique &amp; Cosmologie</span><span class="cnt">14</span></a>
+        <a href="#" class="theme-pill"><span>Biologie &amp; Génétique</span><span class="cnt">21</span></a>
+        <a href="#" class="theme-pill"><span>Mathématiques</span><span class="cnt">9</span></a>
+        <a href="#" class="theme-pill"><span>Climatologie</span><span class="cnt">12</span></a>
+        <a href="#" class="theme-pill"><span>Informatique &amp; IA</span><span class="cnt">18</span></a>
+        <a href="#" class="theme-pill"><span>Droit &amp; Sciences politiques</span><span class="cnt">7</span></a>
+        <a href="#" class="theme-pill"><span>Neurosciences</span><span class="cnt">5</span></a>
+      </div>
+    </div>
+
+    <div class="left-section">
+      <span class="left-section-label">Corpus juridiques</span>
+      <a href="code-ue.html" class="widget-link">Code de droit de l'UE <span>→</span></a>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT ────────────────────────────────────────────── -->
+  <main class="right" id="mainRight">
+
+    <!-- FEATURED -->
+    <div class="featured" id="featuredZone">
+      <div class="featured-inner" id="featuredInner">
+        <div class="feat-text">
+          <p class="feat-tag">À la une</p>
+          <h2 class="feat-title"><a href="article.html" id="featLink">La Relativité Générale&nbsp;: cent ans après</a></h2>
+          <p class="feat-meta" id="featMeta"><strong>Dr. Sophie Bernard</strong> · 15 avril 2025 · Physique &amp; Cosmologie</p>
+          <p class="feat-excerpt" id="featExcerpt">Une relecture contemporaine des équations de champ d'Einstein et de leurs implications sur notre compréhension de l'espace-temps, à la lumière des confirmations récentes — des ondes gravitationnelles à l'image de M87*.</p>
+          <a href="article.html" class="feat-readmore" id="featMore">Lire l'article →</a>
+        </div>
+        <div class="feat-img">
+          <div class="feat-img-placeholder">[ Image à la une ]</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STREAM -->
+    <div class="stream">
+      <div class="stream-head">
+        <h2>Publications récentes</h2>
+        <a href="#">Tout voir →</a>
+      </div>
+      <div id="articleStream">
+        <!-- articles injected by JS -->
+      </div>
+    </div>
+
+    <!-- BIBLIOTHEQUE -->
+    <div class="bib-band">
+      <h2>Bibliothèque fondamentale</h2>
+      <div class="bib-grid">
+        <div class="bib-item">
+          <p class="bib-author">Albert Einstein</p>
+          <p class="bib-title"><a href="article.html">Sur l'électrodynamique des corps en mouvement</a></p>
+          <p class="bib-year">Annalen der Physik, 1905</p>
+        </div>
+        <div class="bib-item">
+          <p class="bib-author">Alan Turing</p>
+          <p class="bib-title"><a href="article.html">Computing Machinery and Intelligence</a></p>
+          <p class="bib-year">Mind, 1950</p>
+        </div>
+        <div class="bib-item">
+          <p class="bib-author">Marie Curie</p>
+          <p class="bib-title"><a href="article.html">Sur une substance nouvelle radio-active dans la pechblende</a></p>
+          <p class="bib-year">Comptes Rendus, 1898</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  <div class="foot">
+    <div class="foot-logo">
+      <div class="foot-logo-sq"><svg viewBox="0 0 24 24" fill="none" width="16" height="16"><polygon points="12,2 22,7 22,17 12,22 2,17 2,7" stroke="white" stroke-width="1.5"/><line x1="12" y1="2" x2="12" y2="22" stroke="white" stroke-width="1"/></svg></div>
+      <span class="foot-name">Institut de Recherche Scientifique</span>
+    </div>
+    <ul class="foot-links">
+      <li><a href="#">À propos</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">Soumettre</a></li>
+      <li><a href="admin.html">Administration</a></li>
+      <li><a href="#">Flux RSS</a></li>
+    </ul>
+    <span class="foot-cc">Contenu sous licence CC BY-SA 4.0</span>
+  </div>
+</footer>
+
+<script>
+const API = '/api';
+
+function fmtDate(d){
+  if(!d)return '';
+  try{return new Date(d).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'});}
+  catch(e){return d;}
+}
+
+async function render(){
+  const stream = document.getElementById('articleStream');
+  stream.innerHTML = '<p class="stream-empty" style="opacity:.5">Chargement…</p>';
+
+  let articles = [];
+  try {
+    const res = await fetch(API + '/get-articles');
+    if (!res.ok) throw new Error('Erreur réseau');
+    articles = await res.json();
+  } catch(e) {
+    stream.innerHTML = '<p class="stream-empty">Impossible de charger les articles.</p>';
+    return;
+  }
+
+  if (!articles.length) {
+    stream.innerHTML = '<p class="stream-empty">Aucune publication pour le moment.</p>';
+    return;
+  }
+
+  // À la une = le plus récent
+  const feat = articles[0];
+  document.querySelector('.feat-title a').textContent = feat.title;
+  document.querySelector('.feat-title a').href = 'article.html?id=' + feat.id;
+  document.getElementById('featMore').href = 'article.html?id=' + feat.id;
+  document.getElementById('featMeta').innerHTML =
+    '<strong>' + feat.author + '</strong> &middot; ' + fmtDate(feat.date) +
+    (feat.category ? ' &middot; ' + feat.category : '');
+  document.getElementById('featExcerpt').textContent = feat.excerpt || '';
+
+  // Fil d'actualité = le reste
+  const rest = articles.slice(1);
+  if (!rest.length) {
+    stream.innerHTML = '<p class="stream-empty">Un seul article pour l’instant.</p>';
+    return;
+  }
+  stream.innerHTML = rest.map(a => `
+    <div class="art-card">
+      <div>
+        <p class="art-meta"><span class="cat">${a.category||'Article'}</span> &middot; <span>${a.author}</span></p>
+        <p class="art-title"><a href="article.html?id=${a.id}">${a.title}</a></p>
+        <p class="art-excerpt">${a.excerpt||''}</p>
+      </div>
+      <span class="art-date">${fmtDate(a.date)}</span>
+    </div>`).join('');
+}
+
+render();
+</script>
+</body>
+</html>

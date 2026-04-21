@@ -1,0 +1,3 @@
+# Redirige les anciens appels /.netlify/functions/* vers /api/*
+# (utile si vous avez des liens anciens ou des favoris)
+/.netlify/functions/* /api/:splat 200
