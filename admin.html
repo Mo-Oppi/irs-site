@@ -534,7 +534,7 @@ textarea.fi{resize:vertical}
               <button class="rtb" onclick="rteC2('italic')"><i>I</i></button>
               <button class="rtb" onclick="rteC2('underline')"><u>S</u></button>
             </div>
-            <div class="rte-body" id="caebody" contenteditable="true" style="min-height:200px"><p>Saisissez le texte de l'article…</p></div>
+            <div class="rte-body" id="caebody" contenteditable="true" style="min-height:200px"><p>Saisissez le texte de l\'article…</p></div>
           </div>
         </div>
 
@@ -1058,6 +1058,7 @@ function loadSettings() {
       '<label class="cb-row"><input type="checkbox"' + (s.jur ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'jur\',this.checked)"/> Jurisprudence</label>' +
       '<label class="cb-row"><input type="checkbox"' + (s.bib ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'bib\',this.checked)"/> Bibliographie</label>' +
       '<label class="cb-row"><input type="checkbox"' + (s.cmp ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'cmp\',this.checked)"/> Textes complémentaires</label>' +
+      '<label class="cb-row"><input type="checkbox"' + (s.ver ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'ver\',this.checked)"/> Versions de l\'article</label>' +
       '</div>';
   }).join('');
 }
@@ -1129,8 +1130,8 @@ async function loadCodeArticles() {
         (a.titre_label ? '<br><span style="font-size:.7rem;color:var(--mu)">' + escapeHtml(a.titre_label) + '</span>' : '') +
         '</span>' +
         '<div class="act-btns">' +
-          '<button class="act-btn" onclick="editCodeArt('' + a.id + '')">Modifier</button>' +
-          '<button class="act-btn del" onclick="delCodeArt('' + a.id + '')">Suppr.</button>' +
+          '<button class="act-btn" onclick="editCodeArt(\'' + a.id + '\')">Modifier</button>' +
+          '<button class="act-btn del" onclick="delCodeArt(\'' + a.id + '\')">Suppr.</button>' +
         '</div></li>';
     });
     // Show hardcoded articles (not yet in Supabase)
@@ -1142,7 +1143,7 @@ async function loadCodeArticles() {
         '<br><span style="font-size:.7rem;color:var(--mu)">Article intégré (cliquez Modifier pour personnaliser)</span>' +
         '</span>' +
         '<div class="act-btns">' +
-          '<button class="act-btn" onclick="editCodeArtById('' + id + '')">Modifier</button>' +
+          '<button class="act-btn" onclick="editCodeArtById(\'' + id + '\')">Modifier</button>' +
         '</div></li>';
     });
 
@@ -1155,7 +1156,7 @@ async function loadCodeArticles() {
 function openCodeArtEditor(prefill) {
   var ed = document.getElementById('codeArtEditor');
   ed.style.display = 'block';
-  document.getElementById('codeArtEdTitle').textContent = prefill ? 'Modifier l'article' : 'Nouvel article';
+  document.getElementById('codeArtEdTitle').textContent = prefill ? 'Modifier l\'article' : 'Nouvel article';
   document.getElementById('caeEditId').value = prefill ? (prefill.id || '') : '';
   document.getElementById('caeTreaty').value = prefill ? (prefill.treaty || 'TUE') : 'TUE';
   document.getElementById('caeNum').value = prefill ? (prefill.article_num || '') : '';
@@ -1163,7 +1164,7 @@ function openCodeArtEditor(prefill) {
   document.getElementById('caeFormer').value = prefill ? (prefill.former_ref || '') : '';
   document.getElementById('caePart').value = prefill ? (prefill.part_label || '') : '';
   document.getElementById('caeTitre').value = prefill ? (prefill.titre_label || '') : '';
-  document.getElementById('caebody').innerHTML = prefill ? (prefill.body_html || '<p></p>') : '<p>Saisissez le texte de l'article…</p>';
+  document.getElementById('caebody').innerHTML = prefill ? (prefill.body_html || '<p></p>') : '<p>Saisissez le texte de l\'article…</p>';
   document.getElementById('caeNote').value = prefill ? (prefill.note || '') : '';
   document.getElementById('caeOrder').value = prefill ? (prefill.sort_order || 0) : 0;
   var tabs = prefill ? (prefill.tabs || 'jur,bib').split(',') : ['jur','bib'];
@@ -1205,7 +1206,7 @@ function editCodeArtById(id) {
     id: id,
     treaty: treaty,
     article_num: num,
-    body_html: '<p>Saisissez le contenu de l'article ' + num + ' ' + treaty + '…</p>',
+    body_html: '<p>Saisissez le contenu de l\'article ' + num + ' ' + treaty + '…</p>',
     tabs: 'jur,bib',
     sort_order: 0
   });
@@ -1217,10 +1218,10 @@ async function saveCodeArt() {
   var num = document.getElementById('caeNum').value.trim();
   var body = document.getElementById('caebody').innerHTML;
 
-  if (!num) { alert('Le numéro d'article est obligatoire.'); return; }
+  if (!num) { alert('Le numéro d\'article est obligatoire.'); return; }
   if (!id) { id = treaty.toLowerCase() + '-' + num.toLowerCase().replace(/[^a-z0-9]/g,''); }
-  if (!body || body === '<p>Saisissez le texte de l'article…</p>') {
-    alert('Le contenu de l'article est obligatoire.'); return;
+  if (!body || body === '<p>Saisissez le texte de l\'article…</p>') {
+    alert('Le contenu de l\'article est obligatoire.'); return;
   }
 
   var tabs = [];

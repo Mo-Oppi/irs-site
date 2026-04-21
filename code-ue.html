@@ -46,7 +46,7 @@ a{color:inherit;text-decoration:none}
 
 /* TOC */
 .toc{
-  background:#e9e2d8;border-right:1px solid var(--ln);
+  background:var(--bg2);border-right:1px solid var(--ln);
   display:flex;flex-direction:column;flex-shrink:0;
   width:var(--toc-w);min-width:var(--toc-w);
   transition:width .25s ease,min-width .25s ease;
@@ -506,7 +506,21 @@ function buildEl(id){
         if(i>0) h+='<span class="tabdot">•</span>';
         h+='<button class="tablink" onclick="togTab(this,\''+id+'\',\''+t+'\')" data-aid="'+id+'" data-type="'+t+'">'+lbls[t]+'</button>';
       });
-      if(d.vers&&d.vers.length){
+      // Show version button if:
+      // - article settings explicitly enable it, OR
+      // - settings not set AND article has version data (default behavior)
+      var showVerBtn=false;
+      if(artSettings){
+        showVerBtn=artSettings.ver===true;
+      } else {
+        showVerBtn=(d.vers&&d.vers.length>0);
+      }
+      // Also check if admin added versions in localStorage
+      try{
+        var lsVers=JSON.parse(localStorage.getItem('irs_versions')||'{}');
+        if(lsVers[id]&&lsVers[id].length) showVerBtn=true;
+      }catch(e){}
+      if(showVerBtn){
         h+='<span class="tabdot">•</span>';
         h+='<button class="verbtn" onclick="showVer(\''+id+'\')">Versions de l\'article</button>';
       }
@@ -722,7 +736,12 @@ function doSearch(){
   var q=document.getElementById('si').value.trim();
   if(!q||q.length<2){ document.getElementById('sc').textContent=''; return; }
   if(ssc==='num'){
-    var m=Object.keys(DB).find(function(k){ return DB[k].n===q.trim()||DB[k].n.replace(/<[^>]+>/g,'').trim()===q.trim(); });
+    // Normalize both user input and article numbers (handle "1", "1er", "1ᵉʳ", etc.)
+    var qn=q.trim().toLowerCase().replace(/\s+/g,'').replace(/er|ᵉʳ|ʳ/g,'');
+    var m=Object.keys(DB).find(function(k){
+      var an=(DB[k].n||'').toLowerCase().replace(/<[^>]+>/g,'').replace(/\s+/g,'').replace(/er|ᵉʳ|ʳ/g,'');
+      return an===qn;
+    });
     if(m){ goArt(m); document.getElementById('sc').textContent='1 résultat'; }
     else { document.getElementById('sc').textContent='0 résultat'; }
     return;
