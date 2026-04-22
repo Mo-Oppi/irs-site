@@ -1474,11 +1474,8 @@ async function loadCodeArticles() {
 
     list.innerHTML = html || '<li class="ann-empty">Aucun article. Cliquez sur "+ Nouvel article".</li>';
   } catch(e) {
-    list.innerHTML =
-      '<li class="ann-empty" style="color:var(--red);padding:.75rem 1rem">' +
-      '⚠ Impossible de charger les articles : ' + e.message + '<br>' +
-      '<span style="font-size:.75rem;color:var(--mu)">La table <code>code_articles</code> existe-t-elle dans Supabase ? ' +
-      'Si non, exécutez le fichier <strong>supabase-code-articles.sql</strong> dans l\'éditeur SQL Supabase.</span></li>';
+    var msg = 'Table code_articles manquante ? Executez supabase-code-articles.sql dans Supabase SQL Editor.';
+    list.innerHTML = '<li class="ann-empty" style="color:var(--red);padding:.75rem 1rem">Erreur : ' + e.message + ' — ' + msg + '</li>';
   }
 }
 
@@ -1592,11 +1589,11 @@ async function saveCodeArt() {
         diagBox.style.cssText = 'margin-top:.75rem;background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:.75rem 1rem;font-size:.78rem;color:#991b1b;line-height:1.6';
         document.getElementById('codeArtEditor').appendChild(diagBox);
       }
-      diagBox.innerHTML = '<strong>⚠ Échec de l\'enregistrement (HTTP ' + res.status + ')</strong><br>' +
-        '<code style="word-break:break-all">' + errMsg + '</code><br><br>' +
-        (errMsg.indexOf('does not exist') >= 0 || errMsg.indexOf('42P01') >= 0
-          ? '👉 La table <strong>code_articles</strong> n\'existe pas dans Supabase.<br>Exécutez le fichier <code>supabase-code-articles.sql</code> dans l\'éditeur SQL Supabase, puis réessayez.'
-          : '👉 Vérifiez vos variables d\'environnement Cloudflare (SUPABASE_SERVICE_KEY, SUPABASE_URL).');
+      var isMissing = errMsg.indexOf('does not exist') >= 0 || errMsg.indexOf('42P01') >= 0;
+      var hint = isMissing
+        ? 'Table code_articles manquante — executez supabase-code-articles.sql dans Supabase.'
+        : 'Verifiez SUPABASE_SERVICE_KEY et SUPABASE_URL dans Cloudflare.';
+      diagBox.textContent = 'Echec HTTP ' + res.status + ' : ' + errMsg + ' — ' + hint;
       diagBox.style.display = 'block';
       return;
     }
