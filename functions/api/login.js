@@ -1,4 +1,3 @@
-
 export async function onRequest({ env, request }) {
   if (request.method === 'OPTIONS') {
     return new Response(null, { status: 204, headers: cors() });
