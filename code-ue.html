@@ -12,7 +12,7 @@
   --tx:#1a1917;--mid:#3d3b35;--mu:#6e6960;
   --red:#a51c2e;--redh:rgba(165,28,46,.14);
   --ln:#ccc7bc;--f:'EB Garamond',Georgia,serif;
-  --toc-w:285px
+  --toc-w:255px
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#181614;--bg2:#1f1c19;--bg3:#252220;
@@ -25,16 +25,16 @@ a{color:inherit;text-decoration:none}
 
 /* NAV */
 .nav{border-bottom:1px solid var(--ln);padding:0 1.5rem;position:sticky;top:0;z-index:200;background:var(--bg)}
-.navi{display:flex;align-items:center;height:78px;gap:2rem;max-width:1380px;margin:0 auto}
-.logo{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
-.lsq{width:50px;height:50px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.lsq svg{width:27px;height:27px}
-.ltx{font-size:.9rem;font-weight:700;line-height:1.28;letter-spacing:.01em}
+.navi{display:flex;align-items:center;height:60px;gap:1.8rem;max-width:1380px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:.55rem;flex-shrink:0}
+.lsq{width:40px;height:40px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lsq svg{width:22px;height:22px}
+.ltx{font-size:.8rem;font-weight:700;line-height:1.26;letter-spacing:.01em}
 .nl{display:flex;gap:3rem;list-style:none;flex:1;justify-content:center;margin:0;padding:0}
-.nl a{font-size:1.04rem;font-weight:500;color:var(--mu);transition:color .15s}
+.nl a{font-size:.94rem;font-weight:500;color:var(--mu);transition:color .15s}
 .nl a:hover,.nl a.on{color:var(--tx)}
 .nr{display:flex;align-items:center;gap:.9rem}
-.btr{background:var(--red);color:#fff;font-family:var(--f);font-size:.93rem;font-weight:600;padding:.4rem 1.2rem;display:inline-block;transition:background .15s}
+.btr{background:var(--red);color:#fff;font-family:var(--f);font-size:.84rem;font-weight:600;padding:.33rem 1rem;display:inline-block;transition:background .15s}
 .btr:hover{background:#7a1220;color:#fff}
 
 
@@ -61,8 +61,8 @@ a{color:inherit;text-decoration:none}
 .toc.shut{width:44px;min-width:44px}
 .toc-hd{
   display:flex;align-items:center;justify-content:space-between;
-  padding:.55rem .9rem;border-bottom:1px solid var(--ln);
-  flex-shrink:0;background:#3d3b35;min-height:42px
+  padding:.45rem .85rem;border-bottom:1px solid var(--ln);
+  flex-shrink:0;background:#3d3b35;min-height:38px
 }
 .toc-lbl{font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.9);white-space:nowrap;overflow:hidden;transition:opacity .2s}
 .toc.shut .toc-lbl{opacity:0;width:0}
@@ -75,7 +75,7 @@ a{color:inherit;text-decoration:none}
 .tgb{
   display:flex;align-items:center;gap:.5rem;width:100%;
   background:none;border:none;cursor:pointer;
-  padding:.6rem .9rem;font-size:.9rem;font-weight:700;
+  padding:.5rem .85rem;font-size:.84rem;font-weight:700;
   color:var(--tx);font-family:var(--f);text-align:left;
   transition:background .1s;user-select:none;white-space:nowrap;overflow:hidden;
   letter-spacing:-.01em
@@ -85,10 +85,10 @@ a{color:inherit;text-decoration:none}
 .tgb.open .tcar{transform:rotate(90deg)}
 .ti{display:none;padding-bottom:.2rem}
 .ti.open{display:block}
-.tsec{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:.6rem .9rem .2rem 1.5rem;pointer-events:none;white-space:nowrap;overflow:hidden}
+.tsec{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:.5rem .85rem .18rem 1.4rem;pointer-events:none;white-space:nowrap;overflow:hidden}
 .tl{
-  display:block;padding:.34rem .9rem .34rem 1.5rem;
-  font-size:.86rem;color:var(--mid);cursor:pointer;
+  display:block;padding:.28rem .85rem .28rem 1.4rem;
+  font-size:.82rem;color:var(--mid);cursor:pointer;
   border-left:2px solid transparent;transition:all .12s;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   background:none;border-top:none;border-right:none;border-bottom:none;
@@ -215,10 +215,10 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
   .nl{display:none}
   .srchin{width:150px}
   .dtop{gap:.5rem}
-  .navi{height:60px}
-  .lsq{width:36px;height:36px}
-  .lsq svg{width:20px;height:20px}
-  .ltx{font-size:.8rem}
+  .navi{height:52px}
+  .lsq{width:32px;height:32px}
+  .lsq svg{width:17px;height:17px}
+  .ltx{font-size:.74rem}
   .ltx{font-size:.75rem}
   .btr{font-size:.88rem;padding:.35rem 1rem}
 }
