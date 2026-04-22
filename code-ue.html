@@ -12,7 +12,7 @@
   --tx:#1a1917;--mid:#3d3b35;--mu:#6e6960;
   --red:#a51c2e;--redh:rgba(165,28,46,.14);
   --ln:#ccc7bc;--f:'EB Garamond',Georgia,serif;
-  --toc-w:272px
+  --toc-w:320px
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#181614;--bg2:#1f1c19;--bg3:#252220;
@@ -25,24 +25,30 @@ a{color:inherit;text-decoration:none}
 
 /* NAV */
 .nav{border-bottom:1px solid var(--ln);padding:0 1.5rem;position:sticky;top:0;z-index:200;background:var(--bg)}
-.navi{display:flex;align-items:center;height:68px;gap:1.5rem}
-.logo{display:flex;align-items:center;gap:.6rem;flex-shrink:0}
-.lsq{width:38px;height:38px;background:var(--red);display:flex;align-items:center;justify-content:center}
-.lsq svg{width:21px;height:21px}
-.ltx{font-size:.75rem;font-weight:700;line-height:1.3}
-.nl{display:flex;gap:2rem;list-style:none;flex:1;justify-content:center}
-.nl a{font-size:.97rem;font-weight:500;color:var(--mu);transition:color .15s}
+.navi{display:flex;align-items:center;height:112px;gap:2.6rem;max-width:1400px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:.8rem;flex-shrink:0}
+.lsq{width:66px;height:66px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lsq svg{width:36px;height:36px}
+.ltx{font-size:1.06rem;font-weight:700;line-height:1.28;letter-spacing:.01em}
+.nl{display:flex;gap:3rem;list-style:none;flex:1;justify-content:center;margin:0;padding:0}
+.nl a{font-size:1.22rem;font-weight:600;color:var(--mu);transition:color .15s;letter-spacing:.005em}
 .nl a:hover,.nl a.on{color:var(--tx)}
 .nr{display:flex;align-items:center;gap:.9rem}
-.btr{background:var(--red);color:#fff;font-family:var(--f);font-size:.88rem;font-weight:600;padding:.33rem 1rem;display:inline-block;transition:background .15s}
+.btr{background:var(--red);color:#fff;font-family:var(--f);font-size:1.05rem;font-weight:700;padding:.55rem 1.7rem;display:inline-block;transition:background .15s;letter-spacing:.02em}
 .btr:hover{background:#7a1220;color:#fff}
+
+
+/* PERMALINK */
+.plink{background:none;border:none;cursor:pointer;color:var(--mu);font-size:.88rem;padding:.1rem .35rem;margin-left:.5rem;opacity:0;transition:opacity .15s;vertical-align:middle;border-radius:3px;line-height:1}
+.art:hover .plink{opacity:1}
+.plink:hover{color:var(--red);background:var(--redh)}
 
 /* BC */
 .bc{border-bottom:1px solid var(--ln);padding:.42rem 1.5rem;font-size:.8rem;color:var(--mu)}
 .bc a{color:var(--red)}
 
 /* SHELL — utilise CSS variable pour animer proprement */
-.shell{display:flex;height:calc(100vh - 109px);overflow:hidden}
+.shell{display:flex;height:calc(100vh - 137px);overflow:hidden}
 
 /* TOC */
 .toc{
@@ -55,10 +61,10 @@ a{color:inherit;text-decoration:none}
 .toc.shut{width:44px;min-width:44px}
 .toc-hd{
   display:flex;align-items:center;justify-content:space-between;
-  padding:.6rem .85rem;border-bottom:1px solid var(--ln);
-  flex-shrink:0;background:#3d3b35;min-height:44px
+  padding:.75rem 1rem;border-bottom:1px solid var(--ln);
+  flex-shrink:0;background:#3d3b35;min-height:50px
 }
-.toc-lbl{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.78);white-space:nowrap;overflow:hidden;transition:opacity .2s}
+.toc-lbl{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.9);white-space:nowrap;overflow:hidden;transition:opacity .2s}
 .toc.shut .toc-lbl{opacity:0;width:0}
 .toc-tog{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.85);font-size:1.2rem;line-height:1;padding:.1rem;flex-shrink:0;transition:transform .25s}
 .toc.shut .toc-tog{transform:rotate(180deg)}
@@ -67,25 +73,27 @@ a{color:inherit;text-decoration:none}
 
 .tg{margin-bottom:.1rem}
 .tgb{
-  display:flex;align-items:center;gap:.4rem;width:100%;
+  display:flex;align-items:center;gap:.5rem;width:100%;
   background:none;border:none;cursor:pointer;
-  padding:.44rem .85rem;font-size:.75rem;font-weight:700;
+  padding:.75rem 1rem;font-size:.98rem;font-weight:700;
   color:var(--tx);font-family:var(--f);text-align:left;
-  transition:background .1s;user-select:none;white-space:nowrap;overflow:hidden
+  transition:background .1s;user-select:none;white-space:nowrap;overflow:hidden;
+  letter-spacing:-.01em
 }
 .tgb:hover{background:rgba(0,0,0,.06)}
 .tcar{font-size:.58rem;color:var(--red);transition:transform .2s;flex-shrink:0;display:inline-block}
 .tgb.open .tcar{transform:rotate(90deg)}
 .ti{display:none;padding-bottom:.2rem}
 .ti.open{display:block}
-.tsec{font-size:.63rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);padding:.4rem .85rem .12rem 1.4rem;pointer-events:none;white-space:nowrap;overflow:hidden}
+.tsec{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:.7rem 1rem .25rem 1.6rem;pointer-events:none;white-space:nowrap;overflow:hidden}
 .tl{
-  display:block;padding:.24rem .85rem .24rem 1.4rem;
-  font-size:.76rem;color:var(--mid);cursor:pointer;
-  border-left:2px solid transparent;transition:all .1s;
+  display:block;padding:.46rem 1rem .46rem 1.6rem;
+  font-size:.95rem;color:var(--mid);cursor:pointer;
+  border-left:2px solid transparent;transition:all .12s;
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   background:none;border-top:none;border-right:none;border-bottom:none;
-  text-align:left;font-family:var(--f);width:100%
+  text-align:left;font-family:var(--f);width:100%;
+  line-height:1.4
 }
 .tl:hover{color:var(--red);background:var(--redh);border-left-color:var(--red)}
 .tl.cur{color:var(--red);background:var(--redh);border-left-color:var(--red);font-weight:600}
@@ -207,14 +215,19 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
   .nl{display:none}
   .srchin{width:150px}
   .dtop{gap:.5rem}
+  .navi{height:72px}
+  .lsq{width:44px;height:44px}
+  .lsq svg{width:24px;height:24px}
+  .ltx{font-size:.88rem}
+  .ltx{font-size:.75rem}
+  .btr{font-size:.88rem;padding:.35rem 1rem}
 }
 @media(max-width:680px){
-  /* On mobile: hide TOC by default, show as overlay */
-  .shell{height:calc(100vh - 58px)}
+  .shell{height:calc(100vh - 72px)}
   .toc{
-    position:fixed;top:58px;left:0;height:calc(100vh - 58px);
+    position:fixed;top:72px;left:0;height:calc(100vh - 72px);
     z-index:100;transform:translateX(-100%);transition:transform .25s ease;
-    width:280px!important;min-width:280px!important;
+    width:290px!important;min-width:290px!important;
   }
   .toc.mob-open{transform:translateX(0)}
   .toc.shut{transform:translateX(-100%)}
@@ -222,18 +235,41 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
   .mob-toc-btn{display:flex}
   .mob-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
   .mob-overlay.on{display:block}
-  .nav{height:58px}
-  .navi{height:58px}
-  .lsq{width:32px;height:32px}
+  .nav{padding:0 1rem}
+  .navi{height:64px;gap:1rem}
+  .lsq{width:38px;height:38px}
+  .lsq svg{width:21px;height:21px}
   .ltx{display:none}
   .bc{padding:.35rem 1rem}
   .dtop{padding:.5rem 1rem}
-  .dtb{padding:.3rem 1rem}
-  .din{padding:1rem 1rem 4rem}
+  .dtb{padding:.3rem 1rem;flex-wrap:wrap}
+  .din{padding:1rem 1rem 4rem;max-width:none}
   .abody{font-size:17px}
   .srchwrap{flex:1}
   .srchin{width:100px}
+  .btr{font-size:.88rem;padding:.35rem 1rem}
 }
+
+/* Rich apport display with multi-level plans */
+.cmp-content{font-size:.9rem;line-height:1.8;color:var(--tx)}
+.cmp-content p{margin:.4em 0}
+.cmp-content h3{font-size:1rem;font-weight:700;margin:1em 0 .3em}
+.aapport-rich{
+  margin-top:.6rem;padding:.6rem .9rem;
+  background:var(--bg3);border-left:2px solid var(--ln);
+  font-size:.87rem;line-height:1.65;color:var(--mid);
+  font-family:var(--f)
+}
+.aapport-rich p{margin:.35em 0}
+.aapport-rich .plan-i{display:block;margin:.85rem 0 .3rem 0;font-size:1.04em;font-weight:700;color:var(--tx);border-top:1px solid var(--ln);padding-top:.7rem}
+.aapport-rich .plan-i:first-child{border-top:none;padding-top:0}
+.aapport-rich .plan-a{display:block;margin:.55rem 0 .2rem 1.4rem;font-size:1em;font-weight:700;color:var(--tx)}
+.aapport-rich .plan-1{display:block;margin:.38rem 0 .18rem 2.8rem;font-size:.96em;font-weight:600;color:var(--mid)}
+.aapport-rich .plan-a-low{display:block;margin:.28rem 0 .14rem 4.2rem;font-size:.94em;font-style:italic;color:var(--mid)}
+.aapport-rich .adiam{font-size:.88em;margin-right:.3em}
+/* Title on its own line */
+.agttl{font-weight:700;margin-bottom:.35rem;font-size:.92rem}
+.agttl .agnum{color:var(--red);margin-right:.25em}
 </style>
 </head>
 <body>
@@ -506,23 +542,28 @@ function buildEl(id){
   var h='';
   if(d.pl){h+='<hr class="psep"/><p class="plbl">'+d.pl+'</p>';}
   if(d.tl){h+='<p class="tlbl">'+d.tl+'</p>';}
-  h+='<div class="ahd"><span class="anum">Art. '+d.n+'</span>';
+  h+='<div class="ahd"><span class="anum">Art. '+d.n+'</span>'+'<button class="plink" onclick="copyLink(\''+id+'\')" title="Copier le lien permanent">&#128279;</button>';
   if(d.fm){h+='<span class="afmr">('+d.fm+')</span>';}
   h+='</div>';
   h+='<div class="abody">'+d.b+'</div>';
   if(d.note){h+='<p class="anote">'+d.note+'</p>';}
-  // Tabs
-  if(d.tabs&&d.tabs.length){
-    var lbls={jur:'Jurisprudence',bib:'Bibliographie',cmp:'Textes complémentaires'};
-    // Check settings from localStorage
-    var settings={};
-    try{settings=JSON.parse(localStorage.getItem('irs_settings')||'{}');}catch(e){}
-    var artSettings=settings[id]||null;
-    var visibleTabs=d.tabs.filter(function(t){
-      if(!artSettings) return true; // show all by default
-      return artSettings[t]!==false; // hidden only if explicitly false
-    });
-    if(visibleTabs.length){
+  // Tabs — admin settings override hardcoded defaults
+  var lbls={jur:'Jurisprudence',bib:'Bibliographie',cmp:'Textes complémentaires'};
+  var ALL_TAB_TYPES=['jur','bib','cmp'];
+  var settings={};
+  try{settings=JSON.parse(localStorage.getItem('irs_settings')||'{}');}catch(e){}
+  var artSettings=settings[id]||null;
+  var defaultTabs=(d.tabs||[]);
+  // Build visible tabs list respecting per-tab admin choices independently.
+  var visibleTabs=ALL_TAB_TYPES.filter(function(t){
+    // Case 1: Admin has explicit setting for THIS tab → use it.
+    if(artSettings && typeof artSettings[t]==='boolean'){
+      return artSettings[t]===true;
+    }
+    // Case 2: No explicit admin choice → use hardcoded default.
+    return defaultTabs.indexOf(t)>=0;
+  });
+  if(visibleTabs.length){
       h+='<div class="atabs">';
       visibleTabs.forEach(function(t,i){
         if(i>0) h+='<span class="tabdot">•</span>';
@@ -550,7 +591,6 @@ function buildEl(id){
       visibleTabs.forEach(function(t){
         h+='<div class="tabpanel" id="tp-'+id+'-'+t+'"></div>';
       });
-    }
   }
   div.innerHTML=h;
   return div;
@@ -681,10 +721,21 @@ function togTab(btn,id,type){
 function fillTab(id,type,el){
   el.dataset.loaded='1';
 
-  // 1. Read from localStorage first (annotations saved by admin)
+  // Textes complémentaires : HTML brut (pas un tableau)
+  if(type==='cmp'){
+    var cmpAll={};
+    try{cmpAll=JSON.parse(localStorage.getItem('irs_annots_cmp')||'{}'  );}catch(e){}
+    var cmpHtml=cmpAll[id]||''  ;
+    el.innerHTML=cmpHtml.trim()
+      ?'<div class="cmp-content">'+cmpHtml+'</div>'
+      :'<p class="tabempty">Aucun texte complémentaire pour le moment.</p>';
+    return;
+  }
+
+  // Jurisprudence / Bibliographie : tableau de groupes
   var lsAnnots=[];
   try{
-    var lsAll=JSON.parse(localStorage.getItem('irs_annots_'+type)||'{}');
+    var lsAll=JSON.parse(localStorage.getItem('irs_annots_'+type)||'{}'  );
     lsAnnots=lsAll[id]||[];
   }catch(e){}
 
@@ -693,7 +744,6 @@ function fillTab(id,type,el){
     return;
   }
 
-  // 2. Show empty state
   el.innerHTML='<p class="tabempty">Aucune annotation pour le moment.</p>';
 }
 
@@ -702,42 +752,45 @@ function renderAnnots(data,el){
   data.forEach(function(g,gi){
     var entries=Array.isArray(g.entries)?g.entries:[];
     h+='<div class="agrp">';
-    // Everything flows inline as one dense paragraph
-    h+='<p class="agrp-body">';
-    // "1. Titre en gras." inline
+    // Group title on its own line
     if(g.title){
-      h+='<span class="agttl"><span class="agnum">'+(gi+1)+'.</span> '+g.title+'.</span> ';
+      h+='<p class="agttl"><span class="agnum">'+(gi+1)+'.</span> '+g.title+'.</p>';
     }
     entries.forEach(function(en,ei){
       var js=en.ref||en.jur||en.jurisprudence||'';
       var bs=en.bib||en.bibliography||'';
       var ap=en.apport||'';
+      // Detect if apport is rich HTML (contains plan-* or multiple <p>)
+      var isRichApport = ap && /<p[^>]*class=['"]plan-/.test(ap);
+
+      // The reference+bib block flows inline
+      h+='<p class="agrp-body">';
       if(js){
-        // Split by £ for multiple decisions in same entry
         var parts=js.split('\xa3').map(function(s){return s.trim();}).filter(Boolean);
         parts.forEach(function(p,pi){
-          // ● before each decision
           h+='<span class="abull">&#9679;</span>';
           h+='<span class="ajur">'+p+'</span>';
           if(bs&&pi===parts.length-1){
-            // bibliography after last decision in group: ✦ ref
             h+=' <span class="astar">&#10022;</span> <span class="abib">'+bs+'</span>';
           }
-          if(ap&&pi===parts.length-1){
-            // apport after: ♦ text
+          // For simple text apport, inline it with ♦
+          if(ap && !isRichApport && pi===parts.length-1){
             h+=' <span class="adiam">&#9830;</span><span class="aapport"> '+ap+'</span>';
           }
         });
-      } else {
-        // Bibliography-only entry
-        if(bs){
-          h+='<span class="abull">&#9679;</span>';
-          h+='<span class="abib">'+bs+'</span>';
-          if(ap) h+=' <span class="adiam">&#9830;</span><span class="aapport"> '+ap+'</span>';
+      } else if(bs){
+        h+='<span class="abull">&#9679;</span>';
+        h+='<span class="abib">'+bs+'</span>';
+        if(ap && !isRichApport){
+          h+=' <span class="adiam">&#9830;</span><span class="aapport"> '+ap+'</span>';
         }
       }
+      h+='</p>';
+      // Rich apport goes in its own block below
+      if(isRichApport){
+        h+='<div class="aapport-rich"><span class="adiam">&#9830;</span> '+ap+'</div>';
+      }
     });
-    h+='</p>';
     h+='</div>';
   });
   el.innerHTML=h||'<p class="tabempty">Aucune annotation.</p>';
@@ -870,7 +923,7 @@ function mergeSupabaseArticles(data){
     if(a.tabs) tabs=(typeof a.tabs==='string'?a.tabs:a.tabs.join(',')).split(',').map(function(t){return t.trim();}).filter(Boolean);
     DB[a.id]={
       t: a.treaty||'',
-      n: 'Art. '+a.article_num,
+      n: a.article_num,
       fm: a.former_ref||'',
       pl: a.part_label||'',
       tl: a.titre_label||'',
@@ -897,6 +950,32 @@ function mergeSupabaseArticles(data){
   });
 }
 
+
+// ═══════════════════════════════════════════════════
+//  COPY PERMALINK
+// ═══════════════════════════════════════════════════
+function copyLink(id){
+  var url=location.origin+location.pathname+'#'+id;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(url).then(function(){showCopyToast();});
+  } else {
+    var ta=document.createElement('textarea');
+    ta.value=url; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showCopyToast();
+  }
+}
+function showCopyToast(msg){
+  var t=document.getElementById('copyToast');
+  if(!t){
+    t=document.createElement('div'); t.id='copyToast';
+    t.style.cssText='position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#1c1917;color:#e5dfd4;padding:.5rem 1.2rem;font-size:.85rem;border-radius:4px;z-index:9999;pointer-events:none;transition:opacity .3s';
+    document.body.appendChild(t);
+  }
+  t.textContent=msg||'✓ Lien copié !'; t.style.opacity='1';
+  clearTimeout(t._t); t._t=setTimeout(function(){ t.style.opacity='0'; },2000);
+}
+
 (function init(){
   // Fetch articles from Supabase first, then render
   fetch('/api/get-code-articles')
@@ -913,6 +992,31 @@ function mergeSupabaseArticles(data){
       if(h&&DB[h]) setTimeout(function(){ goArt(h); },200);
     });
 })();
+// ═══════════════════════════════════════════════════
+//  RE-RENDER WHEN ADMIN CHANGES SETTINGS (cross-tab)
+// ═══════════════════════════════════════════════════
+window.addEventListener('storage', function(ev){
+  if(ev.key === 'irs_settings'){
+    // Re-render all already-rendered articles that are in the DOM
+    var rendered = document.querySelectorAll('.art[data-aid]');
+    rendered.forEach(function(old){
+      var id = old.dataset.aid;
+      // Rebuild the element
+      var fresh = buildEl(id);
+      if(fresh){ old.parentNode.replaceChild(fresh, old); }
+    });
+    // Show a subtle toast
+    var t = document.getElementById('copyToast');
+    if(!t){
+      t = document.createElement('div'); t.id = 'copyToast';
+      t.style.cssText = 'position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#1c1917;color:#e5dfd4;padding:.5rem 1.2rem;font-size:.85rem;border-radius:4px;z-index:9999;pointer-events:none;transition:opacity .3s';
+      document.body.appendChild(t);
+    }
+    t.textContent = '↻ Onglets mis à jour'; t.style.opacity = '1';
+    clearTimeout(t._t); t._t = setTimeout(function(){ t.style.opacity = '0'; }, 2500);
+  }
+});
+
 </script>
 </body>
 </html>

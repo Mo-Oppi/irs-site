@@ -46,7 +46,7 @@
     grid-template-columns: 240px 1fr auto;
     align-items: center;
     gap: 24px;
-    padding: 14px 36px;
+    padding: 18px 36px;
     background: color-mix(in srgb, var(--paper) 92%, transparent);
     backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--rule);
@@ -55,16 +55,16 @@
     display: flex; align-items: center; gap: 12px;
   }
   .logo-mark {
-    width: 42px; height: 42px;
+    width: 54px; height: 54px;
     background: var(--accent); color: var(--paper);
     display: grid; place-items: center;
     border-radius: 3px;
     position: relative;
   }
-  .logo-mark svg { width: 22px; height: 22px; }
+  .logo-mark svg { width: 28px; height: 28px; }
   .logo-name {
     font-family: var(--serif);
-    font-size: 13px; line-height: 1.15;
+    font-size: 17px; line-height: 1.2;
     font-weight: 600; letter-spacing: 0.01em;
   }
   .logo-name small { display: block; font-weight: 400; }
@@ -73,7 +73,7 @@
     display: flex; gap: 34px;
     justify-content: center;
     font-family: var(--serif);
-    font-size: 15px;
+    font-size: 17px;
     color: var(--ink-soft);
   }
   nav.main a { cursor: pointer; padding: 6px 0; border-bottom: 1px solid transparent; transition: color .2s, border-color .2s; }
@@ -82,8 +82,8 @@
   .topbar-right { display: flex; align-items: center; gap: 14px; }
   .btn-publish {
     background: var(--accent); color: var(--paper);
-    font-family: var(--serif); font-weight: 600; font-size: 15px;
-    padding: 8px 18px; border: 0; border-radius: 3px; cursor: pointer;
+    font-family: var(--serif); font-weight: 600; font-size: 18px;
+    padding: 11px 24px; border: 0; border-radius: 3px; cursor: pointer;
   }
   .btn-publish:hover { background: var(--accent-soft); }
   .lang-toggle {
@@ -177,7 +177,7 @@
   }
   .globe-caption .title {
     font-family: var(--serif);
-    font-size: 15px; letter-spacing: 0; text-transform: none;
+    font-size: 17px; letter-spacing: 0; text-transform: none;
     color: var(--ink);
     font-style: italic;
   }
@@ -317,21 +317,22 @@
     background:var(--paper);
   }
   .irs-navi{
-    display:flex;align-items:center;height:68px;gap:1.5rem;
-    max-width:1200px;margin:0 auto;
+    display:flex;align-items:center;height:112px;gap:2.6rem;
+    max-width:1400px;margin:0 auto;
   }
-  .irs-logo{display:flex;align-items:center;gap:.6rem;flex-shrink:0;text-decoration:none}
-  .irs-lsq{width:38px;height:38px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .irs-lsq svg{width:21px;height:21px}
-  .irs-ltx{font-size:.75rem;font-weight:700;line-height:1.3;font-family:var(--serif);color:var(--ink)}
+  .irs-logo{display:flex;align-items:center;gap:.8rem;flex-shrink:0;text-decoration:none}
+  .irs-lsq{width:66px;height:66px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .irs-lsq svg{width:36px;height:36px}
+  .irs-ltx{font-size:1.06rem;font-weight:700;line-height:1.25;font-family:var(--serif);color:var(--ink);letter-spacing:.01em}
   .irs-nl{display:flex;gap:2rem;list-style:none;flex:1;justify-content:center;margin:0;padding:0}
-  .irs-nl a{font-size:.97rem;font-weight:500;color:var(--ink-dim);transition:color .15s;text-decoration:none;font-family:var(--serif)}
+  .irs-nl a{font-size:1.22rem;font-weight:600;color:var(--ink-dim);transition:color .15s;text-decoration:none;font-family:var(--serif);letter-spacing:.005em}
   .irs-nl a:hover,.irs-nl a.irs-on{color:var(--ink)}
   .irs-nr{display:flex;align-items:center;gap:.9rem;flex-shrink:0}
-  .irs-btr{background:var(--accent);color:var(--paper);font-family:var(--serif);font-size:.88rem;font-weight:600;padding:.33rem 1rem;display:inline-block;transition:background .15s;text-decoration:none}
+  .irs-btr{background:var(--accent);color:var(--paper);font-family:var(--serif);font-size:1.05rem;font-weight:700;padding:.55rem 1.7rem;display:inline-block;transition:background .15s;text-decoration:none;letter-spacing:.02em}
   .irs-btr:hover{background:var(--accent-soft)}
   /* hide old topbar styles on mobile for new nav */
-  @media(max-width:600px){.irs-nl{display:none}}
+  @media(max-width:768px){.irs-nl{display:none}}
+  @media(max-width:600px){.irs-ltx{font-size:.88rem}}
 
   </style>
 </head>

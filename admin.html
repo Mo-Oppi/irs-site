@@ -175,6 +175,23 @@ textarea.fi{resize:vertical}
   width:100%;padding:.5rem .9rem;font-size:.8rem;font-weight:600;color:var(--mid);
   background:none;border:none;border-bottom:1px solid var(--ln);cursor:pointer;font-family:var(--ui)
 }
+
+/* Plan multi-niveaux pour l'éditeur jurisprudence */
+.plan-tb{background:#faf7f0!important;border-top:1px solid var(--ln)!important;padding:.35rem .5rem!important}
+.plan-tb .rtb{font-size:.82rem!important;padding:.25rem .55rem!important;border:1px solid var(--ln)!important;background:#fff!important;min-width:2.2rem;font-family:'EB Garamond',Georgia,serif!important}
+.plan-tb .rtb:hover{background:var(--red)!important;color:#fff!important;border-color:var(--red)!important}
+.rte-body .plan-i{display:block;margin:.9rem 0 .35rem 0;font-size:1.06em;font-weight:700;color:var(--tx)}
+.rte-body .plan-a{display:block;margin:.65rem 0 .25rem 1.4rem;font-size:1em;font-weight:700;color:var(--tx)}
+.rte-body .plan-1{display:block;margin:.45rem 0 .2rem 2.8rem;font-size:.97em;font-weight:600;color:var(--tx)}
+.rte-body .plan-a-low{display:block;margin:.3rem 0 .15rem 4.2rem;font-size:.94em;font-style:italic;color:var(--mid)}
+/* Séparateur visuel dans la toolbar plan */
+.plan-sep{display:inline-block;width:1px;height:18px;background:var(--ln);margin:0 .3rem;vertical-align:middle}
+.jur-apport-rte{
+  padding:.7rem 1rem;font-family:var(--ser);font-size:.92rem;
+  line-height:1.6;outline:none;min-height:150px;
+  max-height:400px;overflow-y:auto
+}
+.jur-apport-rte p{margin:.35em 0}
 </style>
 </head>
 <body>
@@ -239,6 +256,10 @@ textarea.fi{resize:vertical}
         <button class="sn-item" id="nav-bib" onclick="showPanel('bib')">
           <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
           Bibliographie
+        </button>
+        <button class="sn-item" id="nav-cmp" onclick="showPanel('cmp')">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Textes complémentaires
         </button>
         <button class="sn-item" id="nav-versions" onclick="showPanel('versions')">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -433,6 +454,78 @@ textarea.fi{resize:vertical}
           <button class="btn-dft" onclick="document.getElementById('bibEditor').style.display='none'">Annuler</button>
         </div>
         <input type="hidden" id="bibAnnotId"/>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEXTES COMPLEMENTAIRES -->
+<div class="panel" id="p-cmp">
+  <p class="phead">Textes complémentaires</p>
+  <p class="psub">Doctrine, textes de référence, législation complémentaire par article. Stockage local. Activez l'onglet dans "Onglets par article" pour l'afficher.</p>
+  <div class="annot-grid">
+    <div>
+      <label class="lbl">Article du Code UE</label>
+      <select class="art-sel" id="cmpSel" onchange="loadCmpContent()">
+        <option value="">-- Sélectionner un article --</option>
+        <optgroup label="TUE">
+          <option value="tue-1">Art. 1 TUE</option><option value="tue-2">Art. 2 TUE</option>
+          <option value="tue-3">Art. 3 TUE</option><option value="tue-4">Art. 4 TUE</option>
+          <option value="tue-5">Art. 5 TUE</option><option value="tue-6">Art. 6 TUE</option>
+          <option value="tue-9">Art. 9 TUE</option><option value="tue-10">Art. 10 TUE</option>
+          <option value="tue-11">Art. 11 TUE</option><option value="tue-13">Art. 13 TUE</option>
+          <option value="tue-17">Art. 17 TUE</option><option value="tue-49">Art. 49 TUE</option>
+          <option value="tue-50">Art. 50 TUE</option>
+        </optgroup>
+        <optgroup label="TFUE">
+          <option value="tfue-1">Art. 1 TFUE</option><option value="tfue-3">Art. 3 TFUE</option>
+          <option value="tfue-4">Art. 4 TFUE</option><option value="tfue-5">Art. 5 TFUE</option>
+          <option value="tfue-18">Art. 18 TFUE</option><option value="tfue-20">Art. 20 TFUE</option>
+          <option value="tfue-21">Art. 21 TFUE</option><option value="tfue-26">Art. 26 TFUE</option>
+          <option value="tfue-34">Art. 34 TFUE</option><option value="tfue-45">Art. 45 TFUE</option>
+          <option value="tfue-101">Art. 101 TFUE</option><option value="tfue-102">Art. 102 TFUE</option>
+          <option value="tfue-107">Art. 107 TFUE</option><option value="tfue-258">Art. 258 TFUE</option>
+          <option value="tfue-263">Art. 263 TFUE</option><option value="tfue-267">Art. 267 TFUE</option>
+          <option value="tfue-288">Art. 288 TFUE</option>
+        </optgroup>
+      </select>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem;margin-top:.8rem">
+        <span style="font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--mu)">Contenu</span>
+        <button class="new-btn" onclick="openCmpEditor()">Éditer</button>
+      </div>
+      <div id="cmpPreview" style="border:1px solid var(--ln);background:var(--bg3);min-height:80px;padding:.75rem 1rem;font-size:.84rem;line-height:1.7;border-radius:4px;color:var(--mu)">
+        <em>Sélectionnez un article.</em>
+      </div>
+    </div>
+    <div id="cmpEditor" style="display:none">
+      <div class="mcard">
+        <p class="mcard-ttl" id="cmpEdTitle">Textes complémentaires</p>
+        <div class="fg">
+          <label class="lbl">Contenu (éditeur riche)</label>
+          <div class="rte-wrap">
+            <div class="rte-tb">
+              <select onchange="document.execCommand('formatBlock',false,this.value);this.value='p'">
+                <option value="p">Paragraphe</option>
+                <option value="h2">Titre H2</option>
+                <option value="h3">Titre H3</option>
+                <option value="blockquote">Citation</option>
+              </select>
+              <div class="rte-sep"></div>
+              <button class="rtb" onclick="document.execCommand('bold')"><b>G</b></button>
+              <button class="rtb" onclick="document.execCommand('italic')"><i>I</i></button>
+              <button class="rtb" onclick="document.execCommand('underline')"><u>S</u></button>
+              <div class="rte-sep"></div>
+              <button class="rtb" onclick="document.execCommand('insertUnorderedList')">• Liste</button>
+              <button class="rtb" onclick="document.execCommand('removeFormat')">× Format</button>
+            </div>
+            <div class="rte-body" id="cmpBody" contenteditable="true" style="min-height:200px"><p>Saisissez les textes complémentaires…</p></div>
+          </div>
+        </div>
+        <div class="btn-row" style="margin-top:.7rem">
+          <button class="btn-pub" onclick="saveCmp()">Enregistrer</button>
+          <button class="btn-dft" onclick="document.getElementById('cmpEditor').style.display='none'">Annuler</button>
+          <button class="btn-dft" style="border-color:var(--red);color:var(--red)" onclick="deleteCmp()">Supprimer</button>
+        </div>
       </div>
     </div>
   </div>
@@ -647,7 +740,9 @@ function showPanel(id) {
   if (n) n.classList.add('on');
   if (id === 'dashboard' || id === 'articles') loadArticles();
   if (id === 'settings') loadSettings();
+  if (id === 'cmp') loadCmpContent();
   if (id === 'codearticles') loadCodeArticles();
+  if (id === 'jur' || id === 'bib' || id === 'versions') populateArticleSelectors();
 }
 
 function showNewEditor() {
@@ -866,20 +961,81 @@ function openAnnotEditor(type) {
 
 function addJurEntry(prefill) {
   _ec++;
+  var myId = _ec;
   var c = document.createElement('div'); c.className = 'ecard';
   var ref = (prefill && prefill.ref) || '';
   var bib = (prefill && prefill.bib) || '';
   var ap = (prefill && prefill.apport) || '';
   c.innerHTML =
     '<button class="ecard-del" onclick="this.parentNode.remove()">×</button>' +
-    '<p class="ecard-ttl">Décision ' + _ec + '</p>' +
+    '<p class="ecard-ttl">Décision ' + myId + '</p>' +
     '<div class="fg"><label class="lbl">Référence(s) — séparer par £</label>' +
     '<input type="text" class="fi jur-ref" value="' + escapeHtml(ref) + '" placeholder="CJUE, gde ch., 16 févr. 2022, aff. C-156/21 £ CJCE, 6 oct. 1982, CILFIT"/></div>' +
     '<div class="fg"><label class="lbl">Bibliographie spécifique (optionnel)</label>' +
     '<input type="text" class="fi jur-bib" value="' + escapeHtml(bib) + '" placeholder="Auteur, « Titre », Revue, p. 00"/></div>' +
-    '<div class="fg"><label class="lbl">Apport de la décision</label>' +
-    '<textarea class="fi jur-apport" rows="4" placeholder="Décrivez l\'apport de la décision…">' + escapeHtml(ap) + '</textarea></div>';
+    '<div class="fg"><label class="lbl">Apport de la décision (éditeur riche)</label>' +
+    '<div class="rte-wrap">' +
+      '<div class="rte-tb plan-tb">' +
+        '<span style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-right:.4rem;vertical-align:middle">Plan :</span>' +
+        '<button type="button" class="rtb" onclick="planLvl(this,\'I\')" title="Niveau I — Roman majuscule (ex : I. Conditions)"><b>I.</b></button>' +
+        '<button type="button" class="rtb" onclick="planLvl(this,\'A\')" title="Niveau A — Lettre majuscule (ex : A. Principe)"><b>A.</b></button>' +
+        '<button type="button" class="rtb" onclick="planLvl(this,\'1\')" title="Niveau 1 — Chiffre arabe (ex : 1. Critère)"><b>1.</b></button>' +
+        '<button type="button" class="rtb" onclick="planLvl(this,\'a\')" title="Niveau a) — Lettre minuscule (ex : a) notion)"><b>a)</b></button>' +
+        '<div class="rte-sep"></div>' +
+        '<button type="button" class="rtb" onclick="rteInApport(this,\'bold\')"><b>G</b></button>' +
+        '<button type="button" class="rtb" onclick="rteInApport(this,\'italic\')"><i>I</i></button>' +
+        '<button type="button" class="rtb" onclick="rteInApport(this,\'underline\')"><u>S</u></button>' +
+        '<div class="rte-sep"></div>' +
+        '<button type="button" class="rtb" onclick="rteInApport(this,\'insertUnorderedList\')">• Liste</button>' +
+        '<button type="button" class="rtb" onclick="rteInApport(this,\'removeFormat\')">× Format</button>' +
+      '</div>' +
+      '<div class="rte-body jur-apport-rte" contenteditable="true" style="min-height:150px">' + (ap || '<p>Décrivez l\'apport de la décision…</p>') + '</div>' +
+    '</div></div>';
   document.getElementById('jurEntries').appendChild(c);
+}
+
+// Multi-level plan helper: inserts I./A./1./a) headers
+function planLvl(btn, lvl) {
+  var wrap = btn.closest('.rte-wrap');
+  var rte = wrap.querySelector('[contenteditable]');
+  if (!rte) return;
+  rte.focus();
+
+  // Get counters stored on the rte element
+  if (!rte.dataset.ctr) rte.dataset.ctr = JSON.stringify({I:0,A:0,'1':0,a:0});
+  var ctr = JSON.parse(rte.dataset.ctr);
+
+  ctr[lvl] = (ctr[lvl] || 0) + 1;
+  // Reset lower levels when a higher level advances
+  var hierarchy = ['I','A','1','a'];
+  var idx = hierarchy.indexOf(lvl);
+  for (var i = idx + 1; i < hierarchy.length; i++) ctr[hierarchy[i]] = 0;
+  rte.dataset.ctr = JSON.stringify(ctr);
+
+  var prefix;
+  if (lvl === 'I') prefix = toRoman(ctr.I) + '. ';
+  else if (lvl === 'A') prefix = String.fromCharCode(64 + ctr.A) + '. ';
+  else if (lvl === '1') prefix = ctr['1'] + '. ';
+  else prefix = String.fromCharCode(96 + ctr.a) + ') ';
+
+  // Insert as a heading with specific indent class
+  var cls = {I:'plan-i', A:'plan-a', '1':'plan-1', a:'plan-a-low'}[lvl];
+  var html = '<p class="' + cls + '"><strong>' + prefix + '</strong></p>';
+  document.execCommand('insertHTML', false, html);
+}
+
+function toRoman(num) {
+  var map = {M:1000,CM:900,D:500,CD:400,C:100,XC:90,L:50,XL:40,X:10,IX:9,V:5,IV:4,I:1};
+  var result = '';
+  for (var k in map) while (num >= map[k]) { result += k; num -= map[k]; }
+  return result;
+}
+
+function rteInApport(btn, cmd) {
+  var wrap = btn.closest('.rte-wrap');
+  var rte = wrap.querySelector('[contenteditable]');
+  if (rte) rte.focus();
+  document.execCommand(cmd, false, null);
 }
 
 function addBibEntry(prefill) {
@@ -939,10 +1095,19 @@ function saveAnnot(type) {
   var entries = [];
   cards.forEach(function(c) {
     if (isJur) {
+      var apEl = c.querySelector('.jur-apport-rte');
+      var apHtml = apEl ? apEl.innerHTML : '';
+      // Skip placeholder
+      if (apHtml === '<p>Décrivez l\'apport de la décision…</p>') apHtml = '';
+      // Fallback for old textarea-based entries
+      if (!apHtml) {
+        var tx = c.querySelector('.jur-apport');
+        if (tx && tx.value) apHtml = tx.value;
+      }
       entries.push({
         ref: (c.querySelector('.jur-ref') || {}).value || '',
         bib: (c.querySelector('.jur-bib') || {}).value || '',
-        apport: (c.querySelector('.jur-apport') || {}).value || ''
+        apport: apHtml
       });
     } else {
       entries.push({
@@ -1037,8 +1202,14 @@ var CODE_ARTICLES = [
   {id:'tue-1', label:'Art. 1er TUE'},{id:'tue-2', label:'Art. 2 TUE'},
   {id:'tue-3', label:'Art. 3 TUE'},{id:'tue-4', label:'Art. 4 TUE'},
   {id:'tue-5', label:'Art. 5 TUE'},{id:'tue-6', label:'Art. 6 TUE'},
+  {id:'tue-9', label:'Art. 9 TUE'},{id:'tue-10', label:'Art. 10 TUE'},
+  {id:'tue-11', label:'Art. 11 TUE'},{id:'tue-13', label:'Art. 13 TUE'},
+  {id:'tue-17', label:'Art. 17 TUE'},{id:'tue-49', label:'Art. 49 TUE'},
   {id:'tue-50', label:'Art. 50 TUE'},
+  {id:'tfue-1', label:'Art. 1er TFUE'},{id:'tfue-3', label:'Art. 3 TFUE'},
+  {id:'tfue-4', label:'Art. 4 TFUE'},{id:'tfue-5', label:'Art. 5 TFUE'},
   {id:'tfue-18', label:'Art. 18 TFUE'},{id:'tfue-20', label:'Art. 20 TFUE'},
+  {id:'tfue-21', label:'Art. 21 TFUE'},{id:'tfue-26', label:'Art. 26 TFUE'},
   {id:'tfue-34', label:'Art. 34 TFUE'},{id:'tfue-45', label:'Art. 45 TFUE'},
   {id:'tfue-101', label:'Art. 101 TFUE'},{id:'tfue-102', label:'Art. 102 TFUE'},
   {id:'tfue-107', label:'Art. 107 TFUE'},{id:'tfue-258', label:'Art. 258 TFUE'},
@@ -1046,29 +1217,183 @@ var CODE_ARTICLES = [
   {id:'tfue-288', label:'Art. 288 TFUE'}
 ];
 
+// Onglets par défaut (correspondant au DB de code-ue.html)
+var CODE_DEFAULTS = {
+  'tue-1':['jur','bib'],'tue-2':['jur','bib'],'tue-3':['bib'],
+  'tue-4':['jur','bib'],'tue-5':['jur','bib'],'tue-6':['jur','bib','cmp'],
+  'tue-9':['bib'],'tue-10':['bib'],'tue-11':[],'tue-13':['jur','bib'],
+  'tue-17':['bib'],'tue-49':[],'tue-50':['jur','bib'],
+  'tfue-1':['bib'],'tfue-3':['jur','bib'],'tfue-4':['bib'],'tfue-5':[],
+  'tfue-18':['jur','bib'],'tfue-20':['jur','bib'],'tfue-21':['jur'],
+  'tfue-26':['bib'],'tfue-34':['jur','bib'],'tfue-45':['jur','bib'],
+  'tfue-101':['jur','bib'],'tfue-102':['jur','bib'],'tfue-107':['jur','bib'],
+  'tfue-258':['jur'],'tfue-263':['jur','bib'],'tfue-267':['jur','bib'],
+  'tfue-288':['jur','bib']
+};
+
 function getSettings() { try { return JSON.parse(localStorage.getItem('irs_settings') || '{}'); } catch(e) { return {}; } }
 function saveSettings(d) { localStorage.setItem('irs_settings', JSON.stringify(d)); }
 
-function loadSettings() {
+// Populate article selectors (jur/bib/versions) with hardcoded + Supabase articles
+async function populateArticleSelectors() {
+  var allArticles = CODE_ARTICLES.slice();
+  try {
+    var res = await fetch(API + '/get-code-articles');
+    if (res.ok) {
+      var supaArts = await res.json();
+      var existingIds = new Set(allArticles.map(function(a){ return a.id; }));
+      supaArts.forEach(function(a) {
+        var label = 'Art. ' + a.article_num + ' ' + a.treaty;
+        if (!existingIds.has(a.id)) {
+          allArticles.push({ id: a.id, label: label });
+        }
+      });
+    }
+  } catch(e) {}
+
+  // Sort : TUE first, then TFUE, then by num
+  allArticles.sort(function(a,b){
+    var ta = a.id.startsWith('tue') ? 0 : 1;
+    var tb = b.id.startsWith('tue') ? 0 : 1;
+    if (ta !== tb) return ta - tb;
+    var na = parseInt(a.id.replace(/^\D+-/,'')) || 0;
+    var nb = parseInt(b.id.replace(/^\D+-/,'')) || 0;
+    return na - nb;
+  });
+
+  ['jurSel', 'bibSel', 'verSel'].forEach(function(selId) {
+    var sel = document.getElementById(selId);
+    if (!sel) return;
+    var current = sel.value;
+    var tueOpts = allArticles.filter(function(a){return a.id.startsWith('tue');})
+      .map(function(a){return '<option value="'+a.id+'">'+a.label+'</option>';}).join('');
+    var tfueOpts = allArticles.filter(function(a){return a.id.startsWith('tfue');})
+      .map(function(a){return '<option value="'+a.id+'">'+a.label+'</option>';}).join('');
+    sel.innerHTML = '<option value="">-- Sélectionner un article --</option>' +
+      '<optgroup label="TUE">' + tueOpts + '</optgroup>' +
+      '<optgroup label="TFUE">' + tfueOpts + '</optgroup>';
+    if (current) sel.value = current;
+  });
+}
+
+async function loadSettings() {
   var grid = document.getElementById('settingsGrid');
+  grid.innerHTML = '<p style="color:var(--mu);font-size:.82rem">Chargement…</p>';
+
+  // Start with hardcoded articles
+  var allArticles = CODE_ARTICLES.slice();
+  // Also fetch Supabase articles
+  try {
+    var res = await fetch(API + '/get-code-articles');
+    if (res.ok) {
+      var supaArts = await res.json();
+      // Merge: Supabase articles take priority
+      var existingIds = new Set(allArticles.map(function(a){ return a.id; }));
+      supaArts.forEach(function(a) {
+        var label = 'Art. ' + a.article_num + ' ' + a.treaty;
+        if (existingIds.has(a.id)) {
+          // Replace hardcoded entry with Supabase label
+          var idx = allArticles.findIndex(function(x){ return x.id === a.id; });
+          if (idx >= 0) allArticles[idx] = { id: a.id, label: label + ' *' };
+        } else {
+          var supaTabs = a.tabs ? a.tabs.split(',').map(function(x){return x.trim();}) : ['jur','bib'];
+          allArticles.push({ id: a.id, label: label + ' *', _supaTabs: supaTabs });
+        }
+      });
+    }
+  } catch(e) { console.warn('Supabase fetch failed:', e); }
+
   var settings = getSettings();
-  grid.innerHTML = CODE_ARTICLES.map(function(a) {
-    var s = settings[a.id] || {};
-    return '<div class="set-card"><h4>' + a.label + '</h4>' +
-      '<label class="cb-row"><input type="checkbox"' + (s.jur ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'jur\',this.checked)"/> Jurisprudence</label>' +
-      '<label class="cb-row"><input type="checkbox"' + (s.bib ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'bib\',this.checked)"/> Bibliographie</label>' +
-      '<label class="cb-row"><input type="checkbox"' + (s.cmp ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'cmp\',this.checked)"/> Textes complémentaires</label>' +
-      '<label class="cb-row"><input type="checkbox"' + (s.ver ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'ver\',this.checked)"/> Versions de l\'article</label>' +
-      '</div>';
-  }).join('');
+  // Sort: TUE first, then TFUE, by article number
+  allArticles.sort(function(a,b){
+    var ta=a.id.startsWith('tue')?0:1, tb=b.id.startsWith('tue')?0:1;
+    if(ta!==tb) return ta-tb;
+    return (parseInt(a.id.replace(/\D+/,''))||0)-(parseInt(b.id.replace(/\D+/,''))||0);
+  });
+  grid.innerHTML =
+    '<p style="font-size:.74rem;color:var(--mu);margin-bottom:.75rem;grid-column:1/-1">Les cases reflètent l\'<strong>état effectif</strong> de chaque onglet (défauts + vos réglages). Cochez pour forcer l\'affichage, décochez pour masquer. * = article Supabase.</p>' +
+    allArticles.map(function(a) {
+      var s = settings[a.id] || {};
+      var def = CODE_DEFAULTS[a.id] || (a._supaTabs ? a._supaTabs : []);
+      // isOn: explicit boolean in localStorage has priority; otherwise default
+      function isOn(tab){ return typeof s[tab]==='boolean' ? s[tab] : def.indexOf(tab)>=0; }
+      return '<div class="set-card"><h4>' + a.label + '</h4>' +
+        '<label class="cb-row"><input type="checkbox"' + (isOn('jur') ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'jur\',this.checked)"/> Jurisprudence</label>' +
+        '<label class="cb-row"><input type="checkbox"' + (isOn('bib') ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'bib\',this.checked)"/> Bibliographie</label>' +
+        '<label class="cb-row"><input type="checkbox"' + (isOn('cmp') ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'cmp\',this.checked)"/> Textes complémentaires</label>' +
+        '<label class="cb-row"><input type="checkbox"' + (isOn('ver') ? ' checked' : '') + ' onchange="updateSetting(\'' + a.id + '\',\'ver\',this.checked)"/> Versions de l\'article</label>' +
+        '</div>';
+    }).join('');
 }
 
 function updateSetting(artId, tab, val) {
   var settings = getSettings();
   settings[artId] = settings[artId] || {};
-  settings[artId][tab] = val;
+  // Si la valeur == défaut → supprimer la clé (évite d'écraser d'autres onglets)
+  var def = CODE_DEFAULTS[artId] || [];
+  var defaultOn = def.indexOf(tab) >= 0;
+  if (val === defaultOn) {
+    delete settings[artId][tab];          // retour au défaut → nettoyer
+  } else {
+    settings[artId][tab] = val;           // override explicite
+  }
+  if (!Object.keys(settings[artId]).length) delete settings[artId];
   saveSettings(settings);
   notify('Paramètre mis à jour.');
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+//  TEXTES COMPLÉMENTAIRES (CMP)
+// ═══════════════════════════════════════════════════════════════
+function getCmpAnnots(){ try{return JSON.parse(localStorage.getItem('irs_annots_cmp')||'{}');}catch(e){return{};} }
+function saveCmpAnnots(d){ localStorage.setItem('irs_annots_cmp',JSON.stringify(d)); }
+
+function loadCmpContent(){
+  var id=document.getElementById('cmpSel').value;
+  var preview=document.getElementById('cmpPreview');
+  document.getElementById('cmpEditor').style.display='none';
+  if(!id){ preview.innerHTML='<em style="color:var(--mu)">Sélectionnez un article.</em>'; return; }
+  var annots=getCmpAnnots();
+  var html=annots[id]||'';
+  preview.style.color=html?'var(--tx)':'var(--mu)';
+  preview.innerHTML=html||'<em>Aucun texte complémentaire pour cet article.</em>';
+}
+
+function openCmpEditor(){
+  var id=document.getElementById('cmpSel').value;
+  if(!id){ alert('Sélectionnez d\'abord un article.'); return; }
+  var annots=getCmpAnnots();
+  var body=document.getElementById('cmpBody');
+  body.innerHTML=annots[id]||'<p>Saisissez les textes complémentaires…</p>';
+  document.getElementById('cmpEdTitle').textContent='Textes complémentaires — '+id;
+  document.getElementById('cmpEditor').style.display='block';
+}
+
+function saveCmp(){
+  var id=document.getElementById('cmpSel').value;
+  if(!id) return;
+  var html=document.getElementById('cmpBody').innerHTML;
+  var empty='<p>Saisissez les textes complémentaires…</p>';
+  var annots=getCmpAnnots();
+  if(!html||html===empty){ delete annots[id]; }
+  else { annots[id]=html; }
+  saveCmpAnnots(annots);
+  loadCmpContent();
+  document.getElementById('cmpEditor').style.display='none';
+  notify('Textes complémentaires enregistrés !');
+}
+
+function deleteCmp(){
+  var id=document.getElementById('cmpSel').value;
+  if(!id) return;
+  if(!confirm('Supprimer les textes complémentaires de cet article ?')) return;
+  var annots=getCmpAnnots();
+  delete annots[id];
+  saveCmpAnnots(annots);
+  loadCmpContent();
+  document.getElementById('cmpEditor').style.display='none';
+  notify('Textes complémentaires supprimés.');
 }
 
 // ═══════════════════════════════════════════════════════════════
@@ -1149,7 +1474,11 @@ async function loadCodeArticles() {
 
     list.innerHTML = html || '<li class="ann-empty">Aucun article. Cliquez sur "+ Nouvel article".</li>';
   } catch(e) {
-    list.innerHTML = '<li class="ann-empty" style="color:var(--red)">Erreur de chargement: ' + e.message + '</li>';
+    list.innerHTML =
+      '<li class="ann-empty" style="color:var(--red);padding:.75rem 1rem">' +
+      '⚠ Impossible de charger les articles : ' + e.message + '<br>' +
+      '<span style="font-size:.75rem;color:var(--mu)">La table <code>code_articles</code> existe-t-elle dans Supabase ? ' +
+      'Si non, exécutez le fichier <strong>supabase-code-articles.sql</strong> dans l'éditeur SQL Supabase.</span></li>';
   }
 }
 
@@ -1249,7 +1578,31 @@ async function saveCodeArt() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ password: _pwd, article: article })
     });
-    if (!res.ok) { var txt = await res.text(); notify('Erreur: ' + txt, true); return; }
+    var responseText = await res.text();
+    if (!res.ok) {
+      console.error('Erreur serveur:', res.status, responseText);
+      var errMsg = responseText.slice(0, 300);
+      // Supabase renvoie souvent du JSON — essayer de l'extraire
+      try { var ej = JSON.parse(responseText); errMsg = ej.message || ej.error || errMsg; } catch(x){}
+      notify('Erreur ' + res.status + ' — ' + errMsg, true);
+      var diagBox = document.getElementById('saveErrBox');
+      if (!diagBox) {
+        diagBox = document.createElement('div');
+        diagBox.id = 'saveErrBox';
+        diagBox.style.cssText = 'margin-top:.75rem;background:#fef2f2;border:1px solid #fca5a5;border-radius:6px;padding:.75rem 1rem;font-size:.78rem;color:#991b1b;line-height:1.6';
+        document.getElementById('codeArtEditor').appendChild(diagBox);
+      }
+      diagBox.innerHTML = '<strong>⚠ Échec de l'enregistrement (HTTP ' + res.status + ')</strong><br>' +
+        '<code style="word-break:break-all">' + errMsg + '</code><br><br>' +
+        (errMsg.indexOf('does not exist') >= 0 || errMsg.indexOf('42P01') >= 0
+          ? '👉 La table <strong>code_articles</strong> n'existe pas dans Supabase.<br>Exécutez le fichier <code>supabase-code-articles.sql</code> dans l'éditeur SQL Supabase, puis réessayez.'
+          : '👉 Vérifiez vos variables d'environnement Cloudflare (SUPABASE_SERVICE_KEY, SUPABASE_URL).');
+      diagBox.style.display = 'block';
+      return;
+    }
+    // Effacer l'éventuel message d'erreur précédent
+    var diagBox = document.getElementById('saveErrBox');
+    if (diagBox) diagBox.style.display = 'none';
     notify('Article enregistré !');
     document.getElementById('caeEditId').value = id;
     document.getElementById('codeArtEditor').style.display = 'none';
