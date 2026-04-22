@@ -1,39 +1,48 @@
-import { createClient } from '@supabase/supabase-js';
 
-const CORS = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Allow-Headers': 'Content-Type'
-};
+export async function onRequest({ env, request }) {
+  if (request.method === 'OPTIONS') {
+    return new Response(null, { status: 204, headers: cors() });
+  }
+  if (request.method !== 'POST') {
+    return new Response('Méthode non autorisée', { status: 405 });
+  }
 
-export async function onRequestOptions() {
-  return new Response(null, { status: 204, headers: CORS });
-}
-
-export async function onRequestPost({ request, env }) {
   let body;
   try { body = await request.json(); }
   catch (e) { return new Response('JSON invalide', { status: 400 }); }
 
   const { password, article } = body;
-
   if (!password || password !== env.ADMIN_PASSWORD) {
     return new Response('Non autorisé', { status: 401 });
   }
 
   article.updated_at = new Date().toISOString();
 
-  const supabase = createClient(
-    env.SUPABASE_URL,
-    env.SUPABASE_SERVICE_KEY || env.SUPABASE_KEY
-  );
+  const serviceKey = env.SUPABASE_SERVICE_KEY || env.SUPABASE_KEY;
+  const url = `${env.SUPABASE_URL}/rest/v1/code_articles`;
 
-  const { error } = await supabase
-    .from('code_articles')
-    .upsert(article, { onConflict: 'id' });
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'apikey': serviceKey,
+      'Authorization': `Bearer ${serviceKey}`,
+      'Content-Type': 'application/json',
+      'Prefer': 'resolution=merge-duplicates'
+    },
+    body: JSON.stringify(article)
+  });
 
-  return new Response(
-    JSON.stringify(error ? { error: error.message } : { success: true }),
-    { status: error ? 500 : 200, headers: { ...CORS, 'Content-Type': 'application/json' } }
-  );
+  const ok = res.ok;
+  return new Response(JSON.stringify(ok ? { success: true } : { error: await res.text() }), {
+    status: ok ? 200 : 500,
+    headers: { 'Content-Type': 'application/json', ...cors() }
+  });
+}
+
+function cors() {
+  return {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  };
 }
