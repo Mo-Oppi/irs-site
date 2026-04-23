@@ -254,6 +254,22 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
 .cmp-content{font-size:.9rem;line-height:1.8;color:var(--tx)}
 .cmp-content p{margin:.4em 0}
 .cmp-content h3{font-size:1rem;font-weight:700;margin:1em 0 .3em}
+/* Annotations — format inline type encyclopédie juridique */
+.agrp{margin:0 0 1rem 0}
+.agrp-inline{
+  margin:.35rem 0;font-size:.92rem;line-height:1.75;
+  color:var(--tx);text-align:justify
+}
+.agrp-inline .agnum{color:var(--red);font-weight:700;margin-right:.2em}
+.agttl-inline{
+  font-weight:700;text-transform:uppercase;font-variant:small-caps;
+  letter-spacing:.02em;color:var(--tx)
+}
+.aapport-inline{color:var(--tx)}
+.abull{color:var(--red);font-size:.72em;margin:0 .15em 0 .3em;vertical-align:middle}
+.ajur{font-style:italic;color:var(--mid)}
+.astar{color:var(--red);font-size:.82em;margin:0 .2em 0 .25em}
+.abib{font-style:italic;color:var(--mu)}
 .aapport-rich{
   margin-top:.6rem;padding:.6rem .9rem;
   background:var(--bg3);border-left:2px solid var(--ln);
@@ -752,43 +768,45 @@ function renderAnnots(data,el){
   data.forEach(function(g,gi){
     var entries=Array.isArray(g.entries)?g.entries:[];
     h+='<div class="agrp">';
-    // Group title on its own line
-    if(g.title){
-      h+='<p class="agttl"><span class="agnum">'+(gi+1)+'.</span> '+g.title+'.</p>';
-    }
     entries.forEach(function(en,ei){
       var js=en.ref||en.jur||en.jurisprudence||'';
       var bs=en.bib||en.bibliography||'';
       var ap=en.apport||'';
-      // Detect if apport is rich HTML (contains plan-* or multiple <p>)
       var isRichApport = ap && /<p[^>]*class=['"]plan-/.test(ap);
 
-      // The reference+bib block flows inline
-      h+='<p class="agrp-body">';
+      // Tout dans un SEUL paragraphe qui coule naturellement
+      h+='<p class="agrp-inline">';
+
+      // 1. Titre du groupe (seulement sur la première entrée du groupe)
+      if(g.title && ei===0){
+        h+='<span class="agnum">'+(gi+1)+'.</span> ';
+        h+='<span class="agttl-inline">'+g.title+'.</span> ';
+      }
+
+      // 2. Apport (texte simple seulement — le rich va en bloc séparé ci-dessous)
+      if(ap && !isRichApport){
+        h+='<span class="aapport-inline">'+ap+'</span> ';
+      }
+
+      // 3. Décisions, séparées par des puces
       if(js){
         var parts=js.split('\xa3').map(function(s){return s.trim();}).filter(Boolean);
         parts.forEach(function(p,pi){
-          h+='<span class="abull">&#9679;</span>';
-          h+='<span class="ajur">'+p+'</span>';
-          if(bs&&pi===parts.length-1){
-            h+=' <span class="astar">&#10022;</span> <span class="abib">'+bs+'</span>';
-          }
-          // For simple text apport, inline it with ♦
-          if(ap && !isRichApport && pi===parts.length-1){
-            h+=' <span class="adiam">&#9830;</span><span class="aapport"> '+ap+'</span>';
-          }
+          h+='<span class="abull">&#9679;</span> <span class="ajur">'+p+'</span>';
+          if(pi<parts.length-1) h+=' ';
         });
-      } else if(bs){
-        h+='<span class="abull">&#9679;</span>';
-        h+='<span class="abib">'+bs+'</span>';
-        if(ap && !isRichApport){
-          h+=' <span class="adiam">&#9830;</span><span class="aapport"> '+ap+'</span>';
-        }
       }
-      h+='</p>';
-      // Rich apport goes in its own block below
+
+      // 4. Bibliographie / auteurs
+      if(bs){
+        h+=' <span class="astar">&#10022;</span> <span class="abib">'+bs+'</span>';
+      }
+
+      h+='.</p>';
+
+      // Apport riche (plans I/A/1/a) — reste en bloc car multiligne
       if(isRichApport){
-        h+='<div class="aapport-rich"><span class="adiam">&#9830;</span> '+ap+'</div>';
+        h+='<div class="aapport-rich">'+ap+'</div>';
       }
     });
     h+='</div>';
@@ -916,6 +934,16 @@ function setupIO(){
 }
 
 // Merge Supabase articles into DB (overrides hardcoded data)
+// Extract numeric part from article id (tue-1 → 1, tfue-267 → 267, tue-1bis → 1.5)
+function numFromId(id){
+  var m=id.match(/-(\d+)([a-z]*)$/i);
+  if(!m) return 9999;
+  var base=parseInt(m[1],10);
+  // Handle 'bis','ter'... as .1,.2 to keep in sequence
+  var suffix=m[2]?(m[2].charCodeAt(0)-96)*0.1:0;
+  return base+suffix;
+}
+
 function mergeSupabaseArticles(data){
   data.forEach(function(a){
     if(!a.id) return;
@@ -932,21 +960,77 @@ function mergeSupabaseArticles(data){
       tabs: tabs.length?tabs:['jur','bib'],
       vers:[]
     };
-    // Add to ORDER if not already there
+    // Add to ORDER at the correct numeric position
     if(ORDER.indexOf(a.id)<0){
-      // Insert at correct position based on treaty and sort_order
-      var insertIdx=ORDER.length;
-      if(a.treaty==='TUE'){
-        var lastTUE=0;
-        ORDER.forEach(function(id,i){ if(id.startsWith('tue')) lastTUE=i+1; });
-        insertIdx=lastTUE;
-      } else {
-        var lastTFUE=ORDER.length;
-        for(var i=ORDER.length-1;i>=0;i--){ if(ORDER[i].startsWith('tfue')){ lastTFUE=i+1; break; } }
-        insertIdx=lastTFUE;
+      var prefix=a.id.startsWith('tue-')?'tue-':'tfue-';
+      var targetNum=numFromId(a.id);
+      var insertIdx=-1;
+      // Find the first article of same treaty with a higher number
+      for(var i=0;i<ORDER.length;i++){
+        if(!ORDER[i].startsWith(prefix)) continue;
+        if(numFromId(ORDER[i])>targetNum){ insertIdx=i; break; }
+      }
+      if(insertIdx<0){
+        // No higher-numbered article found → place at end of this treaty block
+        if(prefix==='tue-'){
+          // Insert just before the first TFUE
+          insertIdx=ORDER.length;
+          for(var j=0;j<ORDER.length;j++){ if(ORDER[j].startsWith('tfue-')){ insertIdx=j; break; } }
+        } else {
+          insertIdx=ORDER.length;
+        }
       }
       ORDER.splice(insertIdx,0,a.id);
     }
+  });
+  // Refresh the TOC sidebar to include new articles
+  injectSupabaseInTOC(data);
+}
+
+// ═══════════════════════════════════════════════════
+//  INJECTION SUPABASE ARTICLES DANS LE SOMMAIRE TOC
+// ═══════════════════════════════════════════════════
+function injectSupabaseInTOC(data){
+  data.forEach(function(a){
+    if(!a.id) return;
+    // Skip if already present in TOC
+    var existing=document.querySelector('.tl[onclick*="\''+a.id+'\'"]');
+    if(existing) return;
+
+    var treaty=a.id.startsWith('tue-')?'TUE':'TFUE';
+    var container=document.getElementById('ti'+treaty);
+    if(!container) return;
+
+    // Build the button
+    var btn=document.createElement('button');
+    btn.className='tl';
+    btn.setAttribute('onclick',"goArt('"+a.id+"')");
+    var label='Art. '+a.n+' '+treaty;
+    if(a.titre_label||a.part_label){
+      label='Art. '+a.article_num+(a.titre_label?' — '+a.titre_label.slice(0,40):'');
+    } else {
+      label='Art. '+a.article_num+' '+treaty;
+    }
+    btn.textContent=label;
+
+    // Find the correct position: insert before the first existing button with a higher number
+    var targetNum=numFromId(a.id);
+    var children=Array.prototype.slice.call(container.children);
+    var inserted=false;
+    for(var i=0;i<children.length;i++){
+      var child=children[i];
+      if(child.tagName!=='BUTTON') continue;
+      var oc=child.getAttribute('onclick')||'';
+      var m=oc.match(/'(tue-|tfue-)([^']+)'/);
+      if(!m) continue;
+      var childId=m[1]+m[2];
+      if(numFromId(childId)>targetNum){
+        container.insertBefore(btn,child);
+        inserted=true;
+        break;
+      }
+    }
+    if(!inserted) container.appendChild(btn);
   });
 }
 
