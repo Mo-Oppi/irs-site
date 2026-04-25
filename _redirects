@@ -2,3 +2,4 @@
 # (utile si vous avez des liens anciens ou des favoris)
 /.netlify/functions/* /api/:splat 200
 # trigger redeploy
+# trigger redeploy
