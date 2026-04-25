@@ -740,7 +740,8 @@ function showPanel(id) {
   if (n) n.classList.add('on');
   if (id === 'dashboard' || id === 'articles') loadArticles();
   if (id === 'settings') loadSettings();
-  if (id === 'cmp') loadCmpContent();
+  if (id === 'cmp') { refreshArticleSelects(); loadCmpContent(); }
+  if (id === 'jur' || id === 'bib') refreshArticleSelects();
   if (id === 'codearticles') loadCodeArticles();
   if (id === 'jur' || id === 'bib' || id === 'versions') populateArticleSelectors();
 }
@@ -1348,6 +1349,62 @@ function updateSetting(artId, tab, val) {
 // ═══════════════════════════════════════════════════════════════
 function getCmpAnnots(){ try{return JSON.parse(localStorage.getItem('irs_annots_cmp')||'{}');}catch(e){return{};} }
 function saveCmpAnnots(d){ localStorage.setItem('irs_annots_cmp',JSON.stringify(d)); }
+
+// ═══════════════════════════════════════════════════
+//  POPULATE article selectors with Supabase articles
+// ═══════════════════════════════════════════════════
+function numFromIdAdmin(id){
+  var m=id.match(/-(\d+)([a-z]*)$/i);
+  if(!m) return 9999;
+  var base=parseInt(m[1],10);
+  var suffix=m[2]?(m[2].charCodeAt(0)-96)*0.1:0;
+  return base+suffix;
+}
+
+async function refreshArticleSelects(){
+  try {
+    var res = await fetch(API + '/get-code-articles');
+    if (!res.ok) return;
+    var supaArts = await res.json();
+    if (!supaArts.length) return;
+
+    ['jurSel','bibSel','cmpSel'].forEach(function(selId){
+      var sel = document.getElementById(selId);
+      if (!sel) return;
+      // Save current value to restore after rebuild
+      var currentValue = sel.value;
+      // Find optgroups
+      var groupTUE = sel.querySelector('optgroup[label="TUE"]');
+      var groupTFUE = sel.querySelector('optgroup[label="TFUE"]');
+      if (!groupTUE || !groupTFUE) return;
+
+      supaArts.forEach(function(a){
+        if (!a.id) return;
+        // Check if already in select
+        if (sel.querySelector('option[value="'+a.id+'"]')) return;
+        var grp = a.id.startsWith('tue-') ? groupTUE : groupTFUE;
+        var opt = document.createElement('option');
+        opt.value = a.id;
+        opt.textContent = 'Art. ' + a.article_num + ' ' + a.treaty;
+        // Insert at correct numeric position
+        var targetNum = numFromIdAdmin(a.id);
+        var inserted = false;
+        var existing = grp.querySelectorAll('option');
+        for (var i = 0; i < existing.length; i++) {
+          var oid = existing[i].value;
+          if (numFromIdAdmin(oid) > targetNum) {
+            grp.insertBefore(opt, existing[i]);
+            inserted = true;
+            break;
+          }
+        }
+        if (!inserted) grp.appendChild(opt);
+      });
+      sel.value = currentValue; // restore selection
+    });
+  } catch(e) { console.warn('refreshArticleSelects failed:', e); }
+}
+
 
 function loadCmpContent(){
   var id=document.getElementById('cmpSel').value;

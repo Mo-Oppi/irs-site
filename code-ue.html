@@ -85,7 +85,13 @@ a{color:inherit;text-decoration:none}
 .tgb.open .tcar{transform:rotate(90deg)}
 .ti{display:none;padding-bottom:.2rem}
 .ti.open{display:block}
-.tsec{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:.5rem .85rem .18rem 1.4rem;pointer-events:none;white-space:nowrap;overflow:hidden}
+.tsec{font-size:.67rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:.5rem .85rem .18rem 1.4rem;white-space:nowrap;overflow:hidden;cursor:pointer;background:none;border:none;text-align:left;width:100%;font-family:var(--f);display:flex;align-items:center;gap:.35rem;transition:color .15s}
+.tsec:hover{color:var(--tx)}
+.tsec .scar{font-size:.55rem;color:var(--red);transition:transform .2s;display:inline-block;width:.7em;flex-shrink:0}
+.tsec.tsec-open .scar{transform:rotate(90deg)}
+.tsec.tsec-shut + button.tl,.tsec.tsec-shut ~ button.tl{display:none}
+/* Group of articles after a section: each section "owns" buttons until next .tsec or .tdiv */
+.tsec-group-shut{display:none}
 .tl{
   display:block;padding:.28rem .85rem .28rem 1.4rem;
   font-size:.82rem;color:var(--mid);cursor:pointer;
@@ -133,8 +139,8 @@ a{color:inherit;text-decoration:none}
 .art:last-child{border-bottom:none}
 .art.flash{background:var(--redh);border-left:3px solid var(--red);padding-left:.7rem;transition:background 1.5s}
 .ahd{display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap;margin-bottom:.38rem}
-.anum{font-size:.86rem;font-weight:700;color:var(--red);font-variant:small-caps;letter-spacing:.04em}
-.afmr{font-size:.74rem;color:var(--mu);font-style:italic}
+.anum{font-size:1rem;font-weight:700;color:var(--red);letter-spacing:.01em}
+.afmr{font-size:.78rem;color:var(--mu);font-style:italic;font-weight:400}
 .abody{font-size:19px;line-height:1.82;text-align:justify}
 .abody p{margin-bottom:.82rem}
 .abody p:last-child{margin-bottom:0}
@@ -255,15 +261,15 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
 .cmp-content p{margin:.4em 0}
 .cmp-content h3{font-size:1rem;font-weight:700;margin:1em 0 .3em}
 /* Annotations — format inline type encyclopédie juridique */
-.agrp{margin:0 0 1rem 0}
-.agrp-inline{
-  margin:.35rem 0;font-size:.92rem;line-height:1.75;
-  color:var(--tx);text-align:justify
+.agrp{margin:0 0 1.2rem 0}
+.agttl-line{
+  margin:.5rem 0 .35rem 0;font-size:.96rem;line-height:1.5;
+  color:var(--tx);font-weight:700
 }
-.agrp-inline .agnum{color:var(--red);font-weight:700;margin-right:.2em}
-.agttl-inline{
-  font-weight:700;text-transform:uppercase;font-variant:small-caps;
-  letter-spacing:.02em;color:var(--tx)
+.agttl-line .agnum{color:var(--red);font-weight:700;margin-right:.2em}
+.agrp-inline{
+  margin:.2rem 0 .35rem 0;font-size:.92rem;line-height:1.75;
+  color:var(--tx);text-align:justify
 }
 .aapport-inline{color:var(--tx)}
 .abull{color:var(--red);font-size:.72em;margin:0 .15em 0 .3em;vertical-align:middle}
@@ -328,7 +334,7 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
         <span>TUE — Traité sur l'Union européenne</span>
       </button>
       <div class="ti open" id="tiTUE">
-        <div class="tsec">Titre I — Dispositions communes</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-titre-i-dispositions-communes')" data-sid="sec-titre-i-dispositions-communes"><span class="scar">▸</span><span>Titre I — Dispositions communes</span></button>
         <button class="tl" onclick="goArt('tue-1')">Art. 1ᵉʳ — Fondation de l'Union</button>
         <button class="tl" onclick="goArt('tue-2')">Art. 2 — Valeurs de l'Union</button>
         <button class="tl" onclick="goArt('tue-3')">Art. 3 — Objectifs</button>
@@ -336,16 +342,16 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
         <button class="tl" onclick="goArt('tue-5')">Art. 5 — Subsidiarité</button>
         <button class="tl" onclick="goArt('tue-6')">Art. 6 — Droits fondamentaux</button>
         <div class="tdiv"></div>
-        <div class="tsec">Titre II — Principes démocratiques</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-titre-ii-principes-d-mocratiqu')" data-sid="sec-titre-ii-principes-d-mocratiqu"><span class="scar">▸</span><span>Titre II — Principes démocratiques</span></button>
         <button class="tl" onclick="goArt('tue-9')">Art. 9 — Égalité des citoyens</button>
         <button class="tl" onclick="goArt('tue-10')">Art. 10 — Démocratie représentative</button>
         <button class="tl" onclick="goArt('tue-11')">Art. 11 — Démocratie participative</button>
         <div class="tdiv"></div>
-        <div class="tsec">Titre III — Institutions</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-titre-iii-institutions')" data-sid="sec-titre-iii-institutions"><span class="scar">▸</span><span>Titre III — Institutions</span></button>
         <button class="tl" onclick="goArt('tue-13')">Art. 13 — Cadre institutionnel</button>
         <button class="tl" onclick="goArt('tue-17')">Art. 17 — La Commission</button>
         <div class="tdiv"></div>
-        <div class="tsec">Titre VI — Dispositions finales</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-titre-vi-dispositions-finales')" data-sid="sec-titre-vi-dispositions-finales"><span class="scar">▸</span><span>Titre VI — Dispositions finales</span></button>
         <button class="tl" onclick="goArt('tue-49')">Art. 49 — Adhésion</button>
         <button class="tl" onclick="goArt('tue-50')">Art. 50 — Retrait</button>
       </div>
@@ -357,18 +363,18 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
         <span>TFUE — Traité sur le fonctionnement</span>
       </button>
       <div class="ti" id="tiTFUE">
-        <div class="tsec">1ère partie — Principes</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-1-re-partie-principes')" data-sid="sec-1-re-partie-principes"><span class="scar">▸</span><span>1ère partie — Principes</span></button>
         <button class="tl" onclick="goArt('tfue-1')">Art. 1ᵉʳ — Objet</button>
         <button class="tl" onclick="goArt('tfue-3')">Art. 3 — Compétences exclusives</button>
         <button class="tl" onclick="goArt('tfue-4')">Art. 4 — Compétences partagées</button>
         <button class="tl" onclick="goArt('tfue-5')">Art. 5 — Coordination</button>
         <div class="tdiv"></div>
-        <div class="tsec">2ème partie — Citoyenneté</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-2-me-partie-citoyennet')" data-sid="sec-2-me-partie-citoyennet"><span class="scar">▸</span><span>2ème partie — Citoyenneté</span></button>
         <button class="tl" onclick="goArt('tfue-18')">Art. 18 — Non-discrimination</button>
         <button class="tl" onclick="goArt('tfue-20')">Art. 20 — Citoyenneté</button>
         <button class="tl" onclick="goArt('tfue-21')">Art. 21 — Libre circulation personnes</button>
         <div class="tdiv"></div>
-        <div class="tsec">3ème partie — Politiques internes</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-3-me-partie-politiques-interne')" data-sid="sec-3-me-partie-politiques-interne"><span class="scar">▸</span><span>3ème partie — Politiques internes</span></button>
         <button class="tl" onclick="goArt('tfue-26')">Art. 26 — Marché intérieur</button>
         <button class="tl" onclick="goArt('tfue-34')">Art. 34 — Libre circulation marchandises</button>
         <button class="tl" onclick="goArt('tfue-45')">Art. 45 — Libre circulation travailleurs</button>
@@ -376,7 +382,7 @@ mark.hl.cur{background:rgba(165,28,46,.42);outline:1px solid var(--red)}
         <button class="tl" onclick="goArt('tfue-102')">Art. 102 — Abus de position dominante</button>
         <button class="tl" onclick="goArt('tfue-107')">Art. 107 — Aides d'État</button>
         <div class="tdiv"></div>
-        <div class="tsec">6ème partie — Dispositions inst.</div>
+        <button class="tsec tsec-open" onclick="tglSec('sec-6-me-partie-dispositions-inst')" data-sid="sec-6-me-partie-dispositions-inst"><span class="scar">▸</span><span>6ème partie — Dispositions inst.</span></button>
         <button class="tl" onclick="goArt('tfue-258')">Art. 258 — Recours en manquement</button>
         <button class="tl" onclick="goArt('tfue-263')">Art. 263 — Recours en annulation</button>
         <button class="tl" onclick="goArt('tfue-267')">Art. 267 — Renvoi préjudiciel</button>
@@ -558,7 +564,7 @@ function buildEl(id){
   var h='';
   if(d.pl){h+='<hr class="psep"/><p class="plbl">'+d.pl+'</p>';}
   if(d.tl){h+='<p class="tlbl">'+d.tl+'</p>';}
-  h+='<div class="ahd"><span class="anum">Art. '+d.n+'</span>'+'<button class="plink" onclick="copyLink(\''+id+'\')" title="Copier le lien permanent">&#128279;</button>';
+  h+='<div class="ahd"><span class="anum">Article '+d.n+'</span><button class="plink" onclick="copyLink(\''+id+'\')" title="Copier le lien permanent">&#128279;</button>';
   if(d.fm){h+='<span class="afmr">('+d.fm+')</span>';}
   h+='</div>';
   h+='<div class="abody">'+d.b+'</div>';
@@ -657,6 +663,30 @@ function toggleMobTOC(){
 // ═══════════════════════════════════════════════════
 //  TOC GROUP TOGGLE — Fix: use IDs directly
 // ═══════════════════════════════════════════════════
+// Toggle individual TOC sections (Titre I, Titre II...)
+function tglSec(sid){
+  var btn=document.querySelector('button[data-sid="'+sid+'"]');
+  if(!btn) return;
+  var isOpen=btn.classList.contains('tsec-open');
+  // Find all .tl buttons that follow this section, until next .tsec or .tdiv
+  var siblings=[];
+  var node=btn.nextElementSibling;
+  while(node){
+    if(node.classList.contains('tsec') || node.classList.contains('tdiv')) break;
+    if(node.classList.contains('tl')) siblings.push(node);
+    node=node.nextElementSibling;
+  }
+  if(isOpen){
+    btn.classList.remove('tsec-open');
+    btn.classList.add('tsec-shut');
+    siblings.forEach(function(s){ s.style.display='none'; });
+  } else {
+    btn.classList.add('tsec-open');
+    btn.classList.remove('tsec-shut');
+    siblings.forEach(function(s){ s.style.display=''; });
+  }
+}
+
 function tglGrp(name){
   var btn=document.getElementById('tgb'+name);
   var items=document.getElementById('ti'+name);
@@ -768,43 +798,42 @@ function renderAnnots(data,el){
   data.forEach(function(g,gi){
     var entries=Array.isArray(g.entries)?g.entries:[];
     h+='<div class="agrp">';
+
+    // Titre du groupe : sur sa propre ligne, normal (pas en majuscules)
+    if(g.title){
+      h+='<p class="agttl-line"><span class="agnum">'+(gi+1)+'.</span> '+g.title+'.</p>';
+    }
+
     entries.forEach(function(en,ei){
       var js=en.ref||en.jur||en.jurisprudence||'';
       var bs=en.bib||en.bibliography||'';
       var ap=en.apport||'';
       var isRichApport = ap && /<p[^>]*class=['"]plan-/.test(ap);
 
-      // Tout dans un SEUL paragraphe qui coule naturellement
+      // Tout le reste sur UNE LIGNE qui coule : Apport — Décisions — Biblio
       h+='<p class="agrp-inline">';
 
-      // 1. Titre du groupe (seulement sur la première entrée du groupe)
-      if(g.title && ei===0){
-        h+='<span class="agnum">'+(gi+1)+'.</span> ';
-        h+='<span class="agttl-inline">'+g.title+'.</span> ';
-      }
-
-      // 2. Apport (texte simple seulement — le rich va en bloc séparé ci-dessous)
+      // Apport en premier (sauf si rich, qui est traité en bloc séparé)
       if(ap && !isRichApport){
-        h+='<span class="aapport-inline">'+ap+'</span> ';
+        h+='<span class="aapport-inline">'+ap+'</span>';
       }
 
-      // 3. Décisions, séparées par des puces
+      // Décisions — séparées par puces, restent dans le flux
       if(js){
         var parts=js.split('\xa3').map(function(s){return s.trim();}).filter(Boolean);
         parts.forEach(function(p,pi){
-          h+='<span class="abull">&#9679;</span> <span class="ajur">'+p+'</span>';
-          if(pi<parts.length-1) h+=' ';
+          h+=' <span class="abull">&#9679;</span> <span class="ajur">'+p+'</span>';
         });
       }
 
-      // 4. Bibliographie / auteurs
+      // Bibliographie — fin de ligne
       if(bs){
         h+=' <span class="astar">&#10022;</span> <span class="abib">'+bs+'</span>';
       }
 
       h+='.</p>';
 
-      // Apport riche (plans I/A/1/a) — reste en bloc car multiligne
+      // Apport riche (plan I/A/1/a) — reste en bloc, attaché à la jurisprudence
       if(isRichApport){
         h+='<div class="aapport-rich">'+ap+'</div>';
       }
@@ -1005,12 +1034,9 @@ function injectSupabaseInTOC(data){
     var btn=document.createElement('button');
     btn.className='tl';
     btn.setAttribute('onclick',"goArt('"+a.id+"')");
-    var label='Art. '+a.n+' '+treaty;
-    if(a.titre_label||a.part_label){
-      label='Art. '+a.article_num+(a.titre_label?' — '+a.titre_label.slice(0,40):'');
-    } else {
-      label='Art. '+a.article_num+' '+treaty;
-    }
+    // Pas de suffixe TUE/TFUE — l'article est déjà sous son groupe
+    var label='Art. '+a.article_num;
+    if(a.titre_label){ label += ' — ' + a.titre_label.slice(0,45); }
     btn.textContent=label;
 
     // Find the correct position: insert before the first existing button with a higher number
